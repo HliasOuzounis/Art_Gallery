@@ -1,0 +1,35 @@
+#version 330 core
+
+// Interpolated values from the vertex shaders
+in vec2 UV;
+
+// output data
+out vec4 color;
+
+// Values that stay constant for the whole mesh.
+uniform float time;
+uniform sampler2D textureSampler;
+uniform sampler2D movingTextureSampler;
+uniform sampler2D displacementTextureSampler;
+
+void main()
+{
+    color = vec4(0.0, 0.0, 0.0, 1.0);
+
+    // Task 6.1 change alpha (RGBA) for transparency
+    // vec4 main_texture = vec4(texture(textureSampler, UV).rgb, .85);
+    // color = main_texture;
+
+    // Task 7 moving texture 
+    vec4 moving_texture = vec4(texture(movingTextureSampler, UV + time));
+    color = moving_texture;
+
+    // Task 8 displacement texture
+    vec4 displacement_texture = vec4(texture(displacementTextureSampler, UV + time/1.5));
+
+    // vec4 surface_texture = vec4(...);
+
+    vec4 main_texture = mix(moving_texture, displacement_texture, 0.5);
+
+    color = main_texture;
+}
