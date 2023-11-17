@@ -108,8 +108,14 @@ add_executable(art_gallery
   common/texture.cpp
   common/texture.h
 
-  src/texture.fragmentshader
-  src/texture.vertexshader
+  src/extra/main_room/main_room.h
+  src/extra/main_room/main_room.cpp
+
+  src/extra/paintings/paintings.h
+  src/extra/paintings/paintings.cpp
+
+  src/shaders/fragment.glsl
+  src/shaders/vertex.glsl
   )
 target_link_libraries(art_gallery
   ${ALL_LIBS}
