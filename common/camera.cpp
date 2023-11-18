@@ -1,6 +1,8 @@
 #include <glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "camera.h"
+#include <algorithm>
+#define PI 3.14159265f
 
 using namespace glm;
 
@@ -40,6 +42,7 @@ void Camera::update()
     // and cursor position
     horizontalAngle -= (xPos - width / 2) * mouseSpeed;
     verticalAngle -= (yPos - height / 2) * mouseSpeed;
+    verticalAngle = clamp(verticalAngle, -PI/2, PI/2);
 
     // right and up vectors of the camera coordinate system, use spherical coordinates
     
@@ -59,22 +62,6 @@ void Camera::update()
     // Up vector
     vec3 up = normalize(cross(direction, right));
 
-    // Move forward
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        position += direction * deltaTime * speed;
-    }
-    // Move backward
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        position -= direction * deltaTime * speed;
-    }
-    // Strafe right
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        position -= right * deltaTime * speed;
-    }
-    // Strafe left
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        position += right * deltaTime * speed;
-    }
 
     // handle zoom in/out effects
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {

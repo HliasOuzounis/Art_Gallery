@@ -23,6 +23,7 @@
 // extra helper functions
 #include "extra/main_room/main_room.h"
 #include "extra/paintings/paintings.h"
+#include "extra/player/player.h"
 
 using namespace std;
 using namespace glm;
@@ -45,6 +46,7 @@ GLuint MVPLocation, colorLocation;
 
 Drawable *mainRoom;
 vector<Painting *> paintings;
+Player *player = new Player();
 
 void createContext()
 {
@@ -53,10 +55,11 @@ void createContext()
     MVPLocation = glGetUniformLocation(shaderProgram, "MVP");
     colorLocation = glGetUniformLocation(shaderProgram, "color");
 
-    float room_radius = 10.0f;
+    float roomRadius = 10.0f,
+          roomHeight = 7.5f;
 
-    mainRoom = create_room(5, room_radius, 30);
-    paintings = createPaintings(6, 4, 3, 2.5, room_radius);
+    mainRoom = create_room(roomHeight, roomRadius, 30);
+    paintings = createPaintings(6, roomHeight * 0.8, roomHeight * 0.6, roomHeight/2, roomRadius);
 }
 
 void free()
@@ -71,7 +74,15 @@ void mainLoop()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        static double lastTime = glfwGetTime();
+
+        // Compute time difference between current and last frame
+        double currentTime = glfwGetTime();
+        float deltaTime = float(currentTime - lastTime);
+
         // camera
+        player->move(window,deltaTime, camera->horizontalAngle);
+        camera->position = player->position;
         camera->update();
         mat4 projectionMatrix = camera->projectionMatrix;
         mat4 viewMatrix = camera->viewMatrix;
@@ -107,6 +118,8 @@ void mainLoop()
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        lastTime = currentTime;
 
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 }
