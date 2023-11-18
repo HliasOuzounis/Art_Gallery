@@ -6,6 +6,7 @@ class Player
 {
 public:
     const float height = 1.5f;
+    vec3 prevPosition = vec3(0, height, 0);
     vec3 position = vec3(0, height, 0);
 
     const float speed = 0.2f;

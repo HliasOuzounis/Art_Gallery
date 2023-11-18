@@ -57,9 +57,12 @@ void createContext()
 
     float roomRadius = 10.0f,
           roomHeight = 7.5f;
+    int numPaintings = 5,
+        wallPoints = 50;
 
-    mainRoom = create_room(roomHeight, roomRadius, 30);
-    paintings = createPaintings(6, roomHeight * 0.8, roomHeight * 0.6, roomHeight/2, roomRadius);
+    mainRoom = createRoom(roomHeight, roomRadius, wallPoints);
+    paintings = createPaintings(numPaintings, roomHeight * 0.8, roomHeight * 0.6, roomHeight/2, roomRadius);
+
 }
 
 void free()
@@ -81,7 +84,8 @@ void mainLoop()
         float deltaTime = float(currentTime - lastTime);
 
         // camera
-        player->move(window,deltaTime, camera->horizontalAngle);
+        player->move(window, deltaTime, camera->horizontalAngle);
+        float collisionRadius = 0.1f;
         camera->position = player->position;
         camera->update();
         mat4 projectionMatrix = camera->projectionMatrix;

@@ -8,7 +8,7 @@
 using namespace std;
 using namespace glm;
 
-Drawable *create_room(float height, float radius, int points)
+Drawable *createRoom(float height, float radius, int points)
 {
     vector<vec3> vertices;
 

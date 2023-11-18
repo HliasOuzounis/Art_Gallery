@@ -1,6 +1,9 @@
 #include <glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <cmath>
+#define PI 3.14159265f
+#include <iostream>
 
 using namespace glm;
 
@@ -16,9 +19,11 @@ void Player::move(GLFWwindow *window, float deltaTime, float horizontalAngle)
         return;
     }
 
-    if (isJumping) {
+    if (isJumping)
+    {
         velocity.y -= 9.8f * deltaTime;
-        if (position.y <= height){
+        if (position.y <= height)
+        {
             position.y = height;
             velocity.y = 0;
             isJumping = false;
@@ -26,18 +31,25 @@ void Player::move(GLFWwindow *window, float deltaTime, float horizontalAngle)
     }
 
     // Move forward
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) velocity.z -= speed;
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        velocity.z -= speed;
     // Move backward
-    else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) velocity.z += speed;
+    else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        velocity.z += speed;
 
-    else velocity.z = 0;
+    else if (!isJumping)
+        velocity.z = 0;
 
     // Strafe right
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) velocity.x += speed;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        velocity.x += speed;
     // Strafe left
-    else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) velocity.x -= speed;
+    else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        velocity.x -= speed;
 
-    else velocity.x = 0;
+    else if (!isJumping)
+        velocity.x = 0;
+
     velocity = clamp(velocity, -maxSpeed, maxSpeed);
 
     updatePosition(horizontalAngle, deltaTime);
@@ -48,5 +60,6 @@ void Player::updatePosition(float horizontalAngle, float &deltaTime)
     // Rotate the velocity vector to match the global coordinate system
     mat4 rotation = rotate(mat4(1.0f), horizontalAngle, vec3(0, 1, 0));
 
+    prevPosition = position;
     position += vec3(rotation * vec4(velocity, 1.0)) * deltaTime;
 }

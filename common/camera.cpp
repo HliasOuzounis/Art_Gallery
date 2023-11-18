@@ -77,24 +77,6 @@ void Camera::update()
         up
     );
 
-    // up and down
-    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-        position += up * deltaTime * speed;
-    }
-    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-        position -= up * deltaTime * speed;
-    }
-
-    //tilt sideways left and right
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
-        tilt += deltaTime * tiltSpeed;
-    }
-    if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
-        tilt -= deltaTime * tiltSpeed;
-    }
-
-    mat4 tiltMatrix = rotate(mat4(), -tilt, direction);
-    viewMatrix = viewMatrix * tiltMatrix;
 
     // For the next frame, the "last time" will be "now"
     lastTime = currentTime;

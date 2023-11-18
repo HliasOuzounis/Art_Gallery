@@ -29,7 +29,7 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
     for (int i = 0; i < n; i++)
     {
         vector<vec3> vertices;
-        angle = 2 * PI * i / n;
+        angle = 2 * PI * i / n - PI/2;
 
         vec3 pos = vec3(room_radius * cos(angle), y_pos, room_radius * sin(angle));
 
