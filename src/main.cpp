@@ -44,7 +44,7 @@ GLuint shaderProgram;
 GLuint MVPLocation, colorLocation;
 
 Drawable *mainRoom;
-Drawable *paintings;
+vector<Painting *> paintings;
 
 void createContext()
 {
@@ -56,7 +56,7 @@ void createContext()
     float room_radius = 10.0f;
 
     mainRoom = create_room(5, room_radius, 30);
-    paintings = create_paintings(6, 4, 3, 2.5, room_radius);
+    paintings = createPaintings(6, 4, 3, 2.5, room_radius);
 }
 
 void free()
@@ -75,7 +75,6 @@ void mainLoop()
         camera->update();
         mat4 projectionMatrix = camera->projectionMatrix;
         mat4 viewMatrix = camera->viewMatrix;
-        std::cout << camera->position.x << " " << camera->position.y << " " << camera->position.z << std::endl;
 
         glUseProgram(shaderProgram);
 
@@ -85,7 +84,7 @@ void mainLoop()
         // Draw mainRoom
         mat4 mainRoomModelMatrix = glm::mat4(1.0);
         mat4 mainRoomMVP = projectionMatrix * viewMatrix * mainRoomModelMatrix;
-        
+
         vec3 roomColor = vec3(0.0, 0.0, 0.0);
         mainRoom->bind();
         glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &mainRoomMVP[0][0]);
@@ -97,13 +96,14 @@ void mainLoop()
         // Draw paintings
         mat4 paintingsModelMatrix = glm::mat4(1.0);
         mat4 paintingsMVP = projectionMatrix * viewMatrix * paintingsModelMatrix;
-
-        vec3 paintingsColor = vec3(1.0, 0.0, 0.0);
-        paintings->bind();
         glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &paintingsMVP[0][0]);
-        glUniform3f(colorLocation, paintingsColor.x, paintingsColor.y, paintingsColor.z);
-        paintings->draw();
 
+        for (auto & painting : paintings)
+        {
+            painting->drawable->bind();
+            glUniform3f(colorLocation, painting->color.x, painting->color.y, painting->color.z);
+            painting->drawable->draw();
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -131,8 +131,8 @@ void initialize()
     {
         glfwTerminate();
         throw runtime_error(string(string("Failed to open GLFW window.") +
-                                         " If you have an Intel GPU, they are not 3.3 compatible." +
-                                         "Try the 2.1 version.\n"));
+                                   " If you have an Intel GPU, they are not 3.3 compatible." +
+                                   "Try the 2.1 version.\n"));
     }
     glfwMakeContextCurrent(window);
 

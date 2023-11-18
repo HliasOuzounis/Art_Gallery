@@ -114,6 +114,9 @@ add_executable(art_gallery
   src/extra/paintings/paintings.h
   src/extra/paintings/paintings.cpp
 
+  src/extra/player/player.h
+  src/extra/player/player.cpp
+
   src/shaders/fragment.glsl
   src/shaders/vertex.glsl
   )
