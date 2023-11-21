@@ -44,7 +44,7 @@ Camera *camera;
 GLuint shaderProgram;
 GLuint MVPLocation, colorLocation;
 
-Drawable *mainRoom;
+MainRoom *mainRoom;
 vector<Painting *> paintings;
 Player *player = new Player();
 
@@ -60,9 +60,8 @@ void createContext()
     int numPaintings = 5,
         wallPoints = 50;
 
-    mainRoom = createRoom(roomHeight, roomRadius, wallPoints);
+    mainRoom = new MainRoom(roomHeight, roomRadius, wallPoints);
     paintings = createPaintings(numPaintings, roomHeight * 0.8, roomHeight * 0.6, roomHeight/2, roomRadius);
-
 }
 
 void free()
@@ -85,8 +84,11 @@ void mainLoop()
 
         // camera
         player->move(window, deltaTime, camera->horizontalAngle);
-        float collisionRadius = 0.1f;
-        camera->position = player->position;
+        if (!mainRoom->isInside(player->position))
+        {
+            mainRoom->boundNextPosition(player);
+        }
+        camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
         mat4 projectionMatrix = camera->projectionMatrix;
         mat4 viewMatrix = camera->viewMatrix;
@@ -97,15 +99,8 @@ void mainLoop()
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         // Draw mainRoom
-        mat4 mainRoomModelMatrix = glm::mat4(1.0);
-        mat4 mainRoomMVP = projectionMatrix * viewMatrix * mainRoomModelMatrix;
-
-        vec3 roomColor = vec3(0.0, 0.0, 0.0);
-        mainRoom->bind();
-        glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &mainRoomMVP[0][0]);
-        glUniform3f(colorLocation, roomColor.x, roomColor.y, roomColor.z);
-        mainRoom->draw();
-
+        mainRoom->draw(MVPLocation, colorLocation, viewMatrix, projectionMatrix);
+        
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         // Draw paintings

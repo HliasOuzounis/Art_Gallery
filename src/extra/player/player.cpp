@@ -22,9 +22,9 @@ void Player::move(GLFWwindow *window, float deltaTime, float horizontalAngle)
     if (isJumping)
     {
         velocity.y -= 9.8f * deltaTime;
-        if (position.y <= height)
+        if (position.y + velocity.y * deltaTime < 0)
         {
-            position.y = height;
+            position.y = 0;
             velocity.y = 0;
             isJumping = false;
         }

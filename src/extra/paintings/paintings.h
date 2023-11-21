@@ -20,6 +20,7 @@ public:
     {
         this->drawable = new Drawable(vertices);
     }
+    bool checkCollision(vec3 playerPosition, float playerRadius);
 };
 
 vector<Painting *> createPaintings(int n, float height, float width, float y_pos, float room_radius);
