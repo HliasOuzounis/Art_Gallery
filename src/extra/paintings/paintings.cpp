@@ -43,7 +43,8 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
 
         vec3 color = colors[i];
         Painting *painting = new Painting(height, width, color, vertices);
-        painting->modelMatrix = rotate(mat4(1.0f), angle, vec3(0, 1, 0)) * translate(mat4(1.0f), vec3(0, y_pos, -room_radius * 0.95));
+        painting->mainRoomModelMatrix = rotate(mat4(1.0f), angle, vec3(0, 1, 0)) * translate(mat4(1.0f), vec3(0, y_pos, -room_radius * 0.95));
+        painting->modelMatrix = painting->mainRoomModelMatrix;
 
         for (int i = 0; i < 8; i++)
         {
@@ -75,4 +76,19 @@ bool Painting::checkCollision(Player *player)
         return false;
     }
     return true;
+}
+
+void Painting::draw(GLuint shaderProgram, GLuint colorLocation, mat4 viewMatrix, mat4 projectionMatrix)
+{   
+    if (!visible)
+        return;
+
+    mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
+    GLuint MVPLocation = glGetUniformLocation(shaderProgram, "MVP");
+    glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &MVP[0][0]);
+
+    glUniform3f(colorLocation, color.x, color.y, color.z);
+
+    drawable->bind();
+    drawable->draw();
 }

@@ -61,6 +61,7 @@ enum GameState
 };
 
 void change_state();
+void set_paintings_visibility();
 
 GameState gameState = MAINROOM;
 
@@ -84,6 +85,7 @@ void createContext()
     currentRoom = rooms[0];
     // currentRoom = new SecondaryRoom(roomHeight, roomHeight);
     paintings = createPaintings(numPaintings, roomHeight * 0.8, roomHeight * 0.6, roomHeight / 2, roomRadius);
+    std::cout << "created paintings" << std::endl;
 }
 
 void free()
@@ -143,11 +145,7 @@ void mainLoop()
 
         for (auto &painting : paintings)
         {
-            mat4 paintingsMVP = paintingsVP * painting->modelMatrix;
-            glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &paintingsMVP[0][0]);
-            painting->drawable->bind();
-            glUniform3f(colorLocation, painting->color.x, painting->color.y, painting->color.z);
-            painting->drawable->draw();
+            painting->draw(shaderProgram, colorLocation, viewMatrix, projectionMatrix);
 
             if (painting->checkCollision(player))
             {
@@ -201,13 +199,34 @@ void change_state()
         camera->horizontalAngle = -3.14f;
         camera->verticalAngle = 0.0f;
     }
+    set_paintings_visibility();
     if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
     {
         gameState = MAINROOM;
         player->position = vec3(0, 0, 0.0);
         camera->horizontalAngle = 0.0f;
         camera->verticalAngle = 0.0f;
+
+        for (auto &painting : paintings)
+        {
+            painting->modelMatrix = painting->mainRoomModelMatrix;
+            painting->visible = true;
+        }
     }
+}
+
+void set_paintings_visibility()
+{
+    if (gameState == MAINROOM)
+    {
+        return;
+    }
+    for (auto &painting : paintings)
+    {
+        painting->visible = false;
+    }
+    paintings[gameState - 1]->visible = true;
+    paintings[gameState - 1]->modelMatrix = paintings[gameState - 1]->sideRoomModelMatrix;
 }
 
 void initialize()
