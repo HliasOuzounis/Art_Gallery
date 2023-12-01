@@ -1,7 +1,9 @@
 #include <glm/glm.hpp>
 #include <glfw3.h>
+#include <vector>
 
 using namespace glm;
+using namespace std;
 
 #ifndef PLAYER_H
 #define PLAYER_H
@@ -9,7 +11,7 @@ class Player
 {
 public:
     const float height = 1.5f;
-    const float playerRadius = 0.1f;
+    const float playerRadius = 0.2f;
     vec3 prevPosition = vec3(0, 0, 0);
     vec3 position = vec3(0, 0, 0);
 
@@ -19,9 +21,21 @@ public:
 
     bool isJumping = false;
 
+    vector<vec3> boundingBox = {
+        vec3(-playerRadius, 0, -playerRadius),
+        vec3(-playerRadius, 0, playerRadius),
+        vec3(playerRadius, 0, -playerRadius),
+        vec3(playerRadius, 0, playerRadius),
+        vec3(-playerRadius, height, -playerRadius),
+        vec3(-playerRadius, height, playerRadius),
+        vec3(playerRadius, height, -playerRadius),
+        vec3(playerRadius, height, playerRadius),
+    };
+
     Player(){};
 
     void move(GLFWwindow *window, float deltaTime, float horizontalAngle);
     void updatePosition(float horizontalAngle, float &deltaTime);
+    void updateBoundingBox();
 };
 #endif

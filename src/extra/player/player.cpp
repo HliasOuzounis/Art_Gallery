@@ -60,6 +60,17 @@ void Player::updatePosition(float horizontalAngle, float &deltaTime)
     // Rotate the velocity vector to match the global coordinate system
     mat4 rotation = rotate(mat4(1.0f), horizontalAngle, vec3(0, 1, 0));
 
+    vec3 movement = vec3(rotation * vec4(velocity, 1.0)) * deltaTime;
     prevPosition = position;
-    position += vec3(rotation * vec4(velocity, 1.0)) * deltaTime;
+    position += movement;
+}
+
+void Player::updateBoundingBox()
+{
+    vec3 movement = position - prevPosition;
+    mat4 translation = translate(mat4(1.0f), movement);
+    for (int i = 0; i < 8; i++)
+    {
+        boundingBox[i] = vec3(translation * vec4(boundingBox[i], 1.0f));
+    }
 }

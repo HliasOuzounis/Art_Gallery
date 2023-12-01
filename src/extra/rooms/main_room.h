@@ -15,9 +15,8 @@ public:
     vec3 roomColor = vec3(0.0f, 0.0f, 0.0f);
     // texture
     Drawable *drawable;
-
-    virtual bool isInside(vec3 position) = 0;
-    virtual void boundNextPosition(Player *player) = 0;
+    Room(){};
+    virtual bool isInside(vec3 position){return false;}
 
     void draw(GLuint MVPLocation, GLuint colorLocation, mat4 viewMatrix, mat4 projectionMatrix)
     {
@@ -37,5 +36,14 @@ public:
 
     MainRoom(float height, float radius, int points);
     bool isInside(vec3 position);
-    void boundNextPosition(Player *player);
+};
+
+class SecondaryRoom : public Room
+{
+public:
+    float height;
+    float width;
+
+    SecondaryRoom(float height, float width);
+    bool isInside(vec3 position);
 };

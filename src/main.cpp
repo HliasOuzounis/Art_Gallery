@@ -21,7 +21,7 @@
 #include <common/util.h>
 
 // extra helper functions
-#include "extra/main_room/main_room.h"
+#include "extra/rooms/main_room.h"
 #include "extra/paintings/paintings.h"
 #include "extra/player/player.h"
 
@@ -44,9 +44,25 @@ Camera *camera;
 GLuint shaderProgram;
 GLuint MVPLocation, colorLocation;
 
+Room *currentRoom;
+Room *rooms[6];
 MainRoom *mainRoom;
 vector<Painting *> paintings;
 Player *player = new Player();
+
+enum GameState
+{
+    MAINROOM,
+    ROOM1,
+    ROOM2,
+    ROOM3,
+    ROOM4,
+    ROOM5,
+};
+
+void change_state();
+
+GameState gameState = MAINROOM;
 
 void createContext()
 {
@@ -60,8 +76,14 @@ void createContext()
     int numPaintings = 5,
         wallPoints = 50;
 
-    mainRoom = new MainRoom(roomHeight, roomRadius, wallPoints);
-    paintings = createPaintings(numPaintings, roomHeight * 0.8, roomHeight * 0.6, roomHeight/2, roomRadius);
+    rooms[0] = new MainRoom(roomHeight, roomRadius, wallPoints);
+    for (int i = 1; i < 6; i++)
+    {
+        rooms[i] = new SecondaryRoom(roomHeight, roomHeight * 1.5);
+    }
+    currentRoom = rooms[0];
+    // currentRoom = new SecondaryRoom(roomHeight, roomHeight);
+    paintings = createPaintings(numPaintings, roomHeight * 0.8, roomHeight * 0.6, roomHeight / 2, roomRadius);
 }
 
 void free()
@@ -78,49 +100,114 @@ void mainLoop()
 
         static double lastTime = glfwGetTime();
 
+        currentRoom = rooms[gameState];
+
         // Compute time difference between current and last frame
         double currentTime = glfwGetTime();
         float deltaTime = float(currentTime - lastTime);
 
         // camera
         player->move(window, deltaTime, camera->horizontalAngle);
-        if (!mainRoom->isInside(player->position))
+        if (!currentRoom->isInside(player->position))
         {
-            mainRoom->boundNextPosition(player);
+            player->velocity = vec3(0, player->velocity.y, 0);
+            player->position = player->prevPosition;
+            player->updatePosition(camera->horizontalAngle, deltaTime);
         }
+        player->updateBoundingBox();
+
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
         mat4 projectionMatrix = camera->projectionMatrix;
         mat4 viewMatrix = camera->viewMatrix;
 
-        glUseProgram(shaderProgram);
-
         // Draw wire frame triangles or fill: GL_LINE, or GL_FILL
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glUseProgram(shaderProgram);
 
-        // Draw mainRoom
-        mainRoom->draw(MVPLocation, colorLocation, viewMatrix, projectionMatrix);
-        
+        // Draw bounding box. To be removed
+        Drawable *playerDrawable = new Drawable(player->boundingBox);
+        playerDrawable->bind();
+        mat4 playerMVP = projectionMatrix * viewMatrix;
+        glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &playerMVP[0][0]);
+        glUniform3f(colorLocation, 1.0f, 0.0f, 0.0f);
+        playerDrawable->draw();
+
+        // Draw currentRoom
+        currentRoom->draw(MVPLocation, colorLocation, viewMatrix, projectionMatrix);
+
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         // Draw paintings
-        mat4 paintingsModelMatrix = glm::mat4(1.0);
-        mat4 paintingsMVP = projectionMatrix * viewMatrix * paintingsModelMatrix;
-        glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &paintingsMVP[0][0]);
+        mat4 paintingsVP = projectionMatrix * viewMatrix;
 
-        for (auto & painting : paintings)
+        for (auto &painting : paintings)
         {
+            mat4 paintingsMVP = paintingsVP * painting->modelMatrix;
+            glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &paintingsMVP[0][0]);
             painting->drawable->bind();
             glUniform3f(colorLocation, painting->color.x, painting->color.y, painting->color.z);
             painting->drawable->draw();
+
+            if (painting->checkCollision(player))
+            {
+                cout << "Collision" << endl;
+            }
         }
 
+        change_state();
         glfwSwapBuffers(window);
         glfwPollEvents();
 
         lastTime = currentTime;
 
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
+}
+
+void change_state()
+{
+    if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+    {
+        gameState = ROOM1;
+        player->position = vec3(0, 0, 0.5);
+        camera->horizontalAngle = -3.14f;
+        camera->verticalAngle = 0.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+    {
+        gameState = ROOM2;
+        player->position = vec3(0, 0, 0.5);
+        camera->horizontalAngle = -3.14f;
+        camera->verticalAngle = 0.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+    {
+        gameState = ROOM3;
+        player->position = vec3(0, 0, 0.5);
+        camera->horizontalAngle = -3.14f;
+        camera->verticalAngle = 0.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+    {
+        gameState = ROOM4;
+        player->position = vec3(0, 0, 0.5);
+        camera->horizontalAngle = -3.14f;
+        camera->verticalAngle = 0.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
+    {
+        gameState = ROOM5;
+        player->position = vec3(0, 0, 0.5);
+        camera->horizontalAngle = -3.14f;
+        camera->verticalAngle = 0.0f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
+    {
+        gameState = MAINROOM;
+        player->position = vec3(0, 0, 0.0);
+        camera->horizontalAngle = 0.0f;
+        camera->verticalAngle = 0.0f;
+    }
 }
 
 void initialize()
@@ -182,7 +269,7 @@ void initialize()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Cull triangles which normal is not towards the camera
-    glEnable(GL_CULL_FACE);
+    // glEnable(GL_CULL_FACE);
 
     // Log
     logGLParameters();

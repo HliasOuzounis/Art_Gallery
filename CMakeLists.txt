@@ -108,8 +108,8 @@ add_executable(art_gallery
   common/texture.cpp
   common/texture.h
 
-  src/extra/main_room/main_room.h
-  src/extra/main_room/main_room.cpp
+  src/extra/rooms/main_room.h
+  src/extra/rooms/main_room.cpp
 
   src/extra/paintings/paintings.h
   src/extra/paintings/paintings.cpp
