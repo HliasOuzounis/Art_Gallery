@@ -34,7 +34,7 @@ public:
         this->drawable = new Drawable(vertices);
     }
     bool checkCollision(Player *player);
-    void draw(GLuint shaderProgram, GLuint colorLocation, mat4 viewMatrix, mat4 projectionMatrix);
+    void draw(GLuint MLocation, GLuint colorLocation);
 };
 
 vector<Painting *> createPaintings(int n, float height, float width, float y_pos, float room_radius);

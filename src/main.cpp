@@ -24,6 +24,7 @@
 #include "extra/rooms/main_room.h"
 #include "extra/paintings/paintings.h"
 #include "extra/player/player.h"
+#include "extra/light/light.h"
 
 using namespace std;
 using namespace glm;
@@ -42,13 +43,14 @@ void free();
 GLFWwindow *window;
 Camera *camera;
 GLuint shaderProgram;
-GLuint MVPLocation, colorLocation;
+GLuint MLocation, VLocation, PLocation, colorLocation;
 
 Room *currentRoom;
 Room *rooms[6];
 MainRoom *mainRoom;
 vector<Painting *> paintings;
 Player *player = new Player();
+Light *light = new Light(vec3(0, 5, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
 
 enum GameState
 {
@@ -69,7 +71,9 @@ void createContext()
 {
     shaderProgram = loadShaders("src/shaders/vertex.glsl", "src/shaders/fragment.glsl");
 
-    MVPLocation = glGetUniformLocation(shaderProgram, "MVP");
+    MLocation = glGetUniformLocation(shaderProgram, "M");
+    VLocation = glGetUniformLocation(shaderProgram, "V");
+    PLocation = glGetUniformLocation(shaderProgram, "P");
     colorLocation = glGetUniformLocation(shaderProgram, "color");
 
     float roomRadius = 10.0f,
@@ -123,29 +127,33 @@ void mainLoop()
         mat4 projectionMatrix = camera->projectionMatrix;
         mat4 viewMatrix = camera->viewMatrix;
 
+        glUniformMatrix4fv(VLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+        glUniformMatrix4fv(PLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
+
         // Draw wire frame triangles or fill: GL_LINE, or GL_FILL
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glUseProgram(shaderProgram);
 
-        // Draw bounding box. To be removed
-        Drawable *playerDrawable = new Drawable(player->boundingBox);
-        playerDrawable->bind();
-        mat4 playerMVP = projectionMatrix * viewMatrix;
-        glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &playerMVP[0][0]);
-        glUniform3f(colorLocation, 1.0f, 0.0f, 0.0f);
-        playerDrawable->draw();
+        light->upload_to_shaders(shaderProgram);
+        light->position.y = currentRoom->height;
+
+        //// Draw bounding box. To be removed
+        // Drawable *playerDrawable = new Drawable(player->boundingBox);
+        // playerDrawable->bind();
+        // mat4 playerM = mat4(1.0f);
+        // glUniformMatrix4fv(MLocation, 1, GL_FALSE, &playerM[0][0]);
+        // glUniform3f(colorLocation, 1.0f, 0.0f, 0.0f);
+        // playerDrawable->draw();
 
         // Draw currentRoom
-        currentRoom->draw(MVPLocation, colorLocation, viewMatrix, projectionMatrix);
+        currentRoom->draw(MLocation, colorLocation);
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
         // Draw paintings
-        mat4 paintingsVP = projectionMatrix * viewMatrix;
-
         for (auto &painting : paintings)
         {
-            painting->draw(shaderProgram, colorLocation, viewMatrix, projectionMatrix);
+            painting->draw(MLocation, colorLocation);
 
             if (painting->checkCollision(player))
             {

@@ -95,7 +95,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "27"
+			"value" : "28"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -107,7 +107,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "9"
+			"value" : "0"
 		},
 		{
 			"name" : "CMAKE_COMMAND",
@@ -4736,6 +4736,18 @@
 			],
 			"type" : "INTERNAL",
 			"value" : "1"
+		},
+		{
+			"name" : "freetype_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for freetype."
+				}
+			],
+			"type" : "PATH",
+			"value" : "freetype_DIR-NOTFOUND"
 		},
 		{
 			"name" : "pkgcfg_lib_PKG_FONTCONFIG_fontconfig",

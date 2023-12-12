@@ -117,6 +117,10 @@ add_executable(art_gallery
   src/extra/player/player.h
   src/extra/player/player.cpp
 
+  src/extra/light/light.h
+  src/extra/light/light.cpp
+
+
   src/shaders/fragment.glsl
   src/shaders/vertex.glsl
   )

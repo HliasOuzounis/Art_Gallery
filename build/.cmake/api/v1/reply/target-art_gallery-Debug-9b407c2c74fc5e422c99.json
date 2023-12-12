@@ -35,7 +35,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 123,
+				"line" : 127,
 				"parent" : 0
 			},
 			{
@@ -148,7 +148,8 @@
 				9,
 				12,
 				14,
-				16
+				16,
+				18
 			]
 		}
 	],
@@ -314,7 +315,8 @@
 				0,
 				12,
 				14,
-				16
+				16,
+				18
 			]
 		},
 		{
@@ -339,15 +341,16 @@
 			[
 				11,
 				13,
-				15
+				15,
+				17
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				17,
-				18
+				19,
+				20
 			]
 		}
 	],
@@ -445,6 +448,17 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/extra/player/player.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/extra/light/light.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/extra/light/light.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

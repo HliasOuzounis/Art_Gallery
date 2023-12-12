@@ -78,15 +78,12 @@ bool Painting::checkCollision(Player *player)
     return true;
 }
 
-void Painting::draw(GLuint shaderProgram, GLuint colorLocation, mat4 viewMatrix, mat4 projectionMatrix)
-{   
+void Painting::draw(GLuint MLocation, GLuint colorLocation)
+{
     if (!visible)
         return;
 
-    mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
-    GLuint MVPLocation = glGetUniformLocation(shaderProgram, "MVP");
-    glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &MVP[0][0]);
-
+    glUniformMatrix4fv(MLocation, 1, GL_FALSE, &modelMatrix[0][0]);
     glUniform3f(colorLocation, color.x, color.y, color.z);
 
     drawable->bind();

@@ -15,14 +15,15 @@ public:
     vec3 roomColor = vec3(0.0f, 0.0f, 0.0f);
     // texture
     Drawable *drawable;
+    float height;
     Room(){};
     virtual bool isInside(vec3 position){return false;}
 
-    void draw(GLuint MVPLocation, GLuint colorLocation, mat4 viewMatrix, mat4 projectionMatrix)
+    void draw(GLuint MLocation, GLuint colorLocation)
     {
-        mat4 mainRoomMVP = projectionMatrix * viewMatrix * modelMatrix;
+        mat4 mainRoomM = modelMatrix;
         drawable->bind();
-        glUniformMatrix4fv(MVPLocation, 1, GL_FALSE, &mainRoomMVP[0][0]);
+        glUniformMatrix4fv(MLocation, 1, GL_FALSE, &mainRoomM[0][0]);
         glUniform3f(colorLocation, roomColor.x, roomColor.y, roomColor.z);
         drawable->draw();
     }
