@@ -131,11 +131,10 @@ void mainLoop()
         glUniformMatrix4fv(PLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
 
         // Draw wire frame triangles or fill: GL_LINE, or GL_FILL
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glUseProgram(shaderProgram);
 
-        light->upload_to_shaders(shaderProgram);
         light->position.y = currentRoom->height;
+        light->upload_to_shaders(shaderProgram);
 
         //// Draw bounding box. To be removed
         // Drawable *playerDrawable = new Drawable(player->boundingBox);

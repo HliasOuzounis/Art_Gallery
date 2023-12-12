@@ -12,7 +12,7 @@ class Room
 public:
     vector<vec3> vertices;
     mat4 modelMatrix = mat4(1.0f);
-    vec3 roomColor = vec3(0.0f, 0.0f, 0.0f);
+    vec3 roomColor = vec3(0.2f, 0.2f, 0.2f);
     // texture
     Drawable *drawable;
     float height;

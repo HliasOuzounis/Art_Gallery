@@ -24,7 +24,7 @@ void main()
 }
 
 vec4 phong(float visibility){
-    vec4 Ia = lightColor * vec4(color, 1);
+    vec4 Ia = vec4(lightColor.rgb * color * 0.1, 1);
 
     vec4 N = normalize(vertex_normal_cameraspace);
     vec4 L = normalize(light_position_cameraspace - vertex_position_cameraspace);
@@ -35,6 +35,7 @@ vec4 phong(float visibility){
     vec4 V = normalize(-vertex_position_cameraspace);
     float cosAlpha = clamp(dot(R, V), 0, 1);
     vec4 Is = lightColor * vec4(color, 1) * pow(cosAlpha, 5);
+
 
     return visibility * (Ia + Id + Is);
 }
