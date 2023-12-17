@@ -5,11 +5,6 @@ layout(location = 0) in vec3 vertexPosition_modelspace;
 layout(location = 1) in vec3 vertexNormal_modelspace;
 layout(location = 2) in vec2 vertexUV;
 
-// model view projection matrix 
-uniform mat4 M;
-uniform mat4 V;
-uniform mat4 P;
-
 //lighting
 struct Light {
     vec3 lightPosition;
@@ -19,9 +14,15 @@ struct Light {
     mat4 lightVP;
     float lightIntensity;
 };
+
+// model view projection matrix 
+uniform mat4 M;
+uniform mat4 V;
+uniform mat4 P;
+
 uniform Light light;
 
-// Output data ; will be interpolated for each fragment.
+// Output data will be interpolated for each fragment.
 out vec4 vertex_position_cameraspace;
 out vec4 vertex_normal_cameraspace;
 out vec4 light_position_cameraspace;
@@ -37,5 +38,5 @@ void main()
     vertex_normal_cameraspace = V * M * vec4(vertexNormal_modelspace, 0);
     light_position_cameraspace = V * vec4(light.lightPosition, 1);
 
-    vertex_position_lightspace = light.lightVP * M * vec4(vertexPosition_modelspace, 1);
+    // vertex_position_lightspace = light.lightVP * M * vec4(vertexPosition_modelspace, 1);
 }

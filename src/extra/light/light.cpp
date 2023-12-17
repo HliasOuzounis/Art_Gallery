@@ -34,7 +34,7 @@ void Light::upload_to_shaders(GLuint shaderProgram)
         fprintf(stderr, "Error: can't find light ambient uniforms\n");
         exit(EXIT_FAILURE);
     }
-    glUniform4f(LaLocation, color.r, color.g, color.b, 1.0f);
+    glUniform4f(LaLocation, color.r * 0.1, color.g * 0.1, color.b * 0.1, 1.0f);
 
     GLuint LdLocation = glGetUniformLocation(shaderProgram, "light.Ld");
     if (LdLocation == -1)
@@ -52,22 +52,25 @@ void Light::upload_to_shaders(GLuint shaderProgram)
     }
     glUniform4f(LsLocation, color.r, color.g, color.b, 1.0f);
 
-    // GLuint lightIntensityLocation = glGetUniformLocation(shaderProgram, "light.lightIntensity");
-    // if (lightIntensityLocation == -1)
-    // {
-    //     fprintf(stderr, "Error: can't find light intensity uniforms\n");
-    //     exit(EXIT_FAILURE);
-    // }
-    // glUniform1f(lightIntensityLocation, intensity);
-
-    GLuint lightSpaceMatrixLocation = glGetUniformLocation(shaderProgram, "light.lightVP");
-    if (lightSpaceMatrixLocation == -1)
+    /*/
+    GLuint lightIntensityLocation = glGetUniformLocation(shaderProgram, "light.lightIntensity");
+    if (lightIntensityLocation == -1)
     {
-        fprintf(stderr, "Error: can't find light space matrix uniforms\n");
+        fprintf(stderr, "Error: can't find light intensity uniforms\n");
         exit(EXIT_FAILURE);
     }
+    glUniform1f(lightIntensityLocation, intensity);
+    //*/
+    /*/
     mat4 lightSpaceMatrix = get_light_space_matrix();
-    glUniformMatrix4fv(lightSpaceMatrixLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
+    GLuint lightVPLocation = glGetUniformLocation(shaderProgram, "light.lightVP");
+    if (lightVPLocation == -1)
+    {
+        fprintf(stderr, "Error: can't find light VP matrix uniforms\n");
+        // exit(EXIT_FAILURE);
+    }
+    glUniformMatrix4fv(lightVPLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
+    //*/
 }
 
 mat4 Light::get_light_space_matrix()

@@ -43,7 +43,7 @@ void free();
 GLFWwindow *window;
 Camera *camera;
 GLuint shaderProgram;
-GLuint MLocation, VLocation, PLocation, colorLocation;
+GLuint MLocation, VLocation, PLocation, colorLocation, lightVPLocation, lightPositionLocation;
 
 Room *currentRoom;
 Room *rooms[6];
@@ -75,6 +75,7 @@ void createContext()
     VLocation = glGetUniformLocation(shaderProgram, "V");
     PLocation = glGetUniformLocation(shaderProgram, "P");
     colorLocation = glGetUniformLocation(shaderProgram, "color");
+    cout << "created shader program" << endl;
 
     float roomRadius = 10.0f,
           roomHeight = 7.5f;
@@ -115,12 +116,12 @@ void mainLoop()
 
         // camera
         player->move(window, deltaTime, camera->horizontalAngle);
-        // if (!currentRoom->isInside(player->position))
-        // {
-        //     player->velocity = vec3(0, player->velocity.y, 0);
-        //     player->position = player->prevPosition;
-        //     player->updatePosition(camera->horizontalAngle, deltaTime);
-        // }
+        if (!currentRoom->isInside(player->position))
+        {
+            player->velocity = vec3(0, player->velocity.y, 0);
+            player->position = player->prevPosition;
+            player->updatePosition(camera->horizontalAngle, deltaTime);
+        }
         player->updateBoundingBox();
 
         camera->position = player->position + vec3(0, player->height, 0);
@@ -131,12 +132,12 @@ void mainLoop()
         glUniformMatrix4fv(VLocation, 1, GL_FALSE, &viewMatrix[0][0]);
         glUniformMatrix4fv(PLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
 
-
         glUseProgram(shaderProgram);
 
         light->position.y = currentRoom->height;
         light->upload_to_shaders(shaderProgram);
         light->draw(MLocation, colorLocation);
+        
 
         //// Draw bounding box. To be removed
         // Drawable *playerDrawable = new Drawable(player->boundingBox);

@@ -14,7 +14,7 @@ public:
     vector<vec2> uvs = VEC_VEC2_DEFAUTL_VALUE;
     vector<vec3> normals;
     mat4 modelMatrix = mat4(1.0f);
-    vec3 floorColor = vec3(1.0f, 1.0f, 0.2f);
+    vec3 floorColor = vec3(0.1f, 0.11f, 0.1f);
     // texture
     Drawable *drawable;
     float width, depth;
