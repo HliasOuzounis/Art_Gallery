@@ -11,8 +11,15 @@ uniform mat4 V;
 uniform mat4 P;
 
 //lighting
-uniform vec3 lightPosition;
-uniform mat4 lightVP;
+struct Light {
+    vec3 lightPosition;
+    vec4 La;
+    vec4 Ld;
+    vec4 Ls;
+    mat4 lightVP;
+    float lightIntensity;
+};
+uniform Light light;
 
 // Output data ; will be interpolated for each fragment.
 out vec4 vertex_position_cameraspace;
@@ -28,7 +35,7 @@ void main()
 
     vertex_position_cameraspace = V * M * vec4(vertexPosition_modelspace, 1);
     vertex_normal_cameraspace = V * M * vec4(vertexNormal_modelspace, 0);
-    light_position_cameraspace = V * vec4(lightPosition, 1);
+    light_position_cameraspace = V * vec4(light.lightPosition, 1);
 
-    vertex_position_lightspace = lightVP * M * vec4(vertexPosition_modelspace, 1);
+    vertex_position_lightspace = light.lightVP * M * vec4(vertexPosition_modelspace, 1);
 }

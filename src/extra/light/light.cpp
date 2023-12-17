@@ -14,25 +14,58 @@ Light::Light(vec3 position, vec4 color, float intensity, float radius)
 {
     direction = normalize(vec3(0, 0, 0) - position);
     projectionMatrix = ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    modelMatrix = translate(modelMatrix, position) * scale(mat4(1.0f), vec3(0.1f));
+    this->drawable = new Drawable("src/models/sphere.obj");
 }
 
 void Light::upload_to_shaders(GLuint shaderProgram)
 {
-    GLuint lightPositionLocation = glGetUniformLocation(shaderProgram, "lightPosition");
-    GLuint lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor");
-    // GLuint lightIntensityLocation = glGetUniformLocation(shaderProgram, "lightIntensity");
-
-    if (lightPositionLocation == -1 || lightColorLocation == -1)
+    GLuint lightPositionLocation = glGetUniformLocation(shaderProgram, "light.lightPosition");
+    if (lightPositionLocation == -1)
     {
-        fprintf(stderr, "Error: can't find light uniforms\n");
+        fprintf(stderr, "Error: can't find light position uniforms\n");
         exit(EXIT_FAILURE);
     }
+    glUniform3f(lightPositionLocation, position.x, position.y, position.z);
 
-    glUniform3fv(lightPositionLocation, 1, &position[0]);
-    glUniform4fv(lightColorLocation, 1, &color[0]);
+    GLuint LaLocation = glGetUniformLocation(shaderProgram, "light.La");
+    if (LaLocation == -1)
+    {
+        fprintf(stderr, "Error: can't find light ambient uniforms\n");
+        exit(EXIT_FAILURE);
+    }
+    glUniform4f(LaLocation, color.r, color.g, color.b, 1.0f);
+
+    GLuint LdLocation = glGetUniformLocation(shaderProgram, "light.Ld");
+    if (LdLocation == -1)
+    {
+        fprintf(stderr, "Error: can't find light diffuse uniforms\n");
+        exit(EXIT_FAILURE);
+    }
+    glUniform4f(LdLocation, color.r, color.g, color.b, 1.0f);
+
+    GLuint LsLocation = glGetUniformLocation(shaderProgram, "light.Ls");
+    if (LsLocation == -1)
+    {
+        fprintf(stderr, "Error: can't find light specular uniforms\n");
+        exit(EXIT_FAILURE);
+    }
+    glUniform4f(LsLocation, color.r, color.g, color.b, 1.0f);
+
+    // GLuint lightIntensityLocation = glGetUniformLocation(shaderProgram, "light.lightIntensity");
+    // if (lightIntensityLocation == -1)
+    // {
+    //     fprintf(stderr, "Error: can't find light intensity uniforms\n");
+    //     exit(EXIT_FAILURE);
+    // }
     // glUniform1f(lightIntensityLocation, intensity);
 
-    GLuint lightSpaceMatrixLocation = glGetUniformLocation(shaderProgram, "lightVP");
+    GLuint lightSpaceMatrixLocation = glGetUniformLocation(shaderProgram, "light.lightVP");
+    if (lightSpaceMatrixLocation == -1)
+    {
+        fprintf(stderr, "Error: can't find light space matrix uniforms\n");
+        exit(EXIT_FAILURE);
+    }
     mat4 lightSpaceMatrix = get_light_space_matrix();
     glUniformMatrix4fv(lightSpaceMatrixLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 }

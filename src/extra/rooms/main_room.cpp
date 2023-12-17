@@ -12,6 +12,9 @@ using namespace glm;
 
 MainRoom::MainRoom(float height, float radius, int points) : height(height), radius(radius)
 {
+    this->floor = new Floor(radius, radius, 0, false);
+    this->ceiling = new Floor(radius, radius, height, true);
+
     vec3 center_down = vec3(0, 0, 0);
     vec3 center_up = vec3(0, height, 0);
 
@@ -32,19 +35,19 @@ MainRoom::MainRoom(float height, float radius, int points) : height(height), rad
         vec3 normal_3 = normalize(cross(point1 - point2, center_down - point2));
         vec3 normal_4 = normalize(cross(point1 - point2, center_up - point2));
 
-        vertices.push_back(point1);
-        vertices.push_back(center_down);
-        vertices.push_back(point2);
-        normals.push_back(normal_3);
-        normals.push_back(normal_3);
-        normals.push_back(normal_3);
+        // vertices.push_back(point1);
+        // vertices.push_back(center_down);
+        // vertices.push_back(point2);
+        // normals.push_back(normal_3);
+        // normals.push_back(normal_3);
+        // normals.push_back(normal_3);
         
-        vertices.push_back(point4);
-        vertices.push_back(center_up);
-        vertices.push_back(point3);
-        normals.push_back(normal_4);
-        normals.push_back(normal_4);
-        normals.push_back(normal_4);
+        // vertices.push_back(point4);
+        // vertices.push_back(center_up);
+        // vertices.push_back(point3);
+        // normals.push_back(normal_4);
+        // normals.push_back(normal_4);
+        // normals.push_back(normal_4);
 
         vertices.push_back(point2);
         vertices.push_back(point3);

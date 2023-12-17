@@ -20,7 +20,18 @@ public:
     mat4 projectionMatrix;
     mat4 viewMatrix;
 
+    Drawable *drawable;
+    mat4 modelMatrix = mat4(1.0f);
+
     Light(vec3 position, vec4 color, float intensity, float radius);
     void upload_to_shaders(GLuint shaderProgram);
     mat4 get_light_space_matrix();
+
+    void draw(GLuint MLocation, GLuint colorLocation)
+    {
+        drawable->bind();
+        glUniformMatrix4fv(MLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniform3f(colorLocation, color.x, color.y, color.z);
+        drawable->draw();
+    }
 };

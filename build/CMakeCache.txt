@@ -18,10 +18,10 @@
 BUILD_SHARED_LIBS:BOOL=OFF
 
 //Path to a program.
-CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
+CMAKE_ADDR2LINE:FILEPATH=/usr/bin/llvm-addr2line
 
 //Path to a program.
-CMAKE_AR:FILEPATH=/usr/bin/ar
+CMAKE_AR:FILEPATH=/usr/bin/llvm-ar
 
 //No help, variable specified on the command line.
 CMAKE_BUILD_TYPE:STRING=Debug
@@ -140,13 +140,13 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_NM:FILEPATH=/usr/bin/nm
+CMAKE_NM:FILEPATH=/usr/bin/llvm-nm
 
 //Path to a program.
-CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
+CMAKE_OBJCOPY:FILEPATH=/usr/bin/llvm-objcopy
 
 //Path to a program.
-CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
+CMAKE_OBJDUMP:FILEPATH=/usr/bin/llvm-objdump
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -158,10 +158,10 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=VVR_OGL_LABORATORY
 
 //Path to a program.
-CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
+CMAKE_RANLIB:FILEPATH=/usr/bin/llvm-ranlib
 
 //Path to a program.
-CMAKE_READELF:FILEPATH=/usr/bin/readelf
+CMAKE_READELF:FILEPATH=/usr/bin/llvm-readelf
 
 //Release postfix
 CMAKE_RELEASE_POSTFIX:STRING=_r
@@ -217,7 +217,7 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_STRIP:FILEPATH=/usr/bin/strip
+CMAKE_STRIP:FILEPATH=/usr/bin/llvm-strip
 
 //Path to a program.
 CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
@@ -1032,12 +1032,12 @@ OPENGL_xmesa_INCLUDE_DIR-ADVANCED:INTERNAL=1
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-PKG_FONTCONFIG_CFLAGS:INTERNAL=-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread
+PKG_FONTCONFIG_CFLAGS:INTERNAL=-I/usr/include;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread
 PKG_FONTCONFIG_CFLAGS_I:INTERNAL=
 PKG_FONTCONFIG_CFLAGS_OTHER:INTERNAL=-pthread
 PKG_FONTCONFIG_FOUND:INTERNAL=1
 PKG_FONTCONFIG_INCLUDEDIR:INTERNAL=/usr/include
-PKG_FONTCONFIG_INCLUDE_DIRS:INTERNAL=/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6
+PKG_FONTCONFIG_INCLUDE_DIRS:INTERNAL=/usr/include;/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6
 PKG_FONTCONFIG_LDFLAGS:INTERNAL=-L/usr/lib;-lfontconfig;-lfreetype
 PKG_FONTCONFIG_LDFLAGS_OTHER:INTERNAL=
 PKG_FONTCONFIG_LIBDIR:INTERNAL=/usr/lib
@@ -1049,15 +1049,15 @@ PKG_FONTCONFIG_LIBS_OTHER:INTERNAL=
 PKG_FONTCONFIG_LIBS_PATHS:INTERNAL=
 PKG_FONTCONFIG_MODULE_NAME:INTERNAL=fontconfig
 PKG_FONTCONFIG_PREFIX:INTERNAL=/usr
-PKG_FONTCONFIG_STATIC_CFLAGS:INTERNAL=-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread
+PKG_FONTCONFIG_STATIC_CFLAGS:INTERNAL=-I/usr/include;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread
 PKG_FONTCONFIG_STATIC_CFLAGS_I:INTERNAL=
 PKG_FONTCONFIG_STATIC_CFLAGS_OTHER:INTERNAL=-pthread
-PKG_FONTCONFIG_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6
-PKG_FONTCONFIG_STATIC_LDFLAGS:INTERNAL=-L/usr/lib;-lfontconfig;-pthread;-lfreetype;-lbz2;-L/usr/lib;-L/usr/lib;-lz;-lpng16;-lm;-lz;-lm;-L/usr/lib;-L/usr/lib;-lz;-lharfbuzz;-pthread;-lm;-L/usr/lib;-lglib-2.0;-lm;-pthread;-L/usr/lib;-lsysprof-capture-4;-pthread;-lpcre2-8;-lgraphite2;-lbrotlidec;-L/usr/lib;-lbrotlicommon;-L/usr/lib;-lexpat;-lm
-PKG_FONTCONFIG_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread;-pthread;-pthread;-pthread
+PKG_FONTCONFIG_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include;/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6
+PKG_FONTCONFIG_STATIC_LDFLAGS:INTERNAL=-L/usr/lib;-lfontconfig;-pthread;-lfreetype;-lbz2;-L/usr/lib;-lpng16;-lm;-lm;-lz;-lharfbuzz;-pthread;-lm;-lfreetype;-lbz2;-lglib-2.0;-lm;-lsysprof-capture-4;-pthread;-lpcre2-8;-lgraphite2;-lbrotlidec;-lbrotlicommon;-lexpat;-lm
+PKG_FONTCONFIG_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread;-pthread;-pthread
 PKG_FONTCONFIG_STATIC_LIBDIR:INTERNAL=
-PKG_FONTCONFIG_STATIC_LIBRARIES:INTERNAL=fontconfig;freetype;bz2;z;png16;m;z;m;z;harfbuzz;m;glib-2.0;m;sysprof-capture-4;pcre2-8;graphite2;brotlidec;brotlicommon;expat;m
-PKG_FONTCONFIG_STATIC_LIBRARY_DIRS:INTERNAL=/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib
+PKG_FONTCONFIG_STATIC_LIBRARIES:INTERNAL=fontconfig;freetype;bz2;png16;m;m;z;harfbuzz;m;freetype;bz2;glib-2.0;m;sysprof-capture-4;pcre2-8;graphite2;brotlidec;brotlicommon;expat;m
+PKG_FONTCONFIG_STATIC_LIBRARY_DIRS:INTERNAL=/usr/lib;/usr/lib
 PKG_FONTCONFIG_STATIC_LIBS:INTERNAL=
 PKG_FONTCONFIG_STATIC_LIBS_L:INTERNAL=
 PKG_FONTCONFIG_STATIC_LIBS_OTHER:INTERNAL=

@@ -31,7 +31,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/addr2line"
+			"value" : "/usr/bin/llvm-addr2line"
 		},
 		{
 			"name" : "CMAKE_AR",
@@ -47,7 +47,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/ar"
+			"value" : "/usr/bin/llvm-ar"
 		},
 		{
 			"name" : "CMAKE_BUILD_TYPE",
@@ -903,7 +903,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/nm"
+			"value" : "/usr/bin/llvm-nm"
 		},
 		{
 			"name" : "CMAKE_NUMBER_OF_MAKEFILES",
@@ -931,7 +931,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/objcopy"
+			"value" : "/usr/bin/llvm-objcopy"
 		},
 		{
 			"name" : "CMAKE_OBJDUMP",
@@ -947,7 +947,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/objdump"
+			"value" : "/usr/bin/llvm-objdump"
 		},
 		{
 			"name" : "CMAKE_PLATFORM_INFO_INITIALIZED",
@@ -1011,7 +1011,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/ranlib"
+			"value" : "/usr/bin/llvm-ranlib"
 		},
 		{
 			"name" : "CMAKE_READELF",
@@ -1027,7 +1027,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/readelf"
+			"value" : "/usr/bin/llvm-readelf"
 		},
 		{
 			"name" : "CMAKE_RELEASE_POSTFIX",
@@ -1279,7 +1279,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/strip"
+			"value" : "/usr/bin/llvm-strip"
 		},
 		{
 			"name" : "CMAKE_TAPI",
@@ -1959,7 +1959,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread"
+			"value" : "-I/usr/include;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_CFLAGS_I",
@@ -2019,7 +2019,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6"
+			"value" : "/usr/include;/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_LDFLAGS",
@@ -2163,7 +2163,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread"
+			"value" : "-I/usr/include;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/harfbuzz;-I/usr/include/glib-2.0;-I/usr/lib/glib-2.0/include;-I/usr/include/sysprof-6;-pthread"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_STATIC_CFLAGS_I",
@@ -2199,7 +2199,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6"
+			"value" : "/usr/include;/usr/include/freetype2;/usr/include/libpng16;/usr/include/harfbuzz;/usr/include/glib-2.0;/usr/lib/glib-2.0/include;/usr/include/sysprof-6"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_STATIC_LDFLAGS",
@@ -2211,7 +2211,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "-L/usr/lib;-lfontconfig;-pthread;-lfreetype;-lbz2;-L/usr/lib;-L/usr/lib;-lz;-lpng16;-lm;-lz;-lm;-L/usr/lib;-L/usr/lib;-lz;-lharfbuzz;-pthread;-lm;-L/usr/lib;-lglib-2.0;-lm;-pthread;-L/usr/lib;-lsysprof-capture-4;-pthread;-lpcre2-8;-lgraphite2;-lbrotlidec;-L/usr/lib;-lbrotlicommon;-L/usr/lib;-lexpat;-lm"
+			"value" : "-L/usr/lib;-lfontconfig;-pthread;-lfreetype;-lbz2;-L/usr/lib;-lpng16;-lm;-lm;-lz;-lharfbuzz;-pthread;-lm;-lfreetype;-lbz2;-lglib-2.0;-lm;-lsysprof-capture-4;-pthread;-lpcre2-8;-lgraphite2;-lbrotlidec;-lbrotlicommon;-lexpat;-lm"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_STATIC_LDFLAGS_OTHER",
@@ -2223,7 +2223,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "-pthread;-pthread;-pthread;-pthread"
+			"value" : "-pthread;-pthread;-pthread"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_STATIC_LIBDIR",
@@ -2247,7 +2247,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "fontconfig;freetype;bz2;z;png16;m;z;m;z;harfbuzz;m;glib-2.0;m;sysprof-capture-4;pcre2-8;graphite2;brotlidec;brotlicommon;expat;m"
+			"value" : "fontconfig;freetype;bz2;png16;m;m;z;harfbuzz;m;freetype;bz2;glib-2.0;m;sysprof-capture-4;pcre2-8;graphite2;brotlidec;brotlicommon;expat;m"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_STATIC_LIBRARY_DIRS",
@@ -2259,7 +2259,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib;/usr/lib"
+			"value" : "/usr/lib;/usr/lib"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_STATIC_LIBS",

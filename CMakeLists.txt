@@ -64,6 +64,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-module
 include(CreateLaunchers)
 include(MSVCMultipleProcessCompile) # /MP
 
+
 ###############################################################################
 
 include_directories(
@@ -155,3 +156,7 @@ if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
 elseif (${CMAKE_GENERATOR} MATCHES "Xcode" )
 
 endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode" )
+
+
+message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER}")
+message(STATUS "C compiler: ${CMAKE_C_COMPILER}")

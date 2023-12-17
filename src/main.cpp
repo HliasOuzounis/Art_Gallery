@@ -50,7 +50,7 @@ Room *rooms[6];
 MainRoom *mainRoom;
 vector<Painting *> paintings;
 Player *player = new Player();
-Light *light = new Light(vec3(0, 5, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
+Light *light;
 
 enum GameState
 {
@@ -89,6 +89,7 @@ void createContext()
     currentRoom = rooms[0];
     // currentRoom = new SecondaryRoom(roomHeight, roomHeight);
     paintings = createPaintings(numPaintings, roomHeight * 0.8, roomHeight * 0.6, roomHeight / 2, roomRadius);
+    light = new Light(vec3(0, 7, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
     std::cout << "created paintings" << std::endl;
 }
 
@@ -114,12 +115,12 @@ void mainLoop()
 
         // camera
         player->move(window, deltaTime, camera->horizontalAngle);
-        if (!currentRoom->isInside(player->position))
-        {
-            player->velocity = vec3(0, player->velocity.y, 0);
-            player->position = player->prevPosition;
-            player->updatePosition(camera->horizontalAngle, deltaTime);
-        }
+        // if (!currentRoom->isInside(player->position))
+        // {
+        //     player->velocity = vec3(0, player->velocity.y, 0);
+        //     player->position = player->prevPosition;
+        //     player->updatePosition(camera->horizontalAngle, deltaTime);
+        // }
         player->updateBoundingBox();
 
         camera->position = player->position + vec3(0, player->height, 0);
@@ -130,11 +131,12 @@ void mainLoop()
         glUniformMatrix4fv(VLocation, 1, GL_FALSE, &viewMatrix[0][0]);
         glUniformMatrix4fv(PLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
 
-        // Draw wire frame triangles or fill: GL_LINE, or GL_FILL
+
         glUseProgram(shaderProgram);
 
         light->position.y = currentRoom->height;
         light->upload_to_shaders(shaderProgram);
+        light->draw(MLocation, colorLocation);
 
         //// Draw bounding box. To be removed
         // Drawable *playerDrawable = new Drawable(player->boundingBox);
