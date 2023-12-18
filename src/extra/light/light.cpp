@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
+#include <algorithm>
 
 using namespace glm;
 using namespace std;
@@ -15,7 +16,7 @@ Light::Light(vec3 position, vec4 color, float intensity, float radius)
     direction = normalize(vec3(0, 0, 0) - position);
     projectionMatrix = ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
     modelMatrix = translate(modelMatrix, position) * scale(mat4(1.0f), vec3(0.1f));
-    this->drawable = new Drawable("src/models/sphere.obj");
+    this->drawable = new Drawable("src/extra/light/models/sphere.obj");
 }
 
 void Light::upload_to_shaders(GLuint shaderProgram)

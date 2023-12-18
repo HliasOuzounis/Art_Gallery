@@ -11,8 +11,8 @@ struct Light {
     vec4 La;
     vec4 Ld;
     vec4 Ls;
-    mat4 lightVP;
-    float lightIntensity;
+    // mat4 lightVP;
+    // float lightIntensity;
 };
 
 // model view projection matrix 

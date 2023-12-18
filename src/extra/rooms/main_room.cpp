@@ -1,6 +1,7 @@
 #include <vector>
 #include <glm/glm.hpp>
 #include <common/model.h>
+#include <iostream>
 
 #include <math.h>
 #define PI 3.14159265
@@ -29,40 +30,40 @@ MainRoom::MainRoom(float height, float radius, int points) : height(height), rad
              point2 = vec3(radius * cos(next_angle), 0, radius * sin(next_angle)),
              point3 = vec3(radius * cos(angle), height, radius * sin(angle)),
              point4 = vec3(radius * cos(next_angle), height, radius * sin(next_angle));
-        
-        vec3 normal_1 = -normalize(cross(point2 - point1, point3 - point1));
-        vec3 normal_2 = normalize(cross(point2 - point4, point3 - point4));
-        vec3 normal_3 = normalize(cross(point1 - point2, center_down - point2));
-        vec3 normal_4 = normalize(cross(point1 - point2, center_up - point2));
-
-        // vertices.push_back(point1);
-        // vertices.push_back(center_down);
-        // vertices.push_back(point2);
-        // normals.push_back(normal_3);
-        // normals.push_back(normal_3);
-        // normals.push_back(normal_3);
-        
-        // vertices.push_back(point4);
-        // vertices.push_back(center_up);
-        // vertices.push_back(point3);
-        // normals.push_back(normal_4);
-        // normals.push_back(normal_4);
-        // normals.push_back(normal_4);
 
         vertices.push_back(point2);
         vertices.push_back(point3);
         vertices.push_back(point1);
-        normals.push_back(normal_1);
-        normals.push_back(normal_1);
-        normals.push_back(normal_1);
 
         vertices.push_back(point2);
         vertices.push_back(point4);
         vertices.push_back(point3);
-        normals.push_back(normal_2);
-        normals.push_back(normal_2);
-        normals.push_back(normal_2);
     }
+    vector<vec3> triangleNormals;
+    for (int i = 0; i < vertices.size(); i += 3)
+    {
+        vec3 v1 = vertices[i];
+        vec3 v2 = vertices[i + 1];
+        vec3 v3 = vertices[i + 2];
+        vec3 normal = cross(v2 - v1, v3 - v1);
+        triangleNormals.push_back(normal);
+        triangleNormals.push_back(normal);
+        triangleNormals.push_back(normal);
+    }
+    for (int i = 0; i < vertices.size(); i++)
+    {
+        vec3 vertexNormal = vec3(0.0);
+        for (int j = 0; j < vertices.size(); j++)
+        {
+            if (vertices[i] == vertices[j])
+            {
+                vertexNormal += triangleNormals[j];
+            }
+        }
+        vertexNormal = normalize(vertexNormal);
+        normals.push_back(vertexNormal);
+    }
+
 
     this->drawable = new Drawable(vertices, VEC_VEC2_DEFAUTL_VALUE, normals);
 };

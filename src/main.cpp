@@ -83,7 +83,7 @@ void createContext()
         wallPoints = 50;
 
     rooms[0] = new MainRoom(roomHeight, roomRadius, wallPoints);
-    for (int i = 1; i < 6; i++)
+    for (int i = 1; i < numPaintings; i++)
     {
         rooms[i] = new SecondaryRoom(roomHeight, roomHeight * 1.5);
     }
@@ -137,7 +137,7 @@ void mainLoop()
         light->position.y = currentRoom->height;
         light->upload_to_shaders(shaderProgram);
         light->draw(MLocation, colorLocation);
-        
+    
 
         //// Draw bounding box. To be removed
         // Drawable *playerDrawable = new Drawable(player->boundingBox);
