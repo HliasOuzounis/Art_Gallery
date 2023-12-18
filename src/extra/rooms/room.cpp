@@ -9,7 +9,7 @@
 using namespace std;
 using namespace glm;
 
-#include "main_room.h"
+#include "room.h"
 
 MainRoom::MainRoom(float height, float radius, int points) : height(height), radius(radius)
 {
@@ -63,7 +63,13 @@ MainRoom::MainRoom(float height, float radius, int points) : height(height), rad
         vertexNormal = normalize(vertexNormal);
         normals.push_back(vertexNormal);
     }
-
+    for (int i = 0; i < 5; i++){
+        objects.push_back(new Object("src/extra/rooms/models/frame.obj", vec3(1.0, 1.0, 1.0), vec3(0, 0, 0), vec3(0, 1, 0), vec3(1, 1, 1)));
+        objects[i]->scaleObject(vec3(3.5));
+        objects[i]->rotateObject(vec3(1, 0, 0), PI / 2);
+        objects[i]->translateObject(vec3(1.75, height/2, -radius + 0.5));
+        objects[i]->rotateObject(vec3(0, 1, 0), 2 * PI  * (i + 1)/ 5 - 0.32);
+    }
 
     this->drawable = new Drawable(vertices, VEC_VEC2_DEFAUTL_VALUE, normals);
 };

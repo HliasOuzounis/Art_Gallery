@@ -45,3 +45,4 @@ vec4 phong(float visibility){
 
     return visibility * (Ia + Id + Is);
 }
+

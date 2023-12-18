@@ -109,8 +109,9 @@ add_executable(art_gallery
   common/texture.cpp
   common/texture.h
 
-  src/extra/rooms/main_room.h
-  src/extra/rooms/main_room.cpp
+  src/extra/rooms/room.h
+  src/extra/rooms/room.cpp
+  src/extra/rooms/floor.h
 
   src/extra/paintings/paintings.h
   src/extra/paintings/paintings.cpp

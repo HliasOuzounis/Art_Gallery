@@ -21,7 +21,7 @@
 #include <common/util.h>
 
 // extra helper functions
-#include "extra/rooms/main_room.h"
+#include "extra/rooms/room.h"
 #include "extra/paintings/paintings.h"
 #include "extra/player/player.h"
 #include "extra/light/light.h"
