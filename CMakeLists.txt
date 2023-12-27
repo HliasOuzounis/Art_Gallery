@@ -125,6 +125,10 @@ add_executable(art_gallery
 
   src/shaders/fragment.glsl
   src/shaders/vertex.glsl
+  src/shaders/depth_pass/fragment.glsl
+  src/shaders/depth_pass/vertex.glsl
+  src/shaders/quad/fragment.glsl
+  src/shaders/quad/vertex.glsl
   )
 target_link_libraries(art_gallery
   ${ALL_LIBS}

@@ -1,0 +1,76 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wenneker Assignment
+% LaTeX Template
+% Version 2.0 (12/1/2019)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Vel (vel@LaTeXTemplates.com)
+% Frits Wenneker
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt]{scrartcl} % Font size
+
+\include{structure.tex} % Include the file specifying the document structure and custom commands
+\usepackage{caption}
+\usepackage{subcaption}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{	
+	\normalfont\normalsize
+	\textsc{Πανεπιστήμιο Πατρών, Τμήμα Ηλεκτρολόγων Μηχανικών και Τεχνολογίας Υπολογιστών}\\ % Your university, school and/or department name(s)
+	\vspace{25pt} % Whitespace
+	\rule{\linewidth}{0.5pt}\\ % Thin top horizontal rule
+	\vspace{20pt} % Whitespace
+	{\huge Γραφικά και Εικονική Πραγματικότητα: \en{Art Gallery}}\\ % The assignment title
+	\vspace{12pt} % Whitespace
+	\rule{\linewidth}{2pt}\\ % Thick bottom horizontal rule
+	\vspace{12pt} % Whitespace
+}
+
+\author{\LARGE Ηλίας Ουζούνης \\ \en{up1083749}} % Your name
+
+\date{\normalsize\today} % Today's date (\today) or a custom date
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\section*{A.1}
+Δημιούργησα μια κλάση \en{Room} που κληρωνομούν τα \en{MainRoom} και \en{SecondaryRoom}. Το \en{MainRoom} είναι ένα
+κυλινδικό δωμάτιο ενώ τα \en{SecondaryRooms} είναι κυβικά. 
+
+Δημιοτργούνται και 5 πίνακες και γίνονται κατάλληλα \en{rendered} αν ο παίχτης βρίσκεται στο σωστό δωμάτιο που φαίνεται από
+το \en{gamestate}.
+
+Οι εναλλαγές μεταξύ των δωματίων γίνονται προς το παρόν με το πληκτρολόγιο.
+1-5 για τα \en{SecondaryRooms} και 0 για το \en{MainRoom}. Σκοπός είναι στο μέλλον, με \en{collision detection} να γίνεται όταν ο 
+παίχτης "μπει" μέσα στον πίνακα.
+
+
+\section*{A.2}
+Για τον φωτισμό υπάρχει μία πηγή στο κέντρο κάθε δωματίου. Για φωτισμό χρησιμοποίησα \en{Phong}. Για τις σκιές χρησιμοποίησα 
+\en{perspective projection} για την πηγή καθώς βγάζει περισσότερο νόημα. Δυστυχώς, χρειάζεται πολύ μεγάλο \en{FOV} για να σκιάζει
+καλά όλους τους πίνακες οπότε τα αποτελέσματα δεν είναι τόσο καλά. Υπάρχει θέμα \en{quantization} (νομίζω).
+
+Για τα αντικείμενα, κάθε δωμάτιο έχει έναν πίνακα με αντικείμενα τα οποία σε ένα \en{for loop} γίνονται \en{rendered} όταν γίνεται 
+και το δωμάτιο.
+
+\section*{A.3}
+Έχω ένα πίνακα με 6 \en{shaders} και ανάλογα με το \en{gamestate} επιλέγω το κατάλληλο.
+
+\end{document}

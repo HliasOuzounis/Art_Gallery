@@ -13,8 +13,8 @@ public:
     float intensity;
     float radius;
 
-    float near_plane = 1.0f;
-    float far_plane = 25.0f;
+    float nearPlane = 0.5f;
+    float farPlane = 10.0f;
     vec3 direction;
 
     mat4 projectionMatrix;
@@ -30,6 +30,7 @@ public:
     void draw(GLuint MLocation, GLuint colorLocation)
     {
         drawable->bind();
+        modelMatrix = translate(mat4(), position) * scale(mat4(1.0f), vec3(0.1f));
         glUniformMatrix4fv(MLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         glUniform3f(colorLocation, color.x, color.y, color.z);
         drawable->draw();

@@ -27,16 +27,18 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
 
     float angle;
 
+    Drawable *frame = new Drawable("src/extra/paintings/models/frame.obj");
+
     for (int i = 0; i < n; i++)
     {
         vector<vec3> vertices = {
+            vec3(width / 2, -height / 2, 0),
+            vec3(-width / 2, height / 2, 0),
             vec3(-width / 2, -height / 2, 0),
-            vec3(-width / 2, height / 2, 0),
-            vec3(width / 2, -height / 2, 0),
 
-            vec3(width / 2, -height / 2, 0),
-            vec3(-width / 2, height / 2, 0),
             vec3(width / 2, height / 2, 0),
+            vec3(-width / 2, height / 2, 0),
+            vec3(width / 2, -height / 2, 0),
         };
 
         angle = 2 * PI * i / n - PI / 2;
@@ -45,6 +47,11 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
         Painting *painting = new Painting(height, width, color, vertices);
         painting->mainRoomModelMatrix = rotate(mat4(1.0f), angle, vec3(0, 1, 0)) * translate(mat4(1.0f), vec3(0, y_pos, -room_radius * 0.95));
         painting->modelMatrix = painting->mainRoomModelMatrix;
+
+        painting->frame = new Object(frame);
+        painting->update_frame_model_matrix();
+
+        painting->frame->color = vec3(0.0, 0.5, 0.5);
 
         for (int i = 0; i < 8; i++)
         {
@@ -56,7 +63,14 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
     return paintings;
 }
 
-#include <iostream>
+void Painting::update_frame_model_matrix()
+{
+    this->frame->modelMatrix = this->modelMatrix *
+                               translate(mat4(), vec3(1.75, 0, 0)) *
+                               rotate(mat4(), (float)PI / 2, vec3(1, 0, 0)) *
+                               scale(mat4(), vec3(3.5));
+}
+
 bool Painting::checkCollision(Player *player)
 {
     if (player->boundingBox[0].y < boundingBox[0].y)
@@ -78,14 +92,17 @@ bool Painting::checkCollision(Player *player)
     return true;
 }
 
-void Painting::draw(GLuint MLocation, GLuint colorLocation)
+void Painting::draw(GLuint MLocation, GLuint colorLocation = -1)
 {
     if (!visible)
         return;
 
     glUniformMatrix4fv(MLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-    glUniform3f(colorLocation, color.x, color.y, color.z);
+    if (colorLocation != -1)
+        glUniform3f(colorLocation, color.x, color.y, color.z);
 
     drawable->bind();
     drawable->draw();
+
+    frame->draw(MLocation, colorLocation);
 }

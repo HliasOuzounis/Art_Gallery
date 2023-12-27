@@ -7,6 +7,7 @@ using namespace glm;
 using namespace std;
 
 #include "../player/player.h"
+#include "../rooms/object.h"
 
 class Painting
 {
@@ -17,8 +18,8 @@ public:
     vector<vec3> normals;
     mat4 modelMatrix;
     mat4 mainRoomModelMatrix;
-    mat4 sideRoomModelMatrix = translate(mat4(1.0f), vec3(0, height/1.75, 0));
     bool visible = true;
+    Object *frame;
 
     vec3 boundingBox[8] = {
         vec3(-width / 2, -height / 2, 0),
@@ -28,11 +29,9 @@ public:
         vec3(width / 2, height / 2, 0),
     };
 
-
     Drawable *drawable;
 
-    Painting(float height, float width, vec3 color, vector<vec3> vertices) : 
-    height(height), width(width), color(color), vertices(vertices)
+    Painting(float height, float width, vec3 color, vector<vec3> vertices) : height(height), width(width), color(color), vertices(vertices)
     {
         vec3 normal = normalize(cross(vertices[1] - vertices[0], vertices[2] - vertices[0]));
         for (int i = 0; i < 6; i++)
@@ -43,6 +42,8 @@ public:
     }
     bool checkCollision(Player *player);
     void draw(GLuint MLocation, GLuint colorLocation);
+    void update_frame_model_matrix();
 };
 
 vector<Painting *> createPaintings(int n, float height, float width, float y_pos, float room_radius);
+

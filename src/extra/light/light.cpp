@@ -14,9 +14,14 @@ Light::Light(vec3 position, vec4 color, float intensity, float radius)
     : position(position), color(color), intensity(intensity), radius(radius)
 {
     direction = normalize(vec3(0, 0, 0) - position);
-    projectionMatrix = ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-    modelMatrix = translate(modelMatrix, position) * scale(mat4(1.0f), vec3(0.1f));
-    this->drawable = new Drawable("src/extra/light/models/sphere.obj");
+    projectionMatrix = perspective(radians(140.0f), 1.0f, nearPlane, farPlane);
+    viewMatrix = lookAt(position, vec3(0, 0, 0), vec3(0, 1, 0));
+    
+    drawable = new Drawable("src/extra/light/models/sphere.obj");
+    vector<vec3> normals;
+    for (auto &n : drawable->normals)
+        normals.push_back(-n);
+    drawable = new Drawable(drawable->vertices, drawable->uvs, normals);
 }
 
 void Light::upload_to_shaders(GLuint shaderProgram)
@@ -62,13 +67,13 @@ void Light::upload_to_shaders(GLuint shaderProgram)
     }
     glUniform1f(lightIntensityLocation, intensity);
     //*/
-    /*/
+    //*/
     mat4 lightSpaceMatrix = get_light_space_matrix();
     GLuint lightVPLocation = glGetUniformLocation(shaderProgram, "light.lightVP");
     if (lightVPLocation == -1)
     {
         fprintf(stderr, "Error: can't find light VP matrix uniforms\n");
-        // exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
     glUniformMatrix4fv(lightVPLocation, 1, GL_FALSE, &lightSpaceMatrix[0][0]);
     //*/
@@ -76,6 +81,6 @@ void Light::upload_to_shaders(GLuint shaderProgram)
 
 mat4 Light::get_light_space_matrix()
 {
-    viewMatrix = lookAt(position, vec3(0, 0, 0), vec3(0, 1, 0));
+    viewMatrix = lookAt(position, vec3(0.1, 0, 0), vec3(0, 1, 0));
     return projectionMatrix * viewMatrix;
 }

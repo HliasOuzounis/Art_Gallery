@@ -7,18 +7,23 @@
 using namespace glm;
 using namespace std;
 
+#ifndef OBJECT_H
+#define OBJECT_H
 class Object
 {
 public:
     Drawable *drawable;
-    vec3 position;
-    vec3 rotation;
-    vec3 scale;
+    vec3 position = vec3(0, 0, 0);
+    vec3 rotation = vec3(0, 0, 0);
+    vec3 scale = vec3(1, 1, 1);
     mat4 modelMatrix = mat4(1.0f);
     GLuint texture;
     vec3 color;
 
-    Object(){};
+    Object(Drawable *drawable)
+    {
+        this->drawable = drawable;
+    };
     Object(string obj_path, string texture_path, vec3 position, vec3 rotation, vec3 scale)
         : position(position), rotation(rotation), scale(scale)
     {
@@ -52,14 +57,16 @@ public:
         modelMatrix = translationMatrix * modelMatrix;
     }
 
-    void draw(GLuint MLocation, GLuint colorLocation)
+    void draw(GLuint MLocation, GLuint colorLocation=-1)
     {
         mat4 mainRoomM = modelMatrix;
         drawable->bind();
         glUniformMatrix4fv(MLocation, 1, GL_FALSE, &mainRoomM[0][0]);
-        glUniform3f(colorLocation, 1.0, 0.5, 0.5);
+        if (colorLocation != -1)
+            glUniform3f(colorLocation, 0.0, 0.5, 0.5);
         // glActiveTexture(GL_TEXTURE0);
         // glBindTexture(GL_TEXTURE_2D, texture);
         drawable->draw();
     }
 };
+#endif
