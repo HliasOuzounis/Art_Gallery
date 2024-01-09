@@ -3,7 +3,7 @@
 in vec4 vertex_position_cameraspace;
 in vec4 vertex_normal_cameraspace;
 in vec4 light_position_cameraspace;
-// in vec2 vertex_UV;
+in vec2 vertex_UV;
 in vec4 vertex_position_lightspace;
 
 //lighting
@@ -17,7 +17,18 @@ struct Light {
 };
 uniform Light light;
 
-uniform vec3 color;
+struct Material {
+    vec4 Ka;
+    vec4 Kd;
+    vec4 Ks;
+    float Ns;
+};
+uniform Material material;
+
+uniform int useTexture = 0;
+uniform sampler2D diffuseColorSampler;
+uniform sampler2D specularColorSampler;
+
 uniform sampler2D shadowMapSampler;
 
 // output data
@@ -26,10 +37,12 @@ out vec4 fragmentColor;
 vec4 phong(float visibility);
 float shadowCalculation(vec4 fragPositionLightspace);
 
+vec4 Kd, Ks, Ka;
+float Ns;
+
 void main()
 {   
     float visibility = 1 - shadowCalculation(vertex_position_lightspace);
-    // fragmentColor = phong(max(visibility, 1));
     fragmentColor = phong(visibility);
 }
 
@@ -60,17 +73,28 @@ float shadowCalculation(vec4 fragPositionLightspace){
 }
 
 vec4 phong(float visibility){
-    vec4 Ia = vec4(color, 1) * light.La;
+    if (useTexture == 1){
+        Ka = vec4(0.05 * Kd.rgb, 1.0);
+        Kd = texture(diffuseColorSampler, vertex_UV);
+        Ks = texture(specularColorSampler, vertex_UV);
+        Ns = 50;
+    } else {
+        Ks = material.Ks;
+        Kd = material.Kd;
+        Ka = material.Ka;
+        Ns = material.Ns;
+    }
+    vec4 Ia = Ka * light.La;
 
     vec4 N = normalize(vertex_normal_cameraspace);
     vec4 L = normalize(light_position_cameraspace - vertex_position_cameraspace);
     float cosTheta = clamp(dot(N, L), 0, 1);
-    vec4 Id = light.Ld * vec4(color, 1) * cosTheta;
+    vec4 Id = light.Ld * Kd * cosTheta;
 
     vec4 R = reflect(-L, N);
     vec4 V = normalize(-vertex_position_cameraspace);
     float cosAlpha = clamp(dot(R, V), 0, 1);
-    vec4 Is = light.Ls * vec4(color, 1) * pow(cosAlpha, 1);
+    vec4 Is = light.Ls * Ks * pow(cosAlpha, Ns);
 
     vec4 finalColor = (Ia + Id + Is) * visibility;
     finalColor.a = 1;

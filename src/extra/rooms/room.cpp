@@ -17,6 +17,13 @@ MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
     this->floor = new Floor(radius, radius, 0, false);
     this->ceiling = new Floor(radius, radius, height, true);
 
+    Texture texture;
+    texture.diffuse = loadSOIL("src/extra/rooms/textures/floor/wood_floor_diffuse.png");
+    texture.specular = loadSOIL("src/extra/rooms/textures/floor/wood_floor_specular.png");
+
+    this->floor->texture = texture;
+    this->floor->useTexture = true;
+
     vec3 center_down = vec3(0, 0, 0);
     vec3 center_up = vec3(0, height, 0);
 
@@ -93,6 +100,8 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
          normal2 = -normalize(cross(point1 - point3, point5 - point3)),
          normal3 = -normalize(cross(point4 - point2, point6 - point2)),
          normal4 = normalize(cross(point5 - point6, point7 - point6));
+        
+    vector<vec2> uvs;
 
     vertices.push_back(point1);
     vertices.push_back(point2);
@@ -100,6 +109,9 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal1);
     normals.push_back(normal1);
     normals.push_back(normal1);
+    uvs.push_back(vec2(0, 0));
+    uvs.push_back(vec2(1, 0));
+    uvs.push_back(vec2(0, 1));
 
     vertices.push_back(point4);
     vertices.push_back(point3);
@@ -107,6 +119,9 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal1);
     normals.push_back(normal1);
     normals.push_back(normal1);
+    uvs.push_back(vec2(1, 1));
+    uvs.push_back(vec2(0, 1));
+    uvs.push_back(vec2(1, 0));
 
     vertices.push_back(point1);
     vertices.push_back(point3);
@@ -114,6 +129,9 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal2);
     normals.push_back(normal2);
     normals.push_back(normal2);
+    uvs.push_back(vec2(0, 0));
+    uvs.push_back(vec2(0, 1));
+    uvs.push_back(vec2(1, 1));
 
     vertices.push_back(point7);
     vertices.push_back(point5);
@@ -121,6 +139,9 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal2);
     normals.push_back(normal2);
     normals.push_back(normal2);
+    uvs.push_back(vec2(1, 1));
+    uvs.push_back(vec2(1, 0));
+    uvs.push_back(vec2(0, 0));
 
     vertices.push_back(point6);
     vertices.push_back(point4);
@@ -128,6 +149,9 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal3);
     normals.push_back(normal3);
     normals.push_back(normal3);
+    uvs.push_back(vec2(0, 0));
+    uvs.push_back(vec2(0, 1));
+    uvs.push_back(vec2(1, 1));
 
     vertices.push_back(point4);
     vertices.push_back(point6);
@@ -135,6 +159,9 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal3);
     normals.push_back(normal3);
     normals.push_back(normal3);
+    uvs.push_back(vec2(1, 1));
+    uvs.push_back(vec2(1, 0));
+    uvs.push_back(vec2(0, 0));
 
     vertices.push_back(point7);
     vertices.push_back(point6);
@@ -142,6 +169,9 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal4);
     normals.push_back(normal4);
     normals.push_back(normal4);
+    uvs.push_back(vec2(0, 0));
+    uvs.push_back(vec2(0, 1));
+    uvs.push_back(vec2(1, 1));
 
     vertices.push_back(point6);
     vertices.push_back(point7);
@@ -149,11 +179,28 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     normals.push_back(normal4);
     normals.push_back(normal4);
     normals.push_back(normal4);
+    uvs.push_back(vec2(1, 1));
+    uvs.push_back(vec2(1, 0));
+    uvs.push_back(vec2(0, 0));
 
-    this->drawable = new Drawable(vertices, VEC_VEC2_DEFAUTL_VALUE, normals);
+    this->drawable = new Drawable(vertices, uvs, normals);
+
+    this->texture.diffuse = loadSOIL("src/extra/rooms/textures/walls/blue_walls_diffuse.png");
+    this->texture.specular = loadSOIL("src/extra/rooms/textures/walls/blue_walls_specular.png");
+    this->useTexture = true;
 
     this->floor = new Floor(width / 2, depth / 2, 0, false);
     this->ceiling = new Floor(width / 2, depth / 2, height, true);
+
+    Texture texture;
+    texture.diffuse = loadSOIL("src/extra/rooms/textures/floor/damaged_wood_diffuse.png");
+    texture.specular = loadSOIL("src/extra/rooms/textures/floor/damaged_wood_specular.png");
+
+    this->floor->texture = texture;
+    this->floor->useTexture = true;
+
+    this->ceiling->texture = texture;
+    this->ceiling->useTexture = true;
 }
 
 bool SecondaryRoom::isInside(vec3 position)

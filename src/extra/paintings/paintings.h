@@ -20,6 +20,8 @@ public:
     mat4 mainRoomModelMatrix;
     bool visible = true;
     Object *frame;
+    Material material;
+    bool useTexture = false;
 
     vec3 boundingBox[8] = {
         vec3(-width / 2, -height / 2, 0),
@@ -31,7 +33,7 @@ public:
 
     Drawable *drawable;
 
-    Painting(float height, float width, vec3 color, vector<vec3> vertices) : height(height), width(width), color(color), vertices(vertices)
+    Painting(float height, float width, Material material, vector<vec3> vertices) : height(height), width(width), material(material), vertices(vertices)
     {
         vec3 normal = normalize(cross(vertices[1] - vertices[0], vertices[2] - vertices[0]));
         for (int i = 0; i < 6; i++)
@@ -40,10 +42,35 @@ public:
         }
         this->drawable = new Drawable(vertices, VEC_VEC2_DEFAUTL_VALUE, normals);
     }
+    void draw(GLuint modelMatrixLocation){
+        if (!visible)
+            return;
+        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+
+        drawable->bind();
+        drawable->draw();
+
+        frame->draw(modelMatrixLocation);
+    }
+    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation){
+        if (!visible)
+            return;
+
+        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+
+        glUniform4fv(materialLocation[0], 1, &material.ambient[0]);
+        glUniform4fv(materialLocation[1], 1, &material.diffuse[0]);
+        glUniform4fv(materialLocation[2], 1, &material.specular[0]);
+        glUniform1f(materialLocation[3], material.shininess);
+
+        drawable->bind();
+        drawable->draw();
+
+        frame->draw(modelMatrixLocation, materialLocation, useTextureLocation);
+    }
+
     bool checkCollision(Player *player);
-    void draw(GLuint MLocation, GLuint colorLocation);
     void update_frame_model_matrix();
 };
 
 vector<Painting *> createPaintings(int n, float height, float width, float y_pos, float room_radius);
-

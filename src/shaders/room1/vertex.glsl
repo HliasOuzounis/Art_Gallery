@@ -26,7 +26,7 @@ uniform Light light;
 out vec4 vertex_position_cameraspace;
 out vec4 vertex_normal_cameraspace;
 out vec4 light_position_cameraspace;
-// out vec2 vertex_UV;
+out vec2 vertex_UV;
 out vec4 vertex_position_lightspace;
 
 void main()
@@ -39,4 +39,5 @@ void main()
     light_position_cameraspace = V * vec4(light.lightPosition, 1);
     
     vertex_position_lightspace = light.lightVP * M * vec4(vertexPosition_modelspace, 1);
+    vertex_UV = vertexUV;
 }

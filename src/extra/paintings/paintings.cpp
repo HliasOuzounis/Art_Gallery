@@ -16,13 +16,42 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
 {
     vector<Painting *> paintings;
 
-    vec3 colors[] = {
-        vec3(1, 0, 0),
-        vec3(0, 1, 0),
-        vec3(0, 0, 1),
-        vec3(0.5, 0.5, 0),
-        vec3(0, 0.5, 0.5),
-        vec3(0.5, 0, 0.5),
+    Material materials[] = {
+        // green plastic
+        {
+            vec4(0.0, 0.0, 0.0, 1.0),
+            vec4(0.1, 0.35, 0.1, 1.0),
+            vec4(0.45, 0.55, 0.45, 1.0),
+            0.25 * 128,
+        },
+        // red plastic
+        {
+            vec4(0.0, 0.0, 0.0, 1.0),
+            vec4(0.5, 0.0, 0.0, 1.0),
+            vec4(0.7, 0.6, 0.6, 1.0),
+            0.25 * 128,
+        },
+        // yellow plastic
+        {
+            vec4(0.0, 0.0, 0.0, 1.0),
+            vec4(0.5, 0.5, 0.0, 1.0),
+            vec4(0.6, 0.6, 0.5, 1.0),
+            0.25 * 128,
+        },
+        // cyan plastic
+        {
+            vec4(0.0, 0.0, 0.0, 1.0),
+            vec4(0.0, 0.1, 0.06, 1.0),
+            vec4(0.0, 0.50980392, 0.50980392, 1.0),
+            0.25 * 128,
+        },
+        // white plastic
+        {
+            vec4(0.0, 0.0, 0.0, 1.0),
+            vec4(0.55, 0.55, 0.55, 1.0),
+            vec4(0.70, 0.70, 0.70, 1.0),
+            0.25 * 128,
+        },
     };
 
     float angle;
@@ -43,15 +72,18 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
 
         angle = 2 * PI * i / n - PI / 2;
 
-        vec3 color = colors[i];
-        Painting *painting = new Painting(height, width, color, vertices);
+        Painting *painting = new Painting(height, width, materials[i], vertices);
         painting->mainRoomModelMatrix = rotate(mat4(1.0f), angle, vec3(0, 1, 0)) * translate(mat4(1.0f), vec3(0, y_pos, -room_radius * 0.95));
         painting->modelMatrix = painting->mainRoomModelMatrix;
 
-        painting->frame = new Object(frame);
+        Material gold = {
+            vec4(0.24725, 0.1995, 0.0745, 1.0),
+            vec4(0.75164, 0.60648, 0.22648, 1.0),
+            vec4(0.628281, 0.555802, 0.366065, 1.0),
+            0.4 * 128,
+        };
+        painting->frame = new Object(frame, gold);
         painting->update_frame_model_matrix();
-
-        painting->frame->color = vec3(0.0, 0.5, 0.5);
 
         for (int i = 0; i < 8; i++)
         {
@@ -90,19 +122,4 @@ bool Painting::checkCollision(Player *player)
         return false;
     }
     return true;
-}
-
-void Painting::draw(GLuint MLocation, GLuint colorLocation = -1)
-{
-    if (!visible)
-        return;
-
-    glUniformMatrix4fv(MLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-    if (colorLocation != -1)
-        glUniform3f(colorLocation, color.x, color.y, color.z);
-
-    drawable->bind();
-    drawable->draw();
-
-    frame->draw(MLocation, colorLocation);
 }

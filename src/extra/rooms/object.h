@@ -9,6 +9,21 @@ using namespace std;
 
 #ifndef OBJECT_H
 #define OBJECT_H
+
+struct Material
+{
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+    float shininess;
+};
+
+struct Texture
+{
+    GLuint diffuse;
+    GLuint specular;
+};
+
 class Object
 {
 public:
@@ -17,23 +32,20 @@ public:
     vec3 rotation = vec3(0, 0, 0);
     vec3 scale = vec3(1, 1, 1);
     mat4 modelMatrix = mat4(1.0f);
-    GLuint texture;
-    vec3 color;
+    
+    Material material;
+    Texture texture;
+    bool useTexture = false;
 
     Object(Drawable *drawable)
     {
         this->drawable = drawable;
     };
-    Object(string obj_path, string texture_path, vec3 position, vec3 rotation, vec3 scale)
-        : position(position), rotation(rotation), scale(scale)
+
+    Object(Drawable *drawable, Material material)
     {
-        drawable = new Drawable(obj_path);
-        texture = loadSOIL(texture_path.c_str());
-    }
-    Object(string obj_path, vec3 color, vec3 position, vec3 rotation, vec3 scale)
-        : color(color), position(position), rotation(rotation), scale(scale)
-    {
-        drawable = new Drawable(obj_path);
+        this->drawable = drawable;
+        this->material = material;
     }
 
     void rotateObject(vec3 axis, float angle)
@@ -57,15 +69,34 @@ public:
         modelMatrix = translationMatrix * modelMatrix;
     }
 
-    void draw(GLuint MLocation, GLuint colorLocation=-1)
+    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
+    {   if (useTexture)
+        {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, texture.diffuse);
+
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, texture.specular);
+
+            glUniform1i(useTextureLocation, 1);
+        }
+        else
+        {
+            glUniform4fv(materialLocation[0], 1, &material.ambient[0]);
+            glUniform4fv(materialLocation[1], 1, &material.diffuse[0]);
+            glUniform4fv(materialLocation[2], 1, &material.specular[0]);
+            glUniform1f(materialLocation[3], material.shininess);
+        }
+
+        draw(modelMatrixLocation);
+
+        glUniform1i(useTextureLocation, 0);
+    }
+
+    void draw(GLuint modelMatrixLocation)
     {
-        mat4 mainRoomM = modelMatrix;
         drawable->bind();
-        glUniformMatrix4fv(MLocation, 1, GL_FALSE, &mainRoomM[0][0]);
-        if (colorLocation != -1)
-            glUniform3f(colorLocation, 0.0, 0.5, 0.5);
-        // glActiveTexture(GL_TEXTURE0);
-        // glBindTexture(GL_TEXTURE_2D, texture);
+        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         drawable->draw();
     }
 };

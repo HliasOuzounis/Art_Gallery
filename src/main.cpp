@@ -45,8 +45,8 @@ void free();
 #define SHADOW_HEIGHT 1024
 
 // Global variables
-GLuint shaderPrograms[6], MLocations[6], VLocations[6], PLocations[6],
-    colorLocations[6], shadowMapSamplerLocations[6];
+GLuint shaderProgram, ModelMatrixLocation, ViewMatrixLocation, ProjectionMatrixLocation,
+    materialLocation[4], useTextureLocation, shadowMapSamplerLocation;
 
 GLFWwindow *window;
 Camera *camera;
@@ -105,41 +105,46 @@ void createDepthBuffer()
 
 void createContext()
 {
-    shaderPrograms[0] = loadShaders("src/shaders/main_room/vertex.glsl", "src/shaders/main_room/fragment.glsl");
-    shaderPrograms[1] = loadShaders("src/shaders/room1/vertex.glsl", "src/shaders/room1/fragment.glsl");
-    shaderPrograms[2] = loadShaders("src/shaders/room2/vertex.glsl", "src/shaders/room2/fragment.glsl");
-    shaderPrograms[3] = loadShaders("src/shaders/room3/vertex.glsl", "src/shaders/room3/fragment.glsl");
-    shaderPrograms[4] = loadShaders("src/shaders/room4/vertex.glsl", "src/shaders/room4/fragment.glsl");
-    shaderPrograms[5] = loadShaders("src/shaders/room5/vertex.glsl", "src/shaders/room5/fragment.glsl");
+    shaderProgram = loadShaders("src/shaders/room1/vertex.glsl", "src/shaders/room1/fragment.glsl");
 
     depthProgram = loadShaders("src/shaders/depth_pass/vertex.glsl", "src/shaders/depth_pass/fragment.glsl");
 
-    for (int i = 0; i < 6; i++)
-    {
-        MLocations[i] = glGetUniformLocation(shaderPrograms[i], "M");
-        VLocations[i] = glGetUniformLocation(shaderPrograms[i], "V");
-        PLocations[i] = glGetUniformLocation(shaderPrograms[i], "P");
-        colorLocations[i] = glGetUniformLocation(shaderPrograms[i], "color");
-        shadowMapSamplerLocations[i] = glGetUniformLocation(shaderPrograms[i], "shadowMapSampler");
-    }
+    // Find uniforms
+    ModelMatrixLocation = glGetUniformLocation(shaderProgram, "M");
+    ViewMatrixLocation = glGetUniformLocation(shaderProgram, "V");
+    ProjectionMatrixLocation = glGetUniformLocation(shaderProgram, "P");
+    materialLocation[0] = glGetUniformLocation(shaderProgram, "material.Ka");
+    materialLocation[1] = glGetUniformLocation(shaderProgram, "material.Kd");
+    materialLocation[2] = glGetUniformLocation(shaderProgram, "material.Ks");
+    materialLocation[3] = glGetUniformLocation(shaderProgram, "material.shininess");
+    useTextureLocation = glGetUniformLocation(shaderProgram, "useTexture");
 
     // --- depthProgram ---
     shadowViewProjectionLocation = glGetUniformLocation(depthProgram, "VP");
     shadowModelLocation = glGetUniformLocation(depthProgram, "M");
 
-    float roomRadius = 10.0f,
-          roomHeight = 7.5f;
     int numPaintings = 5,
         wallPoints = 50;
 
-    rooms[0] = new MainRoom(roomHeight, roomRadius, wallPoints);
+    float mainRoomRadius = 10.0f,
+          mainRoomHeight = 10.0f;
+
+    float SecondaryRoomWidth = 7.5f,
+          SecondaryRoomHeight = 7.5f,
+          SecondaryRoomDepth = 15.0f;
+
+    rooms[0] = new MainRoom(mainRoomHeight, mainRoomRadius, wallPoints);
+    Room* secondaryRoom = new SecondaryRoom(SecondaryRoomHeight, SecondaryRoomWidth, SecondaryRoomDepth);
     for (int i = 1; i < numPaintings + 1; i++)
     {
-        rooms[i] = new SecondaryRoom(roomHeight, roomHeight, roomHeight * 1.5);
+        rooms[i] = secondaryRoom;
     }
     currentRoom = rooms[0];
 
-    paintings = createPaintings(numPaintings, roomHeight * 0.8, roomHeight * 0.6, roomHeight / 2, roomRadius);
+    float paintingHeight = 6.0f,
+          paintingWidth = 4.5f,
+          paintingYpos = 3.75f;
+    paintings = createPaintings(numPaintings, paintingHeight, paintingWidth, paintingYpos, mainRoomRadius);
     light = new Light(vec3(0, 10, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
 
     // Create depth buffer
@@ -150,7 +155,7 @@ void createContext()
 
 void free()
 {
-    glDeleteProgram(shaderPrograms[gameState]);
+    glDeleteProgram(shaderProgram);
     glDeleteProgram(depthProgram);
     glDeleteFramebuffers(1, &depthMapFBO);
     glDeleteTextures(1, &depthMap);
@@ -178,12 +183,11 @@ void mainLoop()
             player->position = player->prevPosition;
             player->updatePosition(camera->horizontalAngle, deltaTime);
         }
-        player->updateBoundingBox();
 
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
-        light->position.y = currentRoom->height - 1;
+        light->position.y = currentRoom->height + light->light_displacement;
 
         depth_pass(light);
 
@@ -212,28 +216,31 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, W_WIDTH, W_HEIGHT);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glUseProgram(shaderPrograms[gameState]);
+    glUseProgram(shaderProgram);
 
-    glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, depthMap);
-    glUniform1i(shadowMapSamplerLocations[gameState], 0);
 
-    glUniformMatrix4fv(VLocations[gameState], 1, GL_FALSE, &viewMatrix[0][0]);
-    glUniformMatrix4fv(PLocations[gameState], 1, GL_FALSE, &projectionMatrix[0][0]);
+    glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+    glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
 
-    light->upload_to_shaders(shaderPrograms[gameState]);
+    glUniform1i(glGetUniformLocation(shaderProgram, "diffuseColorSampler"), 0);
+    glUniform1i(glGetUniformLocation(shaderProgram, "specularColorSampler"), 1);
+    glUniform1i(glGetUniformLocation(shaderProgram, "shadowMapSampler"), 2);
 
-    light->draw(MLocations[gameState], colorLocations[gameState]);
+    light->upload_to_shaders(shaderProgram);
+
+    // light->draw(ModelMatrixLocation, materialLocation);
 
     // Draw currentRoom
-    currentRoom->draw(MLocations[gameState], colorLocations[gameState]);
+    currentRoom->draw(ModelMatrixLocation, materialLocation, useTextureLocation);
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Draw paintings
     for (auto &painting : paintings)
     {
-        painting->draw(MLocations[gameState], colorLocations[gameState]);
+        painting->draw(ModelMatrixLocation, materialLocation, useTextureLocation);
 
         if (painting->checkCollision(player))
         {
@@ -259,7 +266,7 @@ void depth_pass(Light *light)
 
     for (auto &painting : paintings)
     {
-        painting->draw(shadowModelLocation, -1);
+        painting->draw(shadowModelLocation);
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);

@@ -14,9 +14,9 @@ Light::Light(vec3 position, vec4 color, float intensity, float radius)
     : position(position), color(color), intensity(intensity), radius(radius)
 {
     direction = normalize(vec3(0, 0, 0) - position);
-    projectionMatrix = perspective(radians(140.0f), 1.0f, nearPlane, farPlane);
+    projectionMatrix = perspective(radians(110.0f), 1.0f, nearPlane, farPlane);
     viewMatrix = lookAt(position, vec3(0, 0, 0), vec3(0, 1, 0));
-    
+
     drawable = new Drawable("src/extra/light/models/sphere.obj");
     vector<vec3> normals;
     for (auto &n : drawable->normals)
@@ -81,6 +81,6 @@ void Light::upload_to_shaders(GLuint shaderProgram)
 
 mat4 Light::get_light_space_matrix()
 {
-    viewMatrix = lookAt(position, vec3(0.1, 0, 0), vec3(0, 1, 0));
+    viewMatrix = lookAt(position, vec3(0, 0, 0), vec3(1, 0, 0));
     return projectionMatrix * viewMatrix;
 }
