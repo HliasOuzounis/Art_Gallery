@@ -47,6 +47,8 @@ void free();
 // Global variables
 GLuint shaderProgram, ModelMatrixLocation, ViewMatrixLocation, ProjectionMatrixLocation,
     materialLocation[4], useTextureLocation, shadowMapSamplerLocation;
+GLuint renderFBO, renderedImage;
+int imageBuffer[W_WIDTH * W_HEIGHT * 3];
 
 GLFWwindow *window;
 Camera *camera;
@@ -83,6 +85,23 @@ void set_paintings_visibility();
 
 GameState gameState = MAINROOM;
 
+void createRenderBuffer()
+{
+    glGenFramebuffers(1, &renderFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, renderFBO);
+
+    glGenTextures(1, &renderedImage);
+    glBindTexture(GL_TEXTURE_2D, renderedImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W_WIDTH, W_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, renderedImage, 0);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        glfwTerminate();
+        throw runtime_error("Frame buffer not initialized correctly");
+    }
+}
+
 void createDepthBuffer()
 {
     glGenFramebuffers(1, &depthMapFBO);
@@ -100,12 +119,17 @@ void createDepthBuffer()
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    {
+        glfwTerminate();
+        throw runtime_error("Depth buffer not initialized correctly");
+    }
 }
 
 void createContext()
 {
-    shaderProgram = loadShaders("src/shaders/room1/vertex.glsl", "src/shaders/room1/fragment.glsl");
+    shaderProgram = loadShaders("src/shaders/vertex.glsl", "src/shaders/fragment.glsl");
 
     depthProgram = loadShaders("src/shaders/depth_pass/vertex.glsl", "src/shaders/depth_pass/fragment.glsl");
 
@@ -134,7 +158,7 @@ void createContext()
           SecondaryRoomDepth = 15.0f;
 
     rooms[0] = new MainRoom(mainRoomHeight, mainRoomRadius, wallPoints);
-    Room* secondaryRoom = new SecondaryRoom(SecondaryRoomHeight, SecondaryRoomWidth, SecondaryRoomDepth);
+    Room *secondaryRoom = new SecondaryRoom(SecondaryRoomHeight, SecondaryRoomWidth, SecondaryRoomDepth);
     for (int i = 1; i < numPaintings + 1; i++)
     {
         rooms[i] = secondaryRoom;
@@ -147,16 +171,21 @@ void createContext()
     paintings = createPaintings(numPaintings, paintingHeight, paintingWidth, paintingYpos, mainRoomRadius);
     light = new Light(vec3(0, 10, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
 
-    // Create depth buffer
+    // Create frame buffers
+    createRenderBuffer();
     createDepthBuffer();
 
     createDepthMap();
+
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void free()
 {
     glDeleteProgram(shaderProgram);
     glDeleteProgram(depthProgram);
+    glDeleteFramebuffers(1, &renderFBO);
+    glDeleteTextures(1, &renderedImage);
     glDeleteFramebuffers(1, &depthMapFBO);
     glDeleteTextures(1, &depthMap);
     glDeleteProgram(miniMapProgram);
@@ -214,6 +243,7 @@ void mainLoop()
 void light_pass(mat4 viewMatrix, mat4 projectionMatrix)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    // glBindFramebuffer(GL_READ_FRAMEBUFFER, renderFBO);
     glViewport(0, 0, W_WIDTH, W_HEIGHT);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(shaderProgram);
@@ -230,12 +260,10 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix)
 
     light->upload_to_shaders(shaderProgram);
 
-    // light->draw(ModelMatrixLocation, materialLocation);
+    light->draw(ModelMatrixLocation, materialLocation);
 
     // Draw currentRoom
     currentRoom->draw(ModelMatrixLocation, materialLocation, useTextureLocation);
-
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Draw paintings
     for (auto &painting : paintings)
@@ -247,6 +275,13 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix)
             cout << "Collision" << endl;
         }
     }
+    // glReadPixels(0, 0, W_WIDTH, W_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, imageBuffer);
+
+    // FILE *out = fopen("test.tga", "w");
+    // short TGAhead[] = {0, 2, 0, 0, 0, 0, W_WIDTH, W_HEIGHT, 24};
+    // fwrite(&TGAhead, sizeof(TGAhead), 1, out);
+    // fwrite(imageBuffer, 3 * W_WIDTH * W_HEIGHT, 1, out);
+    // fclose(out);
 }
 
 void depth_pass(Light *light)
@@ -268,8 +303,6 @@ void depth_pass(Light *light)
     {
         painting->draw(shadowModelLocation);
     }
-
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void createDepthMap()
