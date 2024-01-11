@@ -34,7 +34,7 @@ void Light::upload_to_shaders(GLuint shaderProgram)
         exit(EXIT_FAILURE);
     }
     glUniform3f(lightPosLocation, position.x, position.y, position.z);
-    /*/
+    //*/
     GLuint LaLocation = glGetUniformLocation(shaderProgram, "light.La");
     if (LaLocation == -1)
     {

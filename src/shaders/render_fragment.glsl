@@ -40,24 +40,40 @@ float shadowCalculation(vec3 fragPositionLightspace);
 vec4 Kd, Ks, Ka;
 float Ns;
 
+vec3 sampleOffsetDirections[20] = vec3[]
+(
+   vec3( 1,  1,  1), vec3( 1, -1,  1), vec3(-1, -1,  1), vec3(-1,  1,  1), 
+   vec3( 1,  1, -1), vec3( 1, -1, -1), vec3(-1, -1, -1), vec3(-1,  1, -1),
+   vec3( 1,  1,  0), vec3( 1, -1,  0), vec3(-1, -1,  0), vec3(-1,  1,  0),
+   vec3( 1,  0,  1), vec3(-1,  0,  1), vec3( 1,  0, -1), vec3(-1,  0, -1),
+   vec3( 0,  1,  1), vec3( 0, -1,  1), vec3( 0, -1, -1), vec3( 0,  1, -1)
+);
+
 void main()
 {   
-    float peos = shadowCalculation(vertex_position_worldspace);
-    // float visibility = 1 - shadowCalculation(vertex_position_worldspace);
-    // fragmentColor = phong(visibility);
+    float visibility = 1 - shadowCalculation(vertex_position_worldspace);
+    fragmentColor = phong(visibility);
 }
 
 float shadowCalculation(vec3 fragPos){
-    float shadowFactor = 0.0;
-
     vec3 fragToLight = fragPos - light.lightPos;
     float closestDepth = texture(depthMap, fragToLight).r * light.farPlane;
 
     float currentDepth = length(fragToLight);
 
-    float bias = 0.005;
-    float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
-    fragmentColor = vec4(vec3(closestDepth/light.farPlane), 1.0);
+    float shadow = 0.0;
+    float bias   = 0.05;
+    int samples  = 20;
+    float viewDistance = length(viewPos - fragPos);
+    float diskRadius = 0.05;
+    for(int i = 0; i < samples; ++i)
+    {
+        float closestDepth = texture(depthMap, fragToLight + sampleOffsetDirections[i] * diskRadius).r;
+        closestDepth *= light.farPlane;   // undo mapping [0;1]
+        if(currentDepth - bias > closestDepth)
+            shadow += 1.0;
+    }
+    shadow /= float(samples);
     return shadow;
 }
 
@@ -66,7 +82,7 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, vertex_UV);
         Ks = texture(specularColorSampler, vertex_UV);
-        Ns = 50;
+        Ns = 10000;
     } else {
         Ks = material.Ks;
         Kd = material.Kd;

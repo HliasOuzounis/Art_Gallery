@@ -105,7 +105,9 @@ void createRenderBuffer()
 void createDepthBuffer()
 {
     glGenFramebuffers(1, &depthMapFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 
+    glGenTextures(1, &depthCubeMap);
     glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
     for (unsigned int i = 0; i < 6; ++i)
         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT,
@@ -117,11 +119,16 @@ void createDepthBuffer()
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
     glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubeMap, 0);
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        std::cerr << "OpenGL error: " << error << std::endl;
+        std::cerr << "Error creating depth buffer" << std::endl;
+    }
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
@@ -245,7 +252,7 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
     glUseProgram(shaderProgram);
 
     glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, depthCubeMap);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
 
     glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
     glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
@@ -266,6 +273,13 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
     for (auto &painting : paintings)
     {
         painting->draw(ModelMatrixLocation, materialLocation, useTextureLocation);
+    }
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        std::cerr << "OpenGL error: " << error << std::endl;
+        std::cerr << "Error in light pass" << std::endl;
     }
 
     // glReadPixels(0, 0, W_WIDTH, W_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, imageBuffer);
@@ -293,6 +307,12 @@ void depth_pass(Light *light)
     for (auto &painting : paintings)
     {
         painting->draw(shadowModelLocation);
+    }
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        std::cerr << "OpenGL error: " << error << std::endl;
+        std::cerr << "Error in depth pass" << std::endl;
     }
 }
 

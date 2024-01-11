@@ -205,7 +205,7 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
 
 bool SecondaryRoom::isInside(vec3 position)
 {
-    return position.x > -width / 2 + 0.5 and position.x < width / 2 - 0.5 and
+    return position.x > -width / 2 + 0.2 and position.x < width / 2 - 0.2 and
            position.y >= 0 and position.y < height and
-           position.z > -depth / 2 + 0.5 and position.z < depth / 2 - 0.5;
+           position.z > -depth / 2 + 0.2 and position.z < depth / 2 - 0.5;
 }
