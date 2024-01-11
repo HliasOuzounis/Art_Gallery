@@ -122,13 +122,11 @@ add_executable(art_gallery
   src/extra/light/light.h
   src/extra/light/light.cpp
 
-
-  src/shaders/fragment.glsl
-  src/shaders/vertex.glsl
-  src/shaders/depth_pass/fragment.glsl
-  src/shaders/depth_pass/vertex.glsl
-  src/shaders/quad/fragment.glsl
-  src/shaders/quad/vertex.glsl
+  src/shaders/depth_pass/depth_fragment.glsl
+  src/shaders/depth_pass/depth_geometry.glsl
+  src/shaders/depth_pass/depth_vertex.glsl
+  src/shaders/render_fragment.glsl
+  src/shaders/render_vertex.glsl
   )
 target_link_libraries(art_gallery
   ${ALL_LIBS}

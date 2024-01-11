@@ -33,8 +33,8 @@ using namespace glm;
 void initialize();
 void createContext();
 void mainLoop();
-void depth_pass(Light *light);
-void light_pass(mat4, mat4);
+void depth_pass(Light *);
+void light_pass(mat4, mat4, vec3);
 void free();
 
 #define W_WIDTH 1024
@@ -46,7 +46,7 @@ void free();
 
 // Global variables
 GLuint shaderProgram, ModelMatrixLocation, ViewMatrixLocation, ProjectionMatrixLocation,
-    materialLocation[4], useTextureLocation, shadowMapSamplerLocation;
+    materialLocation[4], useTextureLocation, viewPosLocation, shadowMapSamplerLocation;
 GLuint renderFBO, renderedImage;
 int imageBuffer[W_WIDTH * W_HEIGHT * 3];
 
@@ -55,7 +55,7 @@ Camera *camera;
 
 GLuint depthProgram;
 GLuint shadowViewProjectionLocation, shadowModelLocation;
-GLuint depthMapFBO, depthMap;
+GLuint depthMapFBO, depthCubeMap;
 
 void createDepthMap();
 void renderDepthMap(GLuint texture);
@@ -106,19 +106,22 @@ void createDepthBuffer()
 {
     glGenFramebuffers(1, &depthMapFBO);
 
-    glGenTextures(1, &depthMap);
-    glBindTexture(GL_TEXTURE_2D, depthMap);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
-                 SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
+    for (unsigned int i = 0; i < 6; ++i)
+        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT,
+                     SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubeMap, 0);
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
@@ -129,9 +132,11 @@ void createDepthBuffer()
 
 void createContext()
 {
-    shaderProgram = loadShaders("src/shaders/vertex.glsl", "src/shaders/fragment.glsl");
+    shaderProgram = loadShaders("src/shaders/render_vertex.glsl", "src/shaders/render_fragment.glsl");
 
-    depthProgram = loadShaders("src/shaders/depth_pass/vertex.glsl", "src/shaders/depth_pass/fragment.glsl");
+    depthProgram = loadShaders("src/shaders/depth_pass/depth_vertex.glsl",
+                               "src/shaders/depth_pass/depth_fragment.glsl",
+                               "src/shaders/depth_pass/depth_geometry.glsl");
 
     // Find uniforms
     ModelMatrixLocation = glGetUniformLocation(shaderProgram, "M");
@@ -142,9 +147,10 @@ void createContext()
     materialLocation[2] = glGetUniformLocation(shaderProgram, "material.Ks");
     materialLocation[3] = glGetUniformLocation(shaderProgram, "material.shininess");
     useTextureLocation = glGetUniformLocation(shaderProgram, "useTexture");
+    viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
 
     // --- depthProgram ---
-    shadowViewProjectionLocation = glGetUniformLocation(depthProgram, "VP");
+    // shadowViewProjectionLocation = glGetUniformLocation(depthProgram, "VP");
     shadowModelLocation = glGetUniformLocation(depthProgram, "M");
 
     int numPaintings = 5,
@@ -187,7 +193,7 @@ void free()
     glDeleteFramebuffers(1, &renderFBO);
     glDeleteTextures(1, &renderedImage);
     glDeleteFramebuffers(1, &depthMapFBO);
-    glDeleteTextures(1, &depthMap);
+    glDeleteTextures(1, &depthCubeMap);
     glDeleteProgram(miniMapProgram);
     glfwTerminate();
 }
@@ -216,18 +222,8 @@ void mainLoop()
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
-        light->position.y = currentRoom->height + light->light_displacement;
-
         depth_pass(light);
-
-        if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS)
-        {
-            light_pass(light->viewMatrix, light->projectionMatrix);
-        }
-        else
-        {
-            light_pass(camera->viewMatrix, camera->projectionMatrix);
-        }
+        light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
         // renderDepthMap(depthMap);
 
@@ -240,7 +236,7 @@ void mainLoop()
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 }
 
-void light_pass(mat4 viewMatrix, mat4 projectionMatrix)
+void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     // glBindFramebuffer(GL_READ_FRAMEBUFFER, renderFBO);
@@ -249,14 +245,15 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix)
     glUseProgram(shaderProgram);
 
     glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, depthMap);
+    glBindTexture(GL_TEXTURE_2D, depthCubeMap);
 
     glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
     glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
+    glUniform3fv(viewPosLocation, 1, &viewPos[0]);
 
     glUniform1i(glGetUniformLocation(shaderProgram, "diffuseColorSampler"), 0);
     glUniform1i(glGetUniformLocation(shaderProgram, "specularColorSampler"), 1);
-    glUniform1i(glGetUniformLocation(shaderProgram, "shadowMapSampler"), 2);
+    glUniform1i(glGetUniformLocation(shaderProgram, "depthMap"), 2);
 
     light->upload_to_shaders(shaderProgram);
 
@@ -269,12 +266,8 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix)
     for (auto &painting : paintings)
     {
         painting->draw(ModelMatrixLocation, materialLocation, useTextureLocation);
-
-        if (painting->checkCollision(player))
-        {
-            cout << "Collision" << endl;
-        }
     }
+
     // glReadPixels(0, 0, W_WIDTH, W_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, imageBuffer);
 
     // FILE *out = fopen("test.tga", "w");
@@ -292,9 +285,7 @@ void depth_pass(Light *light)
 
     glUseProgram(depthProgram);
 
-    // sending the view and projection matrix to the shader
-    mat4 view_projection = light->get_light_space_matrix();
-    glUniformMatrix4fv(shadowViewProjectionLocation, 1, GL_FALSE, &light->get_light_space_matrix()[0][0]);
+    light->upload_depth_shader(depthProgram);
 
     // ---- rendering the scene ---- //
     currentRoom->draw(shadowModelLocation);
@@ -392,6 +383,8 @@ void change_room()
     player->position = vec3(0, 0, -rooms[gameState]->depth / 2 + 1);
     camera->horizontalAngle = -3.14f;
     camera->verticalAngle = 0.0f;
+    light->position = vec3(0, rooms[gameState]->height + light->light_displacement, 0);
+    light->update_shadow_transforms();
     set_paintings_visibility();
 }
 

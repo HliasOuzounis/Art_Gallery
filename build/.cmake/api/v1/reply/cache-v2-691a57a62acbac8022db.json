@@ -2319,7 +2319,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "2.14.2"
+			"value" : "2.15.0"
 		},
 		{
 			"name" : "PKG_FONTCONFIG_fontconfig_INCLUDEDIR",
