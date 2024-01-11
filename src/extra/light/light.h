@@ -15,7 +15,7 @@ public:
 
     float nearPlane = 0.5f;
     float farPlane = 30.0f;
-    float light_displacement = -2.0f;
+    float light_displacement = -1.0f;
     vec3 direction;
 
     mat4 projectionMatrix;

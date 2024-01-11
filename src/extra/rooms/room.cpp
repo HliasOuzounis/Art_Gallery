@@ -198,9 +198,6 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
 
     this->floor->texture = texture;
     this->floor->useTexture = true;
-
-    this->ceiling->texture = texture;
-    this->ceiling->useTexture = true;
 }
 
 bool SecondaryRoom::isInside(vec3 position)

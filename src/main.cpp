@@ -46,8 +46,9 @@ void free();
 
 // Global variables
 GLuint shaderProgram, ModelMatrixLocation, ViewMatrixLocation, ProjectionMatrixLocation,
-    materialLocation[4], useTextureLocation, viewPosLocation, shadowMapSamplerLocation;
-GLuint renderFBO, renderedImage;
+    materialLocation[4], useTextureLocation, viewPosLocation;
+
+GLuint sceneFBO, textureColorbuffer, rbo;
 int imageBuffer[W_WIDTH * W_HEIGHT * 3];
 
 GLFWwindow *window;
@@ -57,10 +58,9 @@ GLuint depthProgram;
 GLuint shadowViewProjectionLocation, shadowModelLocation;
 GLuint depthMapFBO, depthCubeMap;
 
-void createDepthMap();
-void renderDepthMap(GLuint texture);
-GLuint miniMapProgram, quadTextureSamplerLocation;
+void displayScene(GLuint texture);
 Drawable *quad;
+GLuint postProcessingProgram, quadTextureSamplerLocation;
 
 Room *currentRoom;
 Room *rooms[6];
@@ -78,28 +78,52 @@ enum GameState
     ROOM4,
     ROOM5,
 };
+GameState gameState = MAINROOM;
 
 void change_state();
 void change_room();
 void set_paintings_visibility();
 
-GameState gameState = MAINROOM;
-
-void createRenderBuffer()
+void createSceneBuffer()
 {
-    glGenFramebuffers(1, &renderFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, renderFBO);
+    glGenFramebuffers(1, &sceneFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, sceneFBO);
 
-    glGenTextures(1, &renderedImage);
-    glBindTexture(GL_TEXTURE_2D, renderedImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W_WIDTH, W_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, renderedImage, 0);
+    // create a color attachment texture
+    glGenTextures(1, &textureColorbuffer);
+    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W_WIDTH, W_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
+    // attach it to currently bound framebuffer object
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+
+    // create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    // use a single renderbuffer object for both a depth AND stencil buffer.
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, W_WIDTH, W_HEIGHT);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+    // now actually attach it
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        std::cerr << "OpenGL error: " << error << std::endl;
+        std::cerr << "Error creating scene buffer" << std::endl;
+    }
+
+    // now that we have created the framebuffer and added all attachments we want to check if it is actually complete
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
         glfwTerminate();
         throw runtime_error("Frame buffer not initialized correctly");
     }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void createDepthBuffer()
@@ -137,6 +161,42 @@ void createDepthBuffer()
     }
 }
 
+void createFinalScene()
+{
+    postProcessingProgram = loadShaders("src/shaders/image_processing/default_vertex.glsl",
+                                        "src/shaders/image_processing/default_fragment.glsl");
+    quadTextureSamplerLocation = glGetUniformLocation(postProcessingProgram, "screenTexture");
+
+    vector<vec3> quadVertices = {
+        vec3(-1.0f, 1.0f, 0.0f),  // top left
+        vec3(-1.0f, -1.0f, 0.0f), // bottom left
+        vec3(1.0f, -1.0f, 0.0f),  // bottom right
+
+        vec3(-1.0f, 1.0f, 0.0f), // top left
+        vec3(1.0f, -1.0f, 0.0f), // bottom right
+        vec3(1.0f, 1.0f, 0.0f)   // top right
+    };
+    vector<vec2> quadUVs = {
+        vec2(0.0f, 1.0f), // top left
+        vec2(0.0f, 0.0f), // bottom left
+        vec2(1.0f, 0.0f), // bottom right
+
+        vec2(0.0f, 1.0f), // top left
+        vec2(1.0f, 0.0f), // bottom right
+        vec2(1.0f, 1.0f)  // top right
+    };
+    vector<vec3> quadNormals = {
+        vec3(0.0f, 0.0f, 1.0f), // top left
+        vec3(0.0f, 0.0f, 1.0f), // bottom left
+        vec3(0.0f, 0.0f, 1.0f), // bottom right
+
+        vec3(0.0f, 0.0f, 1.0f), // top left
+        vec3(0.0f, 0.0f, 1.0f), // bottom right
+        vec3(0.0f, 0.0f, 1.0f)  // top right
+    };
+    quad = new Drawable(quadVertices, quadUVs, quadNormals);
+}
+
 void createContext()
 {
     shaderProgram = loadShaders("src/shaders/render_vertex.glsl", "src/shaders/render_fragment.glsl");
@@ -157,8 +217,14 @@ void createContext()
     viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
 
     // --- depthProgram ---
-    // shadowViewProjectionLocation = glGetUniformLocation(depthProgram, "VP");
     shadowModelLocation = glGetUniformLocation(depthProgram, "M");
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        std::cerr << "OpenGL error: " << error << std::endl;
+        std::cerr << "Error in shader creation" << std::endl;
+    }
 
     int numPaintings = 5,
         wallPoints = 50;
@@ -185,10 +251,10 @@ void createContext()
     light = new Light(vec3(0, 10, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
 
     // Create frame buffers
-    createRenderBuffer();
+    createSceneBuffer();
     createDepthBuffer();
 
-    createDepthMap();
+    createFinalScene();
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
@@ -197,11 +263,11 @@ void free()
 {
     glDeleteProgram(shaderProgram);
     glDeleteProgram(depthProgram);
-    glDeleteFramebuffers(1, &renderFBO);
-    glDeleteTextures(1, &renderedImage);
+    glDeleteFramebuffers(1, &sceneFBO);
+    glDeleteTextures(1, &textureColorbuffer);
     glDeleteFramebuffers(1, &depthMapFBO);
     glDeleteTextures(1, &depthCubeMap);
-    glDeleteProgram(miniMapProgram);
+    glDeleteProgram(postProcessingProgram);
     glfwTerminate();
 }
 
@@ -232,8 +298,6 @@ void mainLoop()
         depth_pass(light);
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
-        // renderDepthMap(depthMap);
-
         change_state();
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -245,10 +309,12 @@ void mainLoop()
 
 void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    // glBindFramebuffer(GL_READ_FRAMEBUFFER, renderFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, sceneFBO);
     glViewport(0, 0, W_WIDTH, W_HEIGHT);
+    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+
     glUseProgram(shaderProgram);
 
     glActiveTexture(GL_TEXTURE2);
@@ -282,19 +348,14 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
         std::cerr << "Error in light pass" << std::endl;
     }
 
-    // glReadPixels(0, 0, W_WIDTH, W_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, imageBuffer);
-
-    // FILE *out = fopen("test.tga", "w");
-    // short TGAhead[] = {0, 2, 0, 0, 0, 0, W_WIDTH, W_HEIGHT, 24};
-    // fwrite(&TGAhead, sizeof(TGAhead), 1, out);
-    // fwrite(imageBuffer, 3 * W_WIDTH * W_HEIGHT, 1, out);
-    // fclose(out);
+    displayScene(textureColorbuffer);
 }
 
 void depth_pass(Light *light)
 {
     glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    glEnable(GL_DEPTH_TEST);
     glClear(GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(depthProgram);
@@ -316,42 +377,28 @@ void depth_pass(Light *light)
     }
 }
 
-void createDepthMap()
+void displayScene(GLuint texture)
 {
-    miniMapProgram = loadShaders("src/shaders/quad/vertex.glsl", "src/shaders/quad/fragment.glsl");
-    quadTextureSamplerLocation = glGetUniformLocation(miniMapProgram, "textureSampler");
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glViewport(0, 0, W_WIDTH, W_HEIGHT);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    vector<vec3> quadVertices = {
-        vec3(0.5, 0.5, -1.0),
-        vec3(1.0, 0.5, -1.0),
-        vec3(1.0, 1.0, -1.0),
-        vec3(1.0, 1.0, -1.0),
-        vec3(0.5, 1.0, -1.0),
-        vec3(0.5, 0.5, -1.0)};
-
-    vector<vec2> quadUVs = {
-        vec2(0.0, 0.0),
-        vec2(1.0, 0.0),
-        vec2(1.0, 1.0),
-        vec2(1.0, 1.0),
-        vec2(0.0, 1.0),
-        vec2(0.0, 0.0)};
-
-    quad = new Drawable(quadVertices, quadUVs);
-}
-
-void renderDepthMap(GLuint texture)
-{
-    // using the correct shaders to visualize the depth texture on the quad
-    glUseProgram(miniMapProgram);
-    // enabling the texture - follow the aforementioned pipeline
-    glActiveTexture(GL_TEXTURE0);
+    glUseProgram(postProcessingProgram);
+    glDisable(GL_DEPTH_TEST);
+    glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(quadTextureSamplerLocation, 0);
-
-    // Drawing the quad
+    glUniform1i(quadTextureSamplerLocation, 3);
     quad->bind();
     quad->draw();
+
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        std::cerr << "OpenGL error: " << error << std::endl;
+        std::cerr << "Error in display scene pass" << std::endl;
+    }
 }
 
 void change_state()

@@ -35,7 +35,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 131,
+				"line" : 136,
 				"parent" : 0
 			},
 			{
@@ -354,7 +354,9 @@
 				21,
 				22,
 				23,
-				24
+				24,
+				25,
+				26
 			]
 		}
 	],
@@ -483,6 +485,16 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/shaders/depth_pass/depth_vertex.glsl",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/shaders/image_processing/default_fragment.glsl",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/shaders/image_processing/default_vertex.glsl",
 			"sourceGroupIndex" : 3
 		},
 		{
