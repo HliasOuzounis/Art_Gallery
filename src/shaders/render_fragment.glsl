@@ -65,7 +65,7 @@ float shadowCalculation(vec3 fragPos){
     float shadow = 0.0;
     float bias = 0.075;
     float viewDistance = length(viewPos - fragPos);
-    float diskRadius = (1.0 + (viewDistance / light.farPlane)) / 25.0;;
+    float diskRadius = (1.0 + (viewDistance / light.farPlane)) / 25.0;
     for(int i = 0; i < samples; ++i)
     {
         float closestDepth = texture(depthMap, fragToLight + sampleOffsetDirections[i] * diskRadius).r;
@@ -82,7 +82,7 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, vertex_UV);
         Ks = texture(specularColorSampler, vertex_UV);
-        Ns = 10000;
+        Ns = 50;
     } else {
         Ks = material.Ks;
         Kd = material.Kd;

@@ -1,3 +1,5 @@
+#include <chrono>
+
 // Include C++ headers
 #include <iostream>
 #include <string>
@@ -37,8 +39,8 @@ void depth_pass(Light *);
 void light_pass(mat4, mat4, vec3);
 void free();
 
-#define W_WIDTH 1024
-#define W_HEIGHT 768
+#define W_WIDTH 1200
+#define W_HEIGHT 900
 #define TITLE "Art Gallery"
 
 #define SHADOW_WIDTH 1024
@@ -49,7 +51,6 @@ GLuint shaderProgram, ModelMatrixLocation, ViewMatrixLocation, ProjectionMatrixL
     materialLocation[4], useTextureLocation, viewPosLocation;
 
 GLuint sceneFBO, textureColorbuffer, rbo;
-int imageBuffer[W_WIDTH * W_HEIGHT * 3];
 
 GLFWwindow *window;
 Camera *camera;
@@ -60,7 +61,12 @@ GLuint depthMapFBO, depthCubeMap;
 
 void displayScene(GLuint texture);
 Drawable *quad;
-GLuint postProcessingProgram, quadTextureSamplerLocation;
+GLuint postProcessingProgram[6], quadTextureSamplerLocation[6];
+
+void applyFloydSteinbergDithering(GLuint texture, int colors);
+GLuint imagePixels[W_WIDTH * W_HEIGHT];
+int pixelError[W_HEIGHT][W_WIDTH][3];
+int find_closest_color(int color, int quantization);
 
 Room *currentRoom;
 Room *rooms[6];
@@ -163,9 +169,17 @@ void createDepthBuffer()
 
 void createFinalScene()
 {
-    postProcessingProgram = loadShaders("src/shaders/image_processing/default_vertex.glsl",
-                                        "src/shaders/image_processing/default_fragment.glsl");
-    quadTextureSamplerLocation = glGetUniformLocation(postProcessingProgram, "screenTexture");
+    // postProcessingProgram[MAINROOM] = loadShaders("src/shaders/image_processing/main_room.vertex.glsl",
+    //                                               "src/shaders/image_processing/main_room.frag.glsl");
+    postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/toon.vertex.glsl",
+                                               "src/shaders/image_processing/toon.frag.glsl");
+
+    for (int i = 0; i < 6; i++)
+    {
+        postProcessingProgram[i] = loadShaders("src/shaders/image_processing/floyd-steinberg.vertex.glsl",
+                                               "src/shaders/image_processing/floyd-steinberg.frag.glsl");
+        quadTextureSamplerLocation[i] = glGetUniformLocation(postProcessingProgram[i], "screenTexture");
+    }
 
     vector<vec3> quadVertices = {
         vec3(-1.0f, 1.0f, 0.0f),  // top left
@@ -195,6 +209,16 @@ void createFinalScene()
         vec3(0.0f, 0.0f, 1.0f)  // top right
     };
     quad = new Drawable(quadVertices, quadUVs, quadNormals);
+
+    for (int y; y < W_HEIGHT; y++)
+    {
+        for (int x; x < W_WIDTH; x++)
+        {
+            pixelError[y][x][0] = 0;
+            pixelError[y][x][1] = 0;
+            pixelError[y][x][2] = 0;
+        }
+    }
 }
 
 void createContext()
@@ -219,6 +243,8 @@ void createContext()
     // --- depthProgram ---
     shadowModelLocation = glGetUniformLocation(depthProgram, "M");
 
+    // --- postProcessingProgram ---
+
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)
     {
@@ -230,7 +256,7 @@ void createContext()
         wallPoints = 50;
 
     float mainRoomRadius = 10.0f,
-          mainRoomHeight = 10.0f;
+          mainRoomHeight = 8.5f;
 
     float SecondaryRoomWidth = 7.5f,
           SecondaryRoomHeight = 7.5f,
@@ -248,12 +274,16 @@ void createContext()
           paintingWidth = 4.5f,
           paintingYpos = 3.75f;
     paintings = createPaintings(numPaintings, paintingHeight, paintingWidth, paintingYpos, mainRoomRadius);
-    light = new Light(vec3(0, 10, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
+    light = new Light(vec3(0, 0, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
+    change_room();
 
     // Create frame buffers
     createSceneBuffer();
+
+    // --- depthProgram ---
     createDepthBuffer();
 
+    // --- postProcessingProgram ---
     createFinalScene();
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -267,7 +297,7 @@ void free()
     glDeleteTextures(1, &textureColorbuffer);
     glDeleteFramebuffers(1, &depthMapFBO);
     glDeleteTextures(1, &depthCubeMap);
-    glDeleteProgram(postProcessingProgram);
+    glDeleteProgram(postProcessingProgram[gameState]);
     glfwTerminate();
 }
 
@@ -379,27 +409,98 @@ void depth_pass(Light *light)
 
 void displayScene(GLuint texture)
 {
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glActiveTexture(GL_TEXTURE3);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    
+    // time how long this function takes
+    auto start = std::chrono::high_resolution_clock::now();
+    if (gameState == ROOM1)
+        applyFloydSteinbergDithering(texture, 2);
+    cout << "Time taken to apply dithering: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
+
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, W_WIDTH, W_HEIGHT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glUseProgram(postProcessingProgram);
+    glUseProgram(postProcessingProgram[gameState]);
     glDisable(GL_DEPTH_TEST);
-    glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(quadTextureSamplerLocation, 3);
+
+    glUniform1i(quadTextureSamplerLocation[gameState], 3);
     quad->bind();
     quad->draw();
 
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)
     {
+        glewGetErrorString(error);
         std::cerr << "OpenGL error: " << error << std::endl;
         std::cerr << "Error in display scene pass" << std::endl;
     }
 }
+
+void applyFloydSteinbergDithering(GLuint texture, int colors)
+{
+    glReadPixels(0, 0, W_WIDTH, W_HEIGHT, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, imagePixels);
+    // pixel is of the form 0xAARRGGBB
+
+    int quantization = 256 / colors;
+
+    for (int y = 0; y < W_HEIGHT; y++)
+    {
+        for (int x = 0; x < W_WIDTH; x++)
+        {
+            int pixelIndex = y * W_WIDTH + x;
+            GLuint oldColor = imagePixels[pixelIndex];
+            int oldR = pixelError[y][x][0] + ((oldColor >> 16) & 0xFF);
+            int oldG = pixelError[y][x][1] + ((oldColor >> 8) & 0xFF);
+            int oldB = pixelError[y][x][2] + ((oldColor >> 0) & 0xFF);
+            int oldA = (oldColor >> 24) & 0xFF;
+
+            int newR = std::min(oldR / quantization * quantization, 255);
+            int newG = std::min(oldG / quantization * quantization, 255);
+            int newB = std::min(oldB / quantization * quantization, 255);
+
+            imagePixels[pixelIndex] = newB | (newG << 8) | (newR << 16) | (oldA << 24);
+
+            int quantizationErrorR = oldR - newR;
+            int quantizationErrorG = oldG - newG;
+            int quantizationErrorB = oldB - newB;
+
+            if (x + 1 < W_WIDTH)
+            {
+                // (>> 4) == (/ 16) but faster
+                pixelError[y][x + 1][0] += quantizationErrorR * 7 >> 4;
+                pixelError[y][x + 1][1] += quantizationErrorG * 7 >> 4;
+                pixelError[y][x + 1][2] += quantizationErrorB * 7 >> 4;
+            }
+            if (x - 1 >= 0 && y + 1 < W_HEIGHT)
+            {
+                pixelError[y + 1][x - 1][0] += quantizationErrorR * 3 >> 4;
+                pixelError[y + 1][x - 1][1] += quantizationErrorG * 3 >> 4;
+                pixelError[y + 1][x - 1][2] += quantizationErrorB * 3 >> 4;
+            }
+            if (y + 1 < W_HEIGHT)
+            {
+                pixelError[y + 1][x][0] += quantizationErrorR * 5 >> 4;
+                pixelError[y + 1][x][1] += quantizationErrorG * 5 >> 4;
+                pixelError[y + 1][x][2] += quantizationErrorB * 5 >> 4;
+            }
+            if (x + 1 < W_WIDTH && y + 1 < W_HEIGHT)
+            {
+                pixelError[y + 1][x + 1][0] += quantizationErrorR >> 4;
+                pixelError[y + 1][x + 1][1] += quantizationErrorG >> 4;
+                pixelError[y + 1][x + 1][2] += quantizationErrorB >> 4;
+            }
+
+            pixelError[y][x][0] = 0;
+            pixelError[y][x][1] = 0;
+            pixelError[y][x][2] = 0;
+        }
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W_WIDTH, W_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, imagePixels);
+}
+
 
 void change_state()
 {

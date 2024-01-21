@@ -19,7 +19,8 @@ void main()
 {
     gl_Position = P * V * M * vec4(vertexPosition_modelspace, 1.0);
 
-    vertex_position_worldspace = vec3(M * vec4(vertexPosition_modelspace, 1));
+    vertex_position_worldspace = vec3(M * vec4(vertexPosition_modelspace, 1.0));
+
     vertex_normal = transpose(inverse(mat3(M))) * vertexNormal_modelspace;
     vertex_UV = vertexUV;
 }
