@@ -121,21 +121,14 @@ add_executable(art_gallery
 
   src/extra/light/light.h
   src/extra/light/light.cpp
-
-  src/shaders/depth_pass/depth_fragment.glsl
-  src/shaders/depth_pass/depth_geometry.glsl
-  src/shaders/depth_pass/depth_vertex.glsl
-
-  src/shaders/image_processing/default_fragment.glsl
-  src/shaders/image_processing/default_vertex.glsl
-
-  src/shaders/render_fragment.glsl
-  src/shaders/render_vertex.glsl
   )
   
 target_link_libraries(art_gallery
   ${ALL_LIBS}
   )
+# Add -O3 optimization flag
+target_compile_options(art_gallery PRIVATE -O3)
+
 # Xcode and Visual working directories
 set_target_properties(art_gallery
   PROPERTIES

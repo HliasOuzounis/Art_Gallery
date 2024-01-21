@@ -66,7 +66,6 @@ GLuint postProcessingProgram[6], quadTextureSamplerLocation[6];
 void applyFloydSteinbergDithering(GLuint texture, int colors);
 GLuint imagePixels[W_WIDTH * W_HEIGHT];
 int pixelError[W_HEIGHT][W_WIDTH][3];
-int find_closest_color(int color, int quantization);
 
 Room *currentRoom;
 Room *rooms[6];
@@ -413,10 +412,11 @@ void displayScene(GLuint texture)
     glBindTexture(GL_TEXTURE_2D, texture);
     
     // time how long this function takes
-    auto start = std::chrono::high_resolution_clock::now();
-    if (gameState == ROOM1)
+    if (gameState == ROOM1){
+        auto start = std::chrono::high_resolution_clock::now();
         applyFloydSteinbergDithering(texture, 2);
-    cout << "Time taken to apply dithering: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
+        cout << "Time taken to apply dithering: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
+    }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, W_WIDTH, W_HEIGHT);
@@ -445,6 +445,7 @@ void applyFloydSteinbergDithering(GLuint texture, int colors)
     // pixel is of the form 0xAARRGGBB
 
     int quantization = 256 / colors;
+    float inv_quantization = 1.0f / quantization;
 
     for (int y = 0; y < W_HEIGHT; y++)
     {
@@ -454,12 +455,12 @@ void applyFloydSteinbergDithering(GLuint texture, int colors)
             GLuint oldColor = imagePixels[pixelIndex];
             int oldR = pixelError[y][x][0] + ((oldColor >> 16) & 0xFF);
             int oldG = pixelError[y][x][1] + ((oldColor >> 8) & 0xFF);
-            int oldB = pixelError[y][x][2] + ((oldColor >> 0) & 0xFF);
+            int oldB = pixelError[y][x][2] + (oldColor & 0xFF);
             int oldA = (oldColor >> 24) & 0xFF;
 
-            int newR = std::min(oldR / quantization * quantization, 255);
-            int newG = std::min(oldG / quantization * quantization, 255);
-            int newB = std::min(oldB / quantization * quantization, 255);
+            int newR = std::min(int(oldR * inv_quantization) * quantization, 255);
+            int newG = std::min(int(oldG * inv_quantization) * quantization, 255);
+            int newB = std::min(int(oldB * inv_quantization) * quantization, 255);
 
             imagePixels[pixelIndex] = newB | (newG << 8) | (newR << 16) | (oldA << 24);
 

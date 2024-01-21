@@ -7,7 +7,7 @@ events:
       - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:233 (message)"
       - "CMakeLists.txt:3 (project)"
     message: |
-      The system is: Linux - 6.6.10-arch1-1 - x86_64
+      The system is: Linux - 6.7.0-arch3-1 - x86_64
   -
     kind: "message-v1"
     backtrace:
@@ -61,8 +61,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -70,10 +70,10 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_5b19f
-        [1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/ninja -v cmTC_3e0c0
+        [1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
         clang version 16.0.6
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -85,7 +85,7 @@ events:
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
          (in-process)
-         "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+         "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c
         clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-pc-linux-gnu
         ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include"
         ignoring nonexistent directory "/include"
@@ -95,7 +95,7 @@ events:
          /usr/local/include
          /usr/include
         End of search list.
-        [2/2] : && /usr/bin/clang  -v  -rdynamic CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -o cmTC_5b19f   && :
+        [2/2] : && /usr/bin/clang  -v  -rdynamic CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -o cmTC_3e0c0   && :
         clang version 16.0.6
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -106,7 +106,7 @@ events:
         Candidate multilib: .;@m64
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
-         "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_5b19f /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o
+         "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_3e0c0 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o
         
       exitCode: 0
   -
@@ -138,10 +138,10 @@ events:
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt']
+        ignore line: [Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_5b19f]
-        ignore line: [[1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_3e0c0]
+        ignore line: [[1/2] /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [clang version 16.0.6]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -156,7 +156,7 @@ events:
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
         ignore line: [ (in-process)]
-        ignore line: [ "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Fd6NKt" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [ "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-S9vawV" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -x c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-pc-linux-gnu]
         ignore line: [ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include"]
         ignore line: [ignoring nonexistent directory "/include"]
@@ -166,7 +166,7 @@ events:
         ignore line: [ /usr/local/include]
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
-        ignore line: [[2/2] : && /usr/bin/clang  -v  -rdynamic CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -o cmTC_5b19f   && :]
+        ignore line: [[2/2] : && /usr/bin/clang  -v  -rdynamic CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -o cmTC_3e0c0   && :]
         ignore line: [clang version 16.0.6]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -180,7 +180,7 @@ events:
         ignore line: [@m32]
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
-        link line: [ "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_5b19f /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o]
+        link line: [ "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_3e0c0 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o]
           arg [/usr/bin/ld] ==> ignore
           arg [-pie] ==> ignore
           arg [-export-dynamic] ==> ignore
@@ -193,7 +193,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_5b19f] ==> ignore
+          arg [cmTC_3e0c0] ==> ignore
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o]
@@ -203,7 +203,7 @@ events:
           arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
-          arg [CMakeFiles/cmTC_5b19f.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_3e0c0.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--as-needed] ==> ignore
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -241,8 +241,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_CXX_FLAGS: ""
@@ -250,10 +250,10 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_4a94a
-        [1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/ninja -v cmTC_21562
+        [1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         clang version 16.0.6
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -265,7 +265,7 @@ events:
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
          (in-process)
-         "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/backward -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+         "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/backward -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-pc-linux-gnu
         ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include"
         ignoring nonexistent directory "/include"
@@ -278,7 +278,7 @@ events:
          /usr/local/include
          /usr/include
         End of search list.
-        [2/2] : && /usr/bin/clang++  -v  -rdynamic CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_4a94a   && :
+        [2/2] : && /usr/bin/clang++  -v  -rdynamic CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_21562   && :
         clang version 16.0.6
         Target: x86_64-pc-linux-gnu
         Thread model: posix
@@ -289,7 +289,7 @@ events:
         Candidate multilib: .;@m64
         Candidate multilib: 32;@m32
         Selected multilib: .;@m64
-         "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_4a94a /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o
+         "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_21562 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o
         
       exitCode: 0
   -
@@ -327,10 +327,10 @@ events:
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC']
+        ignore line: [Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_4a94a]
-        ignore line: [[1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_21562]
+        ignore line: [[1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [clang version 16.0.6]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -345,7 +345,7 @@ events:
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
         ignore line: [ (in-process)]
-        ignore line: [ "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/backward -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-6pAuCC" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [ "/usr/bin/clang-16" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v "-fcoverage-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9" -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../include/c++/13.2.1/backward -internal-isystem /usr/lib/clang/16/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro "-fdebug-compilation-dir=/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Mo2zo9" -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-pc-linux-gnu]
         ignore line: [ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../x86_64-pc-linux-gnu/include"]
         ignore line: [ignoring nonexistent directory "/include"]
@@ -358,7 +358,7 @@ events:
         ignore line: [ /usr/local/include]
         ignore line: [ /usr/include]
         ignore line: [End of search list.]
-        ignore line: [[2/2] : && /usr/bin/clang++  -v  -rdynamic CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_4a94a   && :]
+        ignore line: [[2/2] : && /usr/bin/clang++  -v  -rdynamic CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_21562   && :]
         ignore line: [clang version 16.0.6]
         ignore line: [Target: x86_64-pc-linux-gnu]
         ignore line: [Thread model: posix]
@@ -372,7 +372,7 @@ events:
         ignore line: [@m32]
         ignore line: [Selected multilib: .]
         ignore line: [@m64]
-        link line: [ "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_4a94a /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o]
+        link line: [ "/usr/bin/ld" -pie -export-dynamic --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_21562 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crtn.o]
           arg [/usr/bin/ld] ==> ignore
           arg [-pie] ==> ignore
           arg [-export-dynamic] ==> ignore
@@ -385,7 +385,7 @@ events:
           arg [-dynamic-linker] ==> ignore
           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_4a94a] ==> ignore
+          arg [cmTC_21562] ==> ignore
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/Scrt1.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/../../../../lib64/crti.o]
           arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/13.2.1/crtbeginS.o]
@@ -395,7 +395,7 @@ events:
           arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
           arg [-L/lib] ==> dir [/lib]
           arg [-L/usr/lib] ==> dir [/usr/lib]
-          arg [CMakeFiles/cmTC_4a94a.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_21562.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -433,8 +433,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-MDAj6n"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-MDAj6n"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-DiHVBQ"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-DiHVBQ"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -443,11 +443,11 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-MDAj6n'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-DiHVBQ'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_9bb45
-        [1/2] /usr/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD   -MD -MT CMakeFiles/cmTC_9bb45.dir/src.c.o -MF CMakeFiles/cmTC_9bb45.dir/src.c.o.d -o CMakeFiles/cmTC_9bb45.dir/src.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-MDAj6n/src.c'
-        [2/2] : && /usr/bin/clang  -rdynamic CMakeFiles/cmTC_9bb45.dir/src.c.o -o cmTC_9bb45   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_adbab
+        [1/2] /usr/bin/clang -DCMAKE_HAVE_LIBC_PTHREAD   -MD -MT CMakeFiles/cmTC_adbab.dir/src.c.o -MF CMakeFiles/cmTC_adbab.dir/src.c.o.d -o CMakeFiles/cmTC_adbab.dir/src.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-DiHVBQ/src.c'
+        [2/2] : && /usr/bin/clang  -rdynamic CMakeFiles/cmTC_adbab.dir/src.c.o -o cmTC_adbab   && :
         
       exitCode: 0
   -
@@ -459,8 +459,8 @@ events:
     checks:
       - "Looking for XOpenDisplay in /usr/lib/libX11.so;/usr/lib/libXext.so"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-oan1w7"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-oan1w7"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Who7V9"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Who7V9"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -469,11 +469,11 @@ events:
       variable: "X11_LIB_X11_SOLO"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-oan1w7'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Who7V9'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_b0376
-        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=XOpenDisplay -MD -MT CMakeFiles/cmTC_b0376.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_b0376.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_b0376.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-oan1w7/CheckFunctionExists.c'
-        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=XOpenDisplay -rdynamic CMakeFiles/cmTC_b0376.dir/CheckFunctionExists.c.o -o cmTC_b0376  /usr/lib/libX11.so  /usr/lib/libXext.so && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_dc38c
+        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=XOpenDisplay -MD -MT CMakeFiles/cmTC_dc38c.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_dc38c.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_dc38c.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-Who7V9/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=XOpenDisplay -rdynamic CMakeFiles/cmTC_dc38c.dir/CheckFunctionExists.c.o -o cmTC_dc38c  /usr/lib/libX11.so  /usr/lib/libXext.so && :
         
       exitCode: 0
   -
@@ -485,8 +485,8 @@ events:
     checks:
       - "Looking for gethostbyname"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-hQeLNs"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-hQeLNs"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-OrCi2C"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-OrCi2C"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -495,11 +495,11 @@ events:
       variable: "CMAKE_HAVE_GETHOSTBYNAME"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-hQeLNs'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-OrCi2C'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_da27a
-        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=gethostbyname -MD -MT CMakeFiles/cmTC_da27a.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_da27a.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_da27a.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-hQeLNs/CheckFunctionExists.c'
-        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=gethostbyname -rdynamic CMakeFiles/cmTC_da27a.dir/CheckFunctionExists.c.o -o cmTC_da27a   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_3eede
+        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=gethostbyname -MD -MT CMakeFiles/cmTC_3eede.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_3eede.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_3eede.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-OrCi2C/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=gethostbyname -rdynamic CMakeFiles/cmTC_3eede.dir/CheckFunctionExists.c.o -o cmTC_3eede   && :
         
       exitCode: 0
   -
@@ -511,8 +511,8 @@ events:
     checks:
       - "Looking for connect"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-PoQanN"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-PoQanN"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-FJZa8g"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-FJZa8g"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -521,11 +521,11 @@ events:
       variable: "CMAKE_HAVE_CONNECT"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-PoQanN'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-FJZa8g'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_743f2
-        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=connect -MD -MT CMakeFiles/cmTC_743f2.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_743f2.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_743f2.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-PoQanN/CheckFunctionExists.c'
-        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=connect -rdynamic CMakeFiles/cmTC_743f2.dir/CheckFunctionExists.c.o -o cmTC_743f2   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_06b45
+        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=connect -MD -MT CMakeFiles/cmTC_06b45.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_06b45.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_06b45.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-FJZa8g/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=connect -rdynamic CMakeFiles/cmTC_06b45.dir/CheckFunctionExists.c.o -o cmTC_06b45   && :
         
       exitCode: 0
   -
@@ -537,8 +537,8 @@ events:
     checks:
       - "Looking for remove"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-5ASTE3"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-5ASTE3"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-J3GGEn"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-J3GGEn"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -547,11 +547,11 @@ events:
       variable: "CMAKE_HAVE_REMOVE"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-5ASTE3'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-J3GGEn'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_07cfd
-        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=remove -MD -MT CMakeFiles/cmTC_07cfd.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_07cfd.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_07cfd.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-5ASTE3/CheckFunctionExists.c'
-        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=remove -rdynamic CMakeFiles/cmTC_07cfd.dir/CheckFunctionExists.c.o -o cmTC_07cfd   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_c6b26
+        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=remove -MD -MT CMakeFiles/cmTC_c6b26.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_c6b26.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_c6b26.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-J3GGEn/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=remove -rdynamic CMakeFiles/cmTC_c6b26.dir/CheckFunctionExists.c.o -o cmTC_c6b26   && :
         
       exitCode: 0
   -
@@ -563,8 +563,8 @@ events:
     checks:
       - "Looking for shmat"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-eaQvYg"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-eaQvYg"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-tsXLB1"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-tsXLB1"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -573,11 +573,11 @@ events:
       variable: "CMAKE_HAVE_SHMAT"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-eaQvYg'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-tsXLB1'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_3480e
-        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=shmat -MD -MT CMakeFiles/cmTC_3480e.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_3480e.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_3480e.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-eaQvYg/CheckFunctionExists.c'
-        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=shmat -rdynamic CMakeFiles/cmTC_3480e.dir/CheckFunctionExists.c.o -o cmTC_3480e   && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_60a0f
+        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=shmat -MD -MT CMakeFiles/cmTC_60a0f.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_60a0f.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_60a0f.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-tsXLB1/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=shmat -rdynamic CMakeFiles/cmTC_60a0f.dir/CheckFunctionExists.c.o -o cmTC_60a0f   && :
         
       exitCode: 0
   -
@@ -589,8 +589,8 @@ events:
     checks:
       - "Looking for IceConnectionNumber in ICE"
     directories:
-      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-QLnZv4"
-      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-QLnZv4"
+      source: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-mdz0Aw"
+      binary: "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-mdz0Aw"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
       CMAKE_C_FLAGS: ""
@@ -599,11 +599,11 @@ events:
       variable: "CMAKE_LIB_ICE_HAS_ICECONNECTIONNUMBER"
       cached: true
       stdout: |
-        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-QLnZv4'
+        Change Dir: '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-mdz0Aw'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_af605
-        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -MD -MT CMakeFiles/cmTC_af605.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_af605.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_af605.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-QLnZv4/CheckFunctionExists.c'
-        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -rdynamic CMakeFiles/cmTC_af605.dir/CheckFunctionExists.c.o -o cmTC_af605  -lICE && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d07c2
+        [1/2] /usr/bin/clang   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -MD -MT CMakeFiles/cmTC_d07c2.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_d07c2.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_d07c2.dir/CheckFunctionExists.c.o -c '/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/build/CMakeFiles/CMakeScratch/TryCompile-mdz0Aw/CheckFunctionExists.c'
+        [2/2] : && /usr/bin/clang -DCHECK_FUNCTION_EXISTS=IceConnectionNumber -rdynamic CMakeFiles/cmTC_d07c2.dir/CheckFunctionExists.c.o -o cmTC_d07c2  -lICE && :
         
       exitCode: 0
 ...

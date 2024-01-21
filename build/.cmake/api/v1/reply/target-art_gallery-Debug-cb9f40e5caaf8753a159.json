@@ -12,6 +12,7 @@
 		[
 			"add_executable",
 			"target_link_libraries",
+			"target_compile_options",
 			"add_definitions",
 			"include_directories"
 		],
@@ -35,7 +36,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 136,
+				"line" : 126,
 				"parent" : 0
 			},
 			{
@@ -59,11 +60,17 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 88,
+				"line" : 130,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
+				"file" : 0,
+				"line" : 88,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
 				"file" : 0,
 				"line" : 70,
 				"parent" : 0
@@ -77,59 +84,63 @@
 			[
 				{
 					"fragment" : " -std=c++11 -g -g"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-O3"
 				}
 			],
 			"defines" : 
 			[
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"define" : "GLEW_STATIC"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"define" : "TW_NO_DIRECT3D"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"define" : "TW_NO_LIB_PRAGMA"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"define" : "TW_STATIC"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 8,
 					"define" : "_CRT_SECURE_NO_WARNINGS"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/external/glfw-3.2.1/include/GLFW"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/external/glm-0.9.7.1"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/external/glew-1.13.0/include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/external/Simple-OpenGL-Image-Library/include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/external/tinyxml2/include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/external/tinyobjloader/include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/."
 				},
 				{
@@ -345,19 +356,6 @@
 				16,
 				18
 			]
-		},
-		{
-			"name" : "",
-			"sourceIndexes" : 
-			[
-				20,
-				21,
-				22,
-				23,
-				24,
-				25,
-				26
-			]
 		}
 	],
 	"sources" : 
@@ -471,41 +469,6 @@
 			"compileGroupIndex" : 0,
 			"path" : "src/extra/light/light.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/shaders/depth_pass/depth_fragment.glsl",
-			"sourceGroupIndex" : 3
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/shaders/depth_pass/depth_geometry.glsl",
-			"sourceGroupIndex" : 3
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/shaders/depth_pass/depth_vertex.glsl",
-			"sourceGroupIndex" : 3
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/shaders/image_processing/default_fragment.glsl",
-			"sourceGroupIndex" : 3
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/shaders/image_processing/default_vertex.glsl",
-			"sourceGroupIndex" : 3
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/shaders/render_fragment.glsl",
-			"sourceGroupIndex" : 3
-		},
-		{
-			"backtrace" : 1,
-			"path" : "src/shaders/render_vertex.glsl",
-			"sourceGroupIndex" : 3
 		}
 	],
 	"type" : "EXECUTABLE"
