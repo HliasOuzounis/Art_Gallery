@@ -126,8 +126,8 @@ add_executable(art_gallery
 target_link_libraries(art_gallery
   ${ALL_LIBS}
   )
-# Add -O3 optimization flag
-target_compile_options(art_gallery PRIVATE -O3)
+# Add compialer optimizations
+target_compile_options(art_gallery PRIVATE -O1)
 
 # Xcode and Visual working directories
 set_target_properties(art_gallery

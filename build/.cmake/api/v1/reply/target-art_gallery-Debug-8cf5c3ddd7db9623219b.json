@@ -87,7 +87,7 @@
 				},
 				{
 					"backtrace" : 7,
-					"fragment" : "-O3"
+					"fragment" : "-O1"
 				}
 			],
 			"defines" : 

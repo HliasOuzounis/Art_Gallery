@@ -170,13 +170,13 @@ void createFinalScene()
 {
     // postProcessingProgram[MAINROOM] = loadShaders("src/shaders/image_processing/main_room.vertex.glsl",
     //                                               "src/shaders/image_processing/main_room.frag.glsl");
-    postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/toon.vertex.glsl",
+    postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/toon.frag.glsl");
 
     for (int i = 0; i < 6; i++)
     {
-        postProcessingProgram[i] = loadShaders("src/shaders/image_processing/floyd-steinberg.vertex.glsl",
-                                               "src/shaders/image_processing/floyd-steinberg.frag.glsl");
+        postProcessingProgram[i] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/chromatic_aberration.frag.glsl");
         quadTextureSamplerLocation[i] = glGetUniformLocation(postProcessingProgram[i], "screenTexture");
     }
 
@@ -415,7 +415,7 @@ void displayScene(GLuint texture)
     if (gameState == ROOM1){
         auto start = std::chrono::high_resolution_clock::now();
         applyFloydSteinbergDithering(texture, 2);
-        cout << "Time taken to apply dithering: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
+        cout << "Time to apply dithering: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -426,6 +426,10 @@ void displayScene(GLuint texture)
     glUseProgram(postProcessingProgram[gameState]);
     glDisable(GL_DEPTH_TEST);
 
+    if (gameState == ROOM5){
+        GLuint timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
+        glUniform1f(timeLocation, (float)glfwGetTime());
+    }
     glUniform1i(quadTextureSamplerLocation[gameState], 3);
     quad->bind();
     quad->draw();
@@ -434,7 +438,7 @@ void displayScene(GLuint texture)
     if (error != GL_NO_ERROR)
     {
         glewGetErrorString(error);
-        std::cerr << "OpenGL error: " << error << std::endl;
+        std::cerr << "OpenGL error: " << glewGetErrorString(error) << std::endl;
         std::cerr << "Error in display scene pass" << std::endl;
     }
 }

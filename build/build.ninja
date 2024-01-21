@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_art_gallery: phony || cmake_object_order
 build CMakeFiles/art_gallery.dir/src/main.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/src/main.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/src/main.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/src
@@ -60,7 +60,7 @@ build CMakeFiles/art_gallery.dir/src/main.cpp.o: CXX_COMPILER__art_gallery_unsca
 build CMakeFiles/art_gallery.dir/common/util.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/common/util.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/common/util.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/common
@@ -68,7 +68,7 @@ build CMakeFiles/art_gallery.dir/common/util.cpp.o: CXX_COMPILER__art_gallery_un
 build CMakeFiles/art_gallery.dir/common/shader.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/common/shader.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/common/shader.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/common
@@ -76,7 +76,7 @@ build CMakeFiles/art_gallery.dir/common/shader.cpp.o: CXX_COMPILER__art_gallery_
 build CMakeFiles/art_gallery.dir/common/camera.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/common/camera.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/common/camera.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/common
@@ -84,7 +84,7 @@ build CMakeFiles/art_gallery.dir/common/camera.cpp.o: CXX_COMPILER__art_gallery_
 build CMakeFiles/art_gallery.dir/common/model.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/common/model.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/common/model.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/common
@@ -92,7 +92,7 @@ build CMakeFiles/art_gallery.dir/common/model.cpp.o: CXX_COMPILER__art_gallery_u
 build CMakeFiles/art_gallery.dir/common/texture.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/common/texture.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/common/texture.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/common
@@ -100,7 +100,7 @@ build CMakeFiles/art_gallery.dir/common/texture.cpp.o: CXX_COMPILER__art_gallery
 build CMakeFiles/art_gallery.dir/src/extra/rooms/room.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/src/extra/rooms/room.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/src/extra/rooms/room.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/src/extra/rooms
@@ -108,7 +108,7 @@ build CMakeFiles/art_gallery.dir/src/extra/rooms/room.cpp.o: CXX_COMPILER__art_g
 build CMakeFiles/art_gallery.dir/src/extra/paintings/paintings.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/src/extra/paintings/paintings.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/src/extra/paintings/paintings.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/src/extra/paintings
@@ -116,7 +116,7 @@ build CMakeFiles/art_gallery.dir/src/extra/paintings/paintings.cpp.o: CXX_COMPIL
 build CMakeFiles/art_gallery.dir/src/extra/player/player.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/src/extra/player/player.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/src/extra/player/player.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/src/extra/player
@@ -124,7 +124,7 @@ build CMakeFiles/art_gallery.dir/src/extra/player/player.cpp.o: CXX_COMPILER__ar
 build CMakeFiles/art_gallery.dir/src/extra/light/light.cpp.o: CXX_COMPILER__art_gallery_unscanned_Debug /home/hlias/documents/uni/7ο$ Εξάμηνο/Γραφικά$ και$ Εικονική$ Πραγματικότητα/Art_Gallery/src/extra/light/light.cpp || cmake_object_order_depends_target_art_gallery
   DEFINES = -DGLEW_STATIC -DTW_NO_DIRECT3D -DTW_NO_LIB_PRAGMA -DTW_STATIC -D_CRT_SECURE_NO_WARNINGS
   DEP_FILE = CMakeFiles/art_gallery.dir/src/extra/light/light.cpp.o.d
-  FLAGS = -std=c++11 -g -g -O3
+  FLAGS = -std=c++11 -g -g -O1
   INCLUDES = -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include/GLFW" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glm-0.9.7.1" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glew-1.13.0/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/Simple-OpenGL-Image-Library/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyxml2/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/tinyobjloader/include" -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/." -I"/home/hlias/documents/uni/7ο Εξάμηνο/Γραφικά και Εικονική Πραγματικότητα/Art_Gallery/external/glfw-3.2.1/include"
   OBJECT_DIR = CMakeFiles/art_gallery.dir
   OBJECT_FILE_DIR = CMakeFiles/art_gallery.dir/src/extra/light

@@ -34,8 +34,6 @@ void main()
 {
     // Grayscale conversion
     vec3 diffuse = texture(screenTexture, vertexUV.st).rgb;
-    float gray = 0.299 * diffuse.r + 0.587 * diffuse.g + 0.114 * diffuse.b;
-    diffuse = vec3(gray);
 
     // Sobel filter
     mat3 I;
@@ -51,14 +49,9 @@ void main()
 
     float g = sqrt(pow(gx, 2.0) + pow(gy, 2.0));
 
-    // Reduce noise
-    g = smoothstep(0.3, 0.7, g);
 
-    vec3 edgeColor = vec3(0., 0., 0.);
-    vec3 resultColor = mix(diffuse, edgeColor, g);
+    float edgeThreshold = 0.5; // Adjust as needed
+    vec3 strokeColor = mix(vec3(0.0), diffuse, smoothstep(0.0, edgeThreshold, g));
 
-    // Apply quantization
-    resultColor = vec3(quantize(resultColor.r), quantize(resultColor.g), quantize(resultColor.b));
-
-    fragmentColor = vec4(resultColor, 1.0);
+    fragmentColor = vec4(strokeColor, 1.0);
 }
