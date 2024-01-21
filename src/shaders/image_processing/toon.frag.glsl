@@ -17,7 +17,7 @@ mat3 sy = mat3(
     1.0, 0.0, -1.0 
 );
 
-float[] levels = float[](0.0, 0.1, 0.3, 0.5, 0.6, 0.8, 0.9, 1.0);
+float[] levels = float[](0.0, 0.1, 0.3, 0.6, 1.0);
 
 
 float quantize(float color){

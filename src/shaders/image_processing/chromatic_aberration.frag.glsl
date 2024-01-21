@@ -33,7 +33,7 @@ void main()
 
     // Apply chromatic aberration
     color.r = texture(screenTexture, vertexUV + vec2(aberrationAmount + periodicFunction(time), periodicFunction(-time * 2))).r;
-    color.g = texture(screenTexture, vertexUV).g;
+    color.g = texture(screenTexture, vertexUV + vec2(periodicFunction(time), periodicFunction(time))).g;
     color.b = texture(screenTexture, vertexUV - vec2(aberrationAmount + periodicFunction(-time * 3), periodicFunction(time))).b;
 
     fragmentColor = vec4(color, 1.0);

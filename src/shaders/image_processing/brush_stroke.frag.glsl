@@ -6,52 +6,23 @@ uniform sampler2D screenTexture;
 
 out vec4 fragmentColor;
 
-mat3 sx = mat3( 
-    1.0, 2.0, 1.0, 
-    0.0, 0.0, 0.0, 
-   -1.0, -2.0, -1.0 
-);
-mat3 sy = mat3( 
-    1.0, 0.0, -1.0, 
-    2.0, 0.0, -2.0, 
-    1.0, 0.0, -1.0 
-);
-
-float[] levels = float[](0.0, 0.1, 0.3, 0.5, 0.6, 0.8, 0.9, 1.0);
-
-
-float quantize(float color){
-    float quantizedColor = 0.0;
-    for (int i = 0; i < levels.length; i++) {
-        if (color >= levels[i]) {
-            quantizedColor = levels[i];
-        }
-    }
-    return quantizedColor;
-}
+int brushSize[3] = int[](8, 4, 2);
 
 void main()
 {
     // Grayscale conversion
     vec3 diffuse = texture(screenTexture, vertexUV.st).rgb;
+    vec3 color[3] = vec3[](vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0), vec3(0.0, 0.0, 0.0));
 
-    // Sobel filter
-    mat3 I;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            vec3 sample = texelFetch(screenTexture, ivec2(gl_FragCoord) + ivec2(i - 1, j - 1), 0).rgb;
-            I[i][j] = length(sample);
+    for (int k; k < 3; k++){
+        for (int i; i < brushSize[k]; i++){
+            for (int j; j < brushSize[k]; j++){
+                color[k] += texture(screenTexture, vertexUV.st + vec2(i, j) / 512).rgb;
+            }
         }
+        // color[k] /= float(brushSize[k] * brushSize[k]);
     }
 
-    float gx = dot(sx[0], I[0]) + dot(sx[1], I[1]) + dot(sx[2], I[2]);
-    float gy = dot(sy[0], I[0]) + dot(sy[1], I[1]) + dot(sy[2], I[2]);
-
-    float g = sqrt(pow(gx, 2.0) + pow(gy, 2.0));
-
-
-    float edgeThreshold = 0.5; // Adjust as needed
-    vec3 strokeColor = mix(vec3(0.0), diffuse, smoothstep(0.0, edgeThreshold, g));
-
-    fragmentColor = vec4(strokeColor, 1.0);
+    fragmentColor = vec4(color[0] * 0.1 + color[1] * 0.2 + color[2] * 0.3 + diffuse * 0.4, 1.0);  
+    
 }

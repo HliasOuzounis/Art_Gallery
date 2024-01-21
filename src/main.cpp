@@ -170,15 +170,19 @@ void createFinalScene()
 {
     // postProcessingProgram[MAINROOM] = loadShaders("src/shaders/image_processing/main_room.vertex.glsl",
     //                                               "src/shaders/image_processing/main_room.frag.glsl");
-    postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/toon.frag.glsl");
 
     for (int i = 0; i < 6; i++)
     {
         postProcessingProgram[i] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/chromatic_aberration.frag.glsl");
+                                               "src/shaders/image_processing/toon.frag.glsl");
         quadTextureSamplerLocation[i] = glGetUniformLocation(postProcessingProgram[i], "screenTexture");
     }
+    postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/floyd-steinberg.frag.glsl");
+    postProcessingProgram[ROOM4] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/toon.frag.glsl");
+    postProcessingProgram[ROOM5] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/chromatic_aberration.frag.glsl");
 
     vector<vec3> quadVertices = {
         vec3(-1.0f, 1.0f, 0.0f),  // top left
