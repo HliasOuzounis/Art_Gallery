@@ -36,6 +36,8 @@ public:
     Texture texture;
     bool useTexture = false;
 
+    vector<Object *> subObjects;
+
     Object(Drawable *drawable);
     Object(Drawable *drawable, Material material);
 
@@ -43,6 +45,6 @@ public:
     void scaleObject(vec3 amount);
     void translateObject(vec3 translation);
 
-    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation);
-    void draw(GLuint modelMatrixLocation);
+    void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation);
+    void render(GLuint modelMatrixLocation);
 };

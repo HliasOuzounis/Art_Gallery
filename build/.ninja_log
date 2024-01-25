@@ -41,3 +41,9 @@
 8	769	1706213648306910735	CMakeFiles/art_gallery.dir/src/components/paintings/paintings.cpp.o	c59b3921c01f1393
 3	512	1706213679950393771	CMakeFiles/art_gallery.dir/src/components/object/object.cpp.o	4aefed4b1d98e4e0
 512	638	1706213680070394353	art_gallery	4a40dbcc17ba3cc2
+2	960	1706214125286420132	CMakeFiles/art_gallery.dir/src/components/object/object.cpp.o	4aefed4b1d98e4e0
+2	1269	1706214125596422286	CMakeFiles/art_gallery.dir/src/components/paintings/paintings.cpp.o	c59b3921c01f1393
+2	1353	1706214125679756198	CMakeFiles/art_gallery.dir/src/components/light/light.cpp.o	474b9cd8697ca2dd
+2	1731	1706214126059758839	CMakeFiles/art_gallery.dir/src/main.cpp.o	b12b39c97c4e24af
+2	1984	1706214126313093933	CMakeFiles/art_gallery.dir/src/components/rooms/room.cpp.o	f26872f9da7f1228
+1984	2126	1706214126449761550	art_gallery	4a40dbcc17ba3cc2

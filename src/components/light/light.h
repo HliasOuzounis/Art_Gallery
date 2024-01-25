@@ -32,7 +32,7 @@ public:
     void upload_depth_shader(GLuint shaderProgram);
     void update_shadow_transforms();
 
-    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4])
+    void render(GLuint modelMatrixLocation, GLuint materialLocation[4])
     {
         drawable->bind();
         modelMatrix = translate(mat4(), position) * scale(mat4(1.0f), vec3(0.1f));

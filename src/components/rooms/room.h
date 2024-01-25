@@ -38,7 +38,7 @@ public:
     Room(){};
     virtual bool isInside(vec3 position) { return false; }
 
-    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
+    void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
     {
         mat4 mainRoomM = modelMatrix;
         drawable->bind();
@@ -62,24 +62,24 @@ public:
         drawable->draw();
         glUniform1i(useTextureLocation, 0);
 
-        floor->draw(modelMatrixLocation, materialLocation, useTextureLocation);
-        ceiling->draw(modelMatrixLocation, materialLocation, useTextureLocation);
+        floor->render(modelMatrixLocation, materialLocation, useTextureLocation);
+        ceiling->render(modelMatrixLocation, materialLocation, useTextureLocation);
 
         for (int i = 0; i < objects.size(); i++)
-            objects[i]->draw(modelMatrixLocation, materialLocation, useTextureLocation);
+            objects[i]->render(modelMatrixLocation, materialLocation, useTextureLocation);
         
     }
-    void draw(GLuint modelMatrixLocation)
+    void render(GLuint modelMatrixLocation)
     {
         drawable->bind();
         glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         drawable->draw();
 
-        floor->draw(modelMatrixLocation);
-        ceiling->draw(modelMatrixLocation);
+        floor->render(modelMatrixLocation);
+        ceiling->render(modelMatrixLocation);
 
         for (int i = 0; i < objects.size(); i++)
-            objects[i]->draw(modelMatrixLocation);
+            objects[i]->render(modelMatrixLocation);
     }
 };
 

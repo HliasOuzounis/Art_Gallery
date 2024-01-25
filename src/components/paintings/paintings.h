@@ -45,7 +45,7 @@ public:
         }
         this->drawable = new Drawable(vertices, VEC_VEC2_DEFAUTL_VALUE, normals);
     }
-    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
+    void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
     {
         if (!visible)
             return;
@@ -73,17 +73,17 @@ public:
         drawable->draw();
 
         glUniform1i(useTextureLocation, 0);
-        frame->draw(modelMatrixLocation, materialLocation, useTextureLocation);
+        frame->render(modelMatrixLocation, materialLocation, useTextureLocation);
     }
 
-    void draw(GLuint modelMatrixLocation)
+    void render(GLuint modelMatrixLocation)
     {
         if (!visible)
             return;
         drawable->bind();
         glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         drawable->draw();
-        frame->draw(modelMatrixLocation);
+        frame->render(modelMatrixLocation);
     }
 
     bool checkCollision(Player *player);

@@ -423,15 +423,15 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
 
     light->upload_to_shaders(shaderProgram);
 
-    light->draw(ModelMatrixLocation, materialLocation);
+    light->render(ModelMatrixLocation, materialLocation);
 
     // Draw currentRoom
-    currentRoom->draw(ModelMatrixLocation, materialLocation, useTextureLocation);
+    currentRoom->render(ModelMatrixLocation, materialLocation, useTextureLocation);
 
     // Draw paintings
     for (auto &painting : paintings)
     {
-        painting->draw(ModelMatrixLocation, materialLocation, useTextureLocation);
+        painting->render(ModelMatrixLocation, materialLocation, useTextureLocation);
     }
 
     GLenum error = glGetError();
@@ -454,11 +454,11 @@ void depth_pass(Light *light)
     light->upload_depth_shader(depthProgram);
 
     // ---- rendering the scene ---- //
-    currentRoom->draw(shadowModelLocation);
+    currentRoom->render(shadowModelLocation);
 
     for (auto &painting : paintings)
     {
-        painting->draw(shadowModelLocation);
+        painting->render(shadowModelLocation);
     }
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)

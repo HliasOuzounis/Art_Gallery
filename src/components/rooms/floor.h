@@ -65,7 +65,7 @@ public:
         this->drawable = new Drawable(vertices, uvs, normals);
     };
 
-    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
+    void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
     {
         if (useTexture){
             glActiveTexture(GL_TEXTURE0);
@@ -82,12 +82,12 @@ public:
             glUniform1f(materialLocation[3], material.shininess);
         }
 
-        draw(modelMatrixLocation);
+        render(modelMatrixLocation);
 
         glUniform1i(useTextureLocation, 0);
     }
 
-    void draw(GLuint modelMatrixLocation)
+    void render(GLuint modelMatrixLocation)
     {
         glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         
