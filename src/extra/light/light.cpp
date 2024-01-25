@@ -16,7 +16,7 @@ Light::Light(vec3 position, vec4 color, float intensity, float radius)
     direction = normalize(vec3(0, 0, 0) - position);
     projectionMatrix = perspective(radians(90.0f), 1.0f, nearPlane, farPlane);
 
-    drawable = new Drawable("src/extra/light/models/sphere.obj");
+    drawable = new Drawable("src/objects/sphere.obj");
     vector<vec3> normals;
     for (auto &n : drawable->normals)
         normals.push_back(-n);

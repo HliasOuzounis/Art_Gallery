@@ -18,8 +18,8 @@ MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
     this->ceiling = new Floor(radius, radius, height, true);
 
     Texture texture;
-    texture.diffuse = loadSOIL("src/extra/rooms/textures/floor/wood_floor_diffuse.png");
-    texture.specular = loadSOIL("src/extra/rooms/textures/floor/wood_floor_specular.png");
+    texture.diffuse = loadSOIL("src/textures/floor/wood_floor_diffuse.png");
+    texture.specular = loadSOIL("src/textures/floor/wood_floor_specular.png");
 
     this->floor->texture = texture;
     this->floor->useTexture = true;
@@ -230,16 +230,16 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
 
     this->drawable = new Drawable(vertices, uvs, normals);
 
-    this->texture.diffuse = loadSOIL("src/extra/rooms/textures/walls/blue_walls_diffuse.png");
-    this->texture.specular = loadSOIL("src/extra/rooms/textures/walls/blue_walls_specular.png");
+    this->texture.diffuse = loadSOIL("src/textures/walls/blue_walls_diffuse.png");
+    this->texture.specular = loadSOIL("src/textures/walls/blue_walls_specular.png");
     this->useTexture = true;
 
     this->floor = new Floor(width / 2, depth / 2, 0, false);
     this->ceiling = new Floor(width / 2, depth / 2, height, true);
 
     Texture texture;
-    texture.diffuse = loadSOIL("src/extra/rooms/textures/floor/damaged_wood_diffuse.png");
-    texture.specular = loadSOIL("src/extra/rooms/textures/floor/damaged_wood_specular.png");
+    texture.diffuse = loadSOIL("src/textures/floor/damaged_wood_diffuse.png");
+    texture.specular = loadSOIL("src/textures/floor/damaged_wood_specular.png");
 
     this->floor->texture = texture;
     this->floor->useTexture = true;

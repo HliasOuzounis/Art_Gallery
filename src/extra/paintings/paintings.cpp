@@ -56,7 +56,7 @@ vector<Painting *> createPaintings(int n, float height, float width, float y_pos
 
     float angle;
 
-    Drawable *frame = new Drawable("src/extra/paintings/models/frame.obj");
+    Drawable *frame = new Drawable("src/objects/frame.obj");
 
     for (int i = 0; i < n; i++)
     {

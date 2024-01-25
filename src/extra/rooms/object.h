@@ -20,8 +20,8 @@ struct Material
 
 struct Texture
 {
-    GLuint diffuse = loadSOIL("src/extra/rooms/textures/default.png");
-    GLuint specular = loadSOIL("src/extra/rooms/textures/default.png");
+    GLuint diffuse = loadSOIL("src/textures/default.png");
+    GLuint specular = loadSOIL("src/textures/default.png");
 };
 
 class Object

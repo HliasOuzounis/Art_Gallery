@@ -198,7 +198,7 @@ void createFinalScene()
         quadTextureSamplerLocation[i] = glGetUniformLocation(postProcessingProgram[i], "screenTexture");
     }
 
-    pointsTexture = loadSOIL("src/shaders/image_processing/pointillism.png");
+    pointsTexture = loadSOIL("src/textures/pointillism.png");
 
     postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/floyd-steinberg.frag.glsl");
@@ -313,7 +313,7 @@ void createContext()
     createFinalScene();
 
     // --- painting textures ---
-    createPaintingTextures();
+    // createPaintingTextures();
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
