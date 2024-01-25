@@ -30,13 +30,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 98,
+				"line" : 99,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 126,
+				"line" : 127,
 				"parent" : 0
 			},
 			{
@@ -60,13 +60,13 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 130,
+				"line" : 131,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 88,
+				"line" : 89,
 				"parent" : 0
 			},
 			{
@@ -138,6 +138,10 @@
 				{
 					"backtrace" : 9,
 					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/external/tinyobjloader/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/src/components"
 				},
 				{
 					"backtrace" : 9,
@@ -423,51 +427,51 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/extra/rooms/room.h",
+			"path" : "src/components/rooms/room.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/extra/rooms/room.cpp",
+			"path" : "src/components/rooms/room.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/extra/rooms/floor.h",
+			"path" : "src/components/rooms/floor.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/extra/paintings/paintings.h",
+			"path" : "src/components/paintings/paintings.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/extra/paintings/paintings.cpp",
+			"path" : "src/components/paintings/paintings.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/extra/player/player.h",
+			"path" : "src/components/player/player.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/extra/player/player.cpp",
+			"path" : "src/components/player/player.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/extra/light/light.h",
+			"path" : "src/components/light/light.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/extra/light/light.cpp",
+			"path" : "src/components/light/light.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

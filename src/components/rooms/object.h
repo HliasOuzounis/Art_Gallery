@@ -1,3 +1,5 @@
+#pragma once
+
 #include <common/model.h>
 #include <common/texture.h>
 #include <glm/glm.hpp>
@@ -6,9 +8,6 @@
 
 using namespace glm;
 using namespace std;
-
-#ifndef OBJECT_H
-#define OBJECT_H
 
 struct Material
 {
@@ -100,4 +99,3 @@ public:
         drawable->draw();
     }
 };
-#endif

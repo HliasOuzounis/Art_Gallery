@@ -1,3 +1,5 @@
+#pragma once
+
 #include <common/model.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -6,8 +8,8 @@
 using namespace glm;
 using namespace std;
 
-#include "../player/player.h"
-#include "../rooms/object.h"
+#include "player/player.h"
+#include "rooms/object.h"
 
 class Painting
 {

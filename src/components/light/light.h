@@ -5,6 +5,8 @@
 using namespace glm;
 using namespace std;
 
+#pragma once
+
 class Light
 {
 public:

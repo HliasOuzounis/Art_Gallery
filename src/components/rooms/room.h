@@ -1,3 +1,5 @@
+#pragma once
+
 #include <common/model.h>
 #include <glm/glm.hpp>
 #include <vector>
@@ -5,7 +7,7 @@
 using namespace glm;
 using namespace std;
 
-#include "../player/player.h"
+#include "player/player.h"
 #include "floor.h"
 #include "object.h"
 

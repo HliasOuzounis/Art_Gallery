@@ -10,7 +10,7 @@ using namespace std;
 using namespace glm;
 
 #include "paintings.h"
-#include "../player/player.h"
+#include "player/player.h"
 
 vector<Painting *> createPaintings(int n, float height, float width, float y_pos, float room_radius)
 {

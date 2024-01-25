@@ -24,10 +24,10 @@
 #include <common/util.h>
 
 // extra helper functions
-#include "extra/rooms/room.h"
-#include "extra/paintings/paintings.h"
-#include "extra/player/player.h"
-#include "extra/light/light.h"
+#include "components/rooms/room.h"
+#include "components/paintings/paintings.h"
+#include "components/player/player.h"
+#include "components/light/light.h"
 
 using namespace std;
 using namespace glm;

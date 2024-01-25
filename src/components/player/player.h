@@ -1,3 +1,5 @@
+#pragma once
+
 #include <glm/glm.hpp>
 #include <glfw3.h>
 #include <vector>
@@ -5,8 +7,6 @@
 using namespace glm;
 using namespace std;
 
-#ifndef PLAYER_H
-#define PLAYER_H
 class Player
 {
 public:
@@ -38,4 +38,3 @@ public:
     void updatePosition(float horizontalAngle, float &deltaTime);
     void updateBoundingBox();
 };
-#endif

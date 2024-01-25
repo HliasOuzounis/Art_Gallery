@@ -74,6 +74,7 @@ include_directories(
   external/Simple-OpenGL-Image-Library/include/
   external/tinyxml2/include/
   external/tinyobjloader/include/
+  src/components/
   .
   )
 
@@ -109,18 +110,18 @@ add_executable(art_gallery
   common/texture.cpp
   common/texture.h
 
-  src/extra/rooms/room.h
-  src/extra/rooms/room.cpp
-  src/extra/rooms/floor.h
+  src/components/rooms/room.h
+  src/components/rooms/room.cpp
+  src/components/rooms/floor.h
 
-  src/extra/paintings/paintings.h
-  src/extra/paintings/paintings.cpp
+  src/components/paintings/paintings.h
+  src/components/paintings/paintings.cpp
 
-  src/extra/player/player.h
-  src/extra/player/player.cpp
+  src/components/player/player.h
+  src/components/player/player.cpp
 
-  src/extra/light/light.h
-  src/extra/light/light.cpp
+  src/components/light/light.h
+  src/components/light/light.cpp
   )
   
 target_link_libraries(art_gallery
