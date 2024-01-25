@@ -38,6 +38,7 @@ public:
 
     vector<Object *> subObjects;
 
+    Object(){};
     Object(Drawable *drawable);
     Object(Drawable *drawable, Material material);
 

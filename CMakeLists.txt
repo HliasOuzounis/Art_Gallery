@@ -115,7 +115,9 @@ add_executable(art_gallery
   
   src/components/rooms/room.h
   src/components/rooms/room.cpp
-  src/components/rooms/floor.h
+
+  src/components/floor/floor.h
+  src/components/floor/floor.cpp
 
   src/components/paintings/paintings.h
   src/components/paintings/paintings.cpp

@@ -8,7 +8,7 @@ using namespace glm;
 using namespace std;
 
 #include "player/player.h"
-#include "floor.h"
+#include "floor/floor.h"
 #include "object/object.h"
 
 class Room
