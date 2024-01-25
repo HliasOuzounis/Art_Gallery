@@ -9,7 +9,7 @@ using namespace std;
 
 #include "player/player.h"
 #include "floor.h"
-#include "object.h"
+#include "object/object.h"
 
 class Room
 {

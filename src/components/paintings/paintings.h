@@ -9,7 +9,7 @@ using namespace glm;
 using namespace std;
 
 #include "player/player.h"
-#include "rooms/object.h"
+#include "object/object.h"
 
 class Painting
 {

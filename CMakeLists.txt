@@ -110,6 +110,9 @@ add_executable(art_gallery
   common/texture.cpp
   common/texture.h
 
+  src/components/object/object.h
+  src/components/object/object.cpp
+  
   src/components/rooms/room.h
   src/components/rooms/room.cpp
   src/components/rooms/floor.h

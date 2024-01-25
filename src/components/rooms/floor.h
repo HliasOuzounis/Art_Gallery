@@ -10,7 +10,7 @@
 using namespace glm;
 using namespace std;
 
-#include "object.h"
+#include "object/object.h"
 
 class Floor
 {
