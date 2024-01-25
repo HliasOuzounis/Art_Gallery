@@ -21,6 +21,7 @@ public:
     bool visible = true;
     Object *frame;
     Material material;
+    Texture texture;
     bool useTexture = false;
 
     vec3 boundingBox[8] = {
@@ -42,31 +43,45 @@ public:
         }
         this->drawable = new Drawable(vertices, VEC_VEC2_DEFAUTL_VALUE, normals);
     }
-    void draw(GLuint modelMatrixLocation){
-        if (!visible)
-            return;
-        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-
-        drawable->bind();
-        drawable->draw();
-
-        frame->draw(modelMatrixLocation);
-    }
-    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation){
+    void draw(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
+    {
         if (!visible)
             return;
 
-        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+        if (useTexture)
+        {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, texture.diffuse);
 
-        glUniform4fv(materialLocation[0], 1, &material.ambient[0]);
-        glUniform4fv(materialLocation[1], 1, &material.diffuse[0]);
-        glUniform4fv(materialLocation[2], 1, &material.specular[0]);
-        glUniform1f(materialLocation[3], material.shininess);
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, texture.specular);
+
+            glUniform1i(useTextureLocation, 1);
+        }
+        else
+        {
+            glUniform4fv(materialLocation[0], 1, &material.ambient[0]);
+            glUniform4fv(materialLocation[1], 1, &material.diffuse[0]);
+            glUniform4fv(materialLocation[2], 1, &material.specular[0]);
+            glUniform1f(materialLocation[3], material.shininess);
+        }
 
         drawable->bind();
+        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
         drawable->draw();
 
+        glUniform1i(useTextureLocation, 0);
         frame->draw(modelMatrixLocation, materialLocation, useTextureLocation);
+    }
+
+    void draw(GLuint modelMatrixLocation)
+    {
+        if (!visible)
+            return;
+        drawable->bind();
+        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+        drawable->draw();
+        frame->draw(modelMatrixLocation);
     }
 
     bool checkCollision(Player *player);

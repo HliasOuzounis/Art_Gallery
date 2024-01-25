@@ -47,6 +47,8 @@ void free();
 #define SHADOW_WIDTH 1024
 #define SHADOW_HEIGHT 1024
 
+#define PAINTINGS 5
+
 // Global variables
 GLuint shaderProgram, ModelMatrixLocation, ViewMatrixLocation, ProjectionMatrixLocation,
     materialLocation[4], useTextureLocation, viewPosLocation;
@@ -62,13 +64,18 @@ GLuint depthMapFBO, depthCubeMap;
 
 void displayScene(GLuint texture);
 Drawable *quad;
-GLuint postProcessingProgram[6], quadTextureSamplerLocation[6];
+GLuint postProcessingProgram[PAINTINGS + 1], quadTextureSamplerLocation[PAINTINGS + 1];
+
+void createPaintingTextures();
+GLuint paintingTexturesFBO;
+GLuint paintingTextures[PAINTINGS];
+GLuint paintingsDepthMap[PAINTINGS];
 
 void applyFloydSteinbergDithering(GLuint texture, int colors);
 GLuint imagePixels[W_WIDTH * W_HEIGHT];
 int pixelError[W_HEIGHT][W_WIDTH][3];
 
-void applyBrushStroke(GLuint texture);
+void applyPainterlyEffect(GLuint texture);
 void regionColoring();
 void edgeDetection();
 void changeColor(int x, int deltaX, int i, int y, int deltaY, int j, int b1);
@@ -77,8 +84,10 @@ int brushColors[W_HEIGHT][W_WIDTH][3];
 int borders[W_HEIGHT][W_WIDTH];
 void dfs(int startX, int startY, int color);
 
+GLuint pointsTexture;
+
 Room *currentRoom;
-Room *rooms[6];
+Room *rooms[PAINTINGS + 1];
 MainRoom *mainRoom;
 vector<Painting *> paintings;
 Player *player = new Player();
@@ -112,7 +121,6 @@ void createSceneBuffer()
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W_WIDTH, W_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
 
     // attach it to currently bound framebuffer object
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
@@ -180,23 +188,27 @@ void createDepthBuffer()
 
 void createFinalScene()
 {
-    // postProcessingProgram[MAINROOM] = loadShaders("src/shaders/image_processing/main_room.vertex.glsl",
-    //                                               "src/shaders/image_processing/main_room.frag.glsl");
-    testTexture = loadSOIL("test_texture.png");
+    postProcessingProgram[MAINROOM] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                                  "src/shaders/image_processing/main_room.frag.glsl");
 
     for (int i = 0; i < 6; i++)
     {
         postProcessingProgram[i] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/pointilism.frag.glsl");
+                                               "src/shaders/image_processing/main_room.frag.glsl");
         quadTextureSamplerLocation[i] = glGetUniformLocation(postProcessingProgram[i], "screenTexture");
     }
+
+    pointsTexture = loadSOIL("src/shaders/image_processing/pointillism.png");
+
     postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/floyd-steinberg.frag.glsl");
+    postProcessingProgram[ROOM2] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/painterly.frag.glsl");
     postProcessingProgram[ROOM4] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/toon.frag.glsl");
     postProcessingProgram[ROOM5] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/chromatic_aberration.frag.glsl");
-
+    // exit(0);
     vector<vec3> quadVertices = {
         vec3(-1.0f, 1.0f, 0.0f),  // top left
         vec3(-1.0f, -1.0f, 0.0f), // bottom left
@@ -268,9 +280,7 @@ void createContext()
         std::cerr << "Error in shader creation" << std::endl;
     }
 
-    int numPaintings = 5,
-        wallPoints = 50;
-
+    int wallPoints = 50;
     float mainRoomRadius = 10.0f,
           mainRoomHeight = 8.5f;
 
@@ -280,7 +290,7 @@ void createContext()
 
     rooms[0] = new MainRoom(mainRoomHeight, mainRoomRadius, wallPoints);
     Room *secondaryRoom = new SecondaryRoom(SecondaryRoomHeight, SecondaryRoomWidth, SecondaryRoomDepth);
-    for (int i = 1; i < numPaintings + 1; i++)
+    for (int i = 1; i < PAINTINGS + 1; i++)
     {
         rooms[i] = secondaryRoom;
     }
@@ -289,7 +299,7 @@ void createContext()
     float paintingHeight = 6.0f,
           paintingWidth = 4.5f,
           paintingYpos = 3.75f;
-    paintings = createPaintings(numPaintings, paintingHeight, paintingWidth, paintingYpos, mainRoomRadius);
+    paintings = createPaintings(PAINTINGS, paintingHeight, paintingWidth, paintingYpos, mainRoomRadius);
     light = new Light(vec3(0, 0, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
     change_room();
 
@@ -302,7 +312,42 @@ void createContext()
     // --- postProcessingProgram ---
     createFinalScene();
 
+    // --- painting textures ---
+    createPaintingTextures();
+
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void createPaintingTextures()
+{
+    for (int i = 0; i < PAINTINGS; i++)
+    {
+        glGenTextures(1, &paintingTextures[i]);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W_WIDTH, W_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glBindTexture(GL_TEXTURE_2D, paintingTextures[i]);
+        gameState = GameState(i + 1);
+        change_room();
+
+        camera->position = player->position + vec3(0, player->height, 0);
+        camera->update();
+
+        depth_pass(light);
+        light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
+
+        // copy textureColorbuffer to paintingTextures[i]
+        glBindTexture(GL_TEXTURE_2D, paintingTextures[i]);
+        glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, W_WIDTH, W_HEIGHT, 0);
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        paintings[i]->texture.diffuse = paintingTextures[i];
+        paintings[i]->useTexture = true;
+    }
+    gameState = MAINROOM;
+    change_room();
 }
 
 void free()
@@ -343,6 +388,8 @@ void mainLoop()
 
         depth_pass(light);
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
+
+        displayScene(textureColorbuffer);
 
         change_state();
         glfwSwapBuffers(window);
@@ -393,7 +440,6 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
         std::cerr << "OpenGL error: " << error << std::endl;
         std::cerr << "Error in light pass" << std::endl;
     }
-    displayScene(textureColorbuffer);
 }
 
 void depth_pass(Light *light)
@@ -426,7 +472,7 @@ void displayScene(GLuint texture)
 {
     glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_2D, texture);
-    
+
     // time how long this function takes
     if (gameState == ROOM1)
     {
@@ -437,9 +483,11 @@ void displayScene(GLuint texture)
     if (gameState == ROOM2)
     {
         auto start = std::chrono::high_resolution_clock::now();
-        applyBrushStroke(texture);
+        applyPainterlyEffect(texture);
         cout << "Time to apply Painterly: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
     }
+    glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_2D, pointsTexture);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, W_WIDTH, W_HEIGHT);
@@ -455,6 +503,7 @@ void displayScene(GLuint texture)
         glUniform1f(timeLocation, (float)glfwGetTime());
     }
     glUniform1i(quadTextureSamplerLocation[gameState], 3);
+    glUniform1i(glGetUniformLocation(postProcessingProgram[gameState], "pointsTexture"), 4);
     quad->bind();
     quad->draw();
 
@@ -530,7 +579,7 @@ void applyFloydSteinbergDithering(GLuint texture, int colors)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, W_WIDTH, W_HEIGHT, 0, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, imagePixels);
 }
 
-void applyBrushStroke(GLuint texture)
+void applyPainterlyEffect(GLuint texture)
 {
     // https://arxiv.org/pdf/0911.4874.pdf
 
@@ -538,7 +587,6 @@ void applyBrushStroke(GLuint texture)
     // pixel is of the form 0xAARRGGBB
 
     srand(imagePixels[0] + imagePixels[W_WIDTH * W_HEIGHT - 1] + imagePixels[W_WIDTH * W_HEIGHT / 2]);
-
 
     for (int y = 0; y < W_HEIGHT; y++)
     {
@@ -557,7 +605,7 @@ void applyBrushStroke(GLuint texture)
 
     regionColoring();
     //*/
-    
+
     static int sMax = 32;
     static int sMin = 8;
     static int delta = sMin >> 2;
@@ -604,7 +652,7 @@ void applyBrushStroke(GLuint texture)
                     d1 = lambda[1];
                     d2 = lambda[1];
                 }
-                
+
                 for (int i = -d1; i <= d1; i++)
                 {
                     for (int j = -d2; j <= d2; j++)
@@ -668,7 +716,8 @@ void edgeDetection()
                     {
                         continue;
                     }
-                    for (int c = 0; c < 3; c++){
+                    for (int c = 0; c < 3; c++)
+                    {
                         sobelXValue += brushColors[h][w][c] * sobelX[k + 1][l + 1];
                         sobelYValue += brushColors[h][w][c] * sobelY[k + 1][l + 1];
                     }
@@ -737,7 +786,7 @@ void dfs(int startX, int startY, int color)
         {
             int w = x + dx[i];
             int h = y + dy[i];
-            
+
             if (w >= 0 && w < W_WIDTH && h >= 0 && h < W_HEIGHT && borders[h][w] == 0)
             {
                 stack.push(std::make_pair(w, h));
@@ -754,13 +803,7 @@ void change_state()
         player->position = vec3(0, 0, 0.0);
         camera->horizontalAngle = 0.0f;
         camera->verticalAngle = 0.0f;
-
-        for (auto &painting : paintings)
-        {
-            painting->modelMatrix = painting->mainRoomModelMatrix;
-            painting->update_frame_model_matrix();
-            painting->visible = true;
-        }
+        set_paintings_visibility();
         return;
     }
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
@@ -804,6 +847,12 @@ void set_paintings_visibility()
 {
     if (gameState == MAINROOM)
     {
+        for (auto &painting : paintings)
+        {
+            painting->modelMatrix = painting->mainRoomModelMatrix;
+            painting->update_frame_model_matrix();
+            painting->visible = true;
+        }
         return;
     }
     for (auto &painting : paintings)

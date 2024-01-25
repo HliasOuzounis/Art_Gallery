@@ -96,7 +96,7 @@ vec4 phong(float visibility){
 
     vec3 viewDir = normalize(viewPos - vertex_position_worldspace);
     vec3 halfwayDir = normalize(lightDir + viewDir);
-    vec4 Is = pow(max(dot(vertex_normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
+    vec4 Is = pow(max(dot(vertex_normal, halfwayDir), 0.0), Ns) * Ks * light.Ls * 0.5;
 
     vec4 finalColor = Ia + (Id + Is) * visibility;
     finalColor.a = 1;
