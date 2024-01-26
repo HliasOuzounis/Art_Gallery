@@ -154,6 +154,8 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
         "src/textures/walls/blue_walls_specular.png"};
     this->useTexture = true;
 
+    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 100.0f, 10.0f);
+
     addFloor();
     addCeiling();
 }

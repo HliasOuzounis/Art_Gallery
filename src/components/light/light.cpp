@@ -80,7 +80,7 @@ void Light::upload_to_shaders(GLuint shaderProgram)
         exit(EXIT_FAILURE);
     }
     glUniform1f(farPlaneLocation, farPlane);
-    /*/
+    
     GLuint lightIntensityLocation = glGetUniformLocation(shaderProgram, "light.lightIntensity");
     if (lightIntensityLocation == -1)
     {
@@ -88,7 +88,6 @@ void Light::upload_to_shaders(GLuint shaderProgram)
         exit(EXIT_FAILURE);
     }
     glUniform1f(lightIntensityLocation, intensity);
-    //*/
 }
 
 void Light::upload_depth_shader(GLuint shaderProgram)

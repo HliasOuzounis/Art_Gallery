@@ -64,6 +64,8 @@ MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
         vec4(0.1, 0.1, 0.1, 1.0),
         1.0};
 
+    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 500.0f, 10.0f);
+
     addFloor();
     addCeiling();
 };
@@ -76,7 +78,7 @@ void MainRoom::addFloor()
     floor->texture = {
         "src/textures/floor/wood_floor_diffuse.png",
         "src/textures/floor/wood_floor_specular.png"};
-        floor->useTexture = true;
+    floor->useTexture = true;
 
     subObjects.push_back(floor);
 }

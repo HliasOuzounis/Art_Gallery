@@ -11,7 +11,7 @@ struct Light {
     vec4 Ld;
     vec4 Ls;
     float farPlane;
-    // float lightIntensity;
+    float lightIntensity;
 };
 uniform Light light;
 
@@ -82,7 +82,7 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, vertex_UV);
         Ks = texture(specularColorSampler, vertex_UV);
-        Ns = 50;
+        Ns = 25;
     } else {
         Ks = material.Ks;
         Kd = material.Kd;
@@ -98,7 +98,9 @@ vec4 phong(float visibility){
     vec3 halfwayDir = normalize(lightDir + viewDir);
     vec4 Is = pow(max(dot(vertex_normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
 
-    vec4 finalColor = Ia + (Id + Is) * visibility;
+    float attenuation = 1.0 / (1.0 + pow(length(light.lightPos - vertex_position_worldspace), 2) / light.lightIntensity);
+
+    vec4 finalColor = Ia + (Id + Is) * visibility * attenuation;
     finalColor.a = 1;
     return finalColor;
 }

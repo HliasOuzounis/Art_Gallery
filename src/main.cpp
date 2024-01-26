@@ -38,7 +38,7 @@ using namespace glm;
 void initialize();
 void createContext();
 void mainLoop();
-void depth_pass(Light *);
+void depth_pass();
 void light_pass(mat4, mat4, vec3);
 void free();
 
@@ -93,7 +93,6 @@ Room *rooms[PAINTINGS + 1];
 MainRoom *mainRoom;
 vector<Painting *> paintings;
 Player *player = new Player();
-Light *light;
 
 GLuint testTexture;
 
@@ -302,7 +301,6 @@ void createContext()
           paintingWidth = 4.5f,
           paintingYpos = 3.75f;
     paintings = createPaintings(PAINTINGS, paintingHeight, paintingWidth, paintingYpos, mainRoomRadius);
-    light = new Light(vec3(0, 0, 0), vec4(1, 1, 1, 1), 1.0f, 10.0f);
     change_room();
 
     // Create frame buffers
@@ -336,7 +334,7 @@ void createPaintingTextures()
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
-        depth_pass(light);
+        depth_pass();
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
         // copy textureColorbuffer to paintingTextures[i]
@@ -388,7 +386,7 @@ void mainLoop()
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
-        depth_pass(light);
+        depth_pass();
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
         displayScene(textureColorbuffer);
@@ -423,9 +421,9 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
     glUniform1i(glGetUniformLocation(shaderProgram, "specularColorSampler"), 1);
     glUniform1i(glGetUniformLocation(shaderProgram, "depthMap"), 2);
 
-    light->upload_to_shaders(shaderProgram);
+    currentRoom->light->upload_to_shaders(shaderProgram);
 
-    light->render(ModelMatrixLocation, materialLocation);
+    currentRoom->light->render(ModelMatrixLocation, materialLocation);
 
     // Draw currentRoom
     currentRoom->render(ModelMatrixLocation, materialLocation, useTextureLocation);
@@ -444,7 +442,7 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
     }
 }
 
-void depth_pass(Light *light)
+void depth_pass()
 {
     glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
@@ -453,7 +451,7 @@ void depth_pass(Light *light)
 
     glUseProgram(depthProgram);
 
-    light->upload_depth_shader(depthProgram);
+    currentRoom->light->upload_depth_shader(depthProgram);
 
     // ---- rendering the scene ---- //
     currentRoom->render(shadowModelLocation);
@@ -840,8 +838,6 @@ void change_room()
     player->position = vec3(0, 0, -rooms[gameState]->depth / 2 + 1);
     camera->horizontalAngle = -3.14f;
     camera->verticalAngle = 0.0f;
-    light->position = vec3(0, rooms[gameState]->height + light->light_displacement, 0);
-    light->update_shadow_transforms();
     set_paintings_visibility();
 }
 

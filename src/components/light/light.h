@@ -17,9 +17,9 @@ public:
     float intensity;
     float radius;
 
-    float nearPlane = 0.5f;
-    float farPlane = 30.0f;
-    float light_displacement = -1.0f;
+    static constexpr float nearPlane = 0.5f;
+    static constexpr float farPlane = 30.0f;
+    static constexpr float light_displacement = 1.0f;
     vec3 direction;
 
     mat4 projectionMatrix;
