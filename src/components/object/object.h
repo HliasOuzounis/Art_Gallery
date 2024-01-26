@@ -6,6 +6,8 @@
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <iostream>
+
 using namespace glm;
 using namespace std;
 
@@ -19,8 +21,22 @@ struct Material
 
 struct Texture
 {
-    GLuint diffuse = loadSOIL("src/textures/default.png");
-    GLuint specular = loadSOIL("src/textures/default.png");
+    GLuint diffuse;
+    GLuint specular;
+
+    // Constructor with default values
+    Texture()
+        : diffuse(loadSOIL("src/textures/default.png")),
+          specular(loadSOIL("src/textures/default.png"))
+    {
+    }
+
+    // Constructor with custom values
+    Texture(const char *diffusePath, const char *specularPath)
+        : diffuse(loadSOIL(diffusePath)),
+          specular(loadSOIL(specularPath))
+    {
+    }
 };
 
 class Object
@@ -31,7 +47,7 @@ public:
     vec3 rotation = vec3(0, 0, 0);
     vec3 scale = vec3(1, 1, 1);
     mat4 modelMatrix = mat4(1.0f);
-    
+
     Material material;
     Texture texture;
     bool useTexture = false;

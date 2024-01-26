@@ -116,6 +116,11 @@ add_executable(art_gallery
   src/components/rooms/room.h
   src/components/rooms/room.cpp
 
+  src/components/rooms/main_room.h
+  src/components/rooms/main_room.cpp
+  src/components/rooms/secondary_room.h
+  src/components/rooms/secondary_room.cpp
+
   src/components/floor/floor.h
   src/components/floor/floor.cpp
 

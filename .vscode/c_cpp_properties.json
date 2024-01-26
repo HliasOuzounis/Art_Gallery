@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/src/components",
-                "${workspaceFolder}/external/glfw-3.2.1/include/GLFW"
+                "${workspaceFolder}/external/glfw-3.2.1/include/GLFW",
+                "${workspaceFolder}"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

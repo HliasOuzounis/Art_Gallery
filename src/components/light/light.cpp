@@ -25,6 +25,20 @@ Light::Light(vec3 position, vec4 color, float intensity, float radius)
     update_shadow_transforms();
 }
 
+void Light::render(GLuint modelMatrixLocation, GLuint materialLocation[4])
+{
+    drawable->bind();
+    modelMatrix = translate(mat4(), position) * scale(mat4(1.0f), vec3(0.1f));
+    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
+
+    glUniform4fv(materialLocation[0], 1, &color[0]);
+    glUniform4fv(materialLocation[1], 1, &color[0]);
+    glUniform4fv(materialLocation[2], 1, &color[0]);
+    glUniform1f(materialLocation[3], 1.0f);
+
+    drawable->draw();
+}
+
 void Light::upload_to_shaders(GLuint shaderProgram)
 {
     GLuint lightPosLocation = glGetUniformLocation(shaderProgram, "light.lightPos");

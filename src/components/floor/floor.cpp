@@ -44,7 +44,7 @@ Floor::Floor(float width, float depth, float height, bool isCeiling) : Floor(wid
 {
     if (isCeiling)
     {
-        this->rotateObject(vec3(1, 0, 1), 3.1415f);
+        this->rotateObject(vec3(0, 0, 1), 3.1415f);
     }
     this->translateObject(vec3(0, height, 0));
 }

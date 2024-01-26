@@ -25,6 +25,8 @@
 
 // extra helper functions
 #include "components/rooms/room.h"
+#include "components/rooms/main_room.h"
+#include "components/rooms/secondary_room.h"
 #include "components/paintings/paintings.h"
 #include "components/player/player.h"
 #include "components/light/light.h"

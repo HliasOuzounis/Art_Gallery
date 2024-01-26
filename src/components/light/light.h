@@ -1,3 +1,5 @@
+#pragma once
+
 #include <common/model.h>
 #include <glm/glm.hpp>
 #include <vector>
@@ -5,7 +7,7 @@
 using namespace glm;
 using namespace std;
 
-#pragma once
+#include "object/object.h"
 
 class Light
 {
@@ -32,17 +34,5 @@ public:
     void upload_depth_shader(GLuint shaderProgram);
     void update_shadow_transforms();
 
-    void render(GLuint modelMatrixLocation, GLuint materialLocation[4])
-    {
-        drawable->bind();
-        modelMatrix = translate(mat4(), position) * scale(mat4(1.0f), vec3(0.1f));
-        glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
-        
-        glUniform4fv(materialLocation[0], 1, &color[0]);
-        glUniform4fv(materialLocation[1], 1, &color[0]);
-        glUniform4fv(materialLocation[2], 1, &color[0]);
-        glUniform1f(materialLocation[3], 1.0f);
-
-        drawable->draw();
-    }
+    void render(GLuint modelMatrixLocation, GLuint materialLocation[4]);
 };
