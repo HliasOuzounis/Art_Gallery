@@ -1,4 +1,5 @@
 #include "object.h"
+#include "src/constants.h"
 
 #include <common/model.h>
 #include <common/texture.h>
@@ -42,10 +43,10 @@ void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLui
 {
     if (useTexture)
     {
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(DIFFUSE_TEXTURE);
         glBindTexture(GL_TEXTURE_2D, texture.diffuse);
 
-        glActiveTexture(GL_TEXTURE1);
+        glActiveTexture(SPECULAR_TEXTURE);
         glBindTexture(GL_TEXTURE_2D, texture.specular);
 
         glUniform1i(useTextureLocation, 1);
@@ -61,11 +62,12 @@ void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLui
     drawable->bind();
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
     drawable->draw();
+    
+    glUniform1i(useTextureLocation, 0);
 
     for (int i = 0; i < subObjects.size(); i++)
         subObjects[i]->render(modelMatrixLocation, materialLocation, useTextureLocation);
 
-    glUniform1i(useTextureLocation, 0);
 }
 
 void Object::render(GLuint modelMatrixLocation)

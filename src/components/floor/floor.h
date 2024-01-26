@@ -15,6 +15,6 @@ using namespace std;
 class Floor : public Object
 {
 public:
-    Floor(float width, float depth);
+    Floor();
     Floor(float width, float depth, float height, bool isCeiling);
 };

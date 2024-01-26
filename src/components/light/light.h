@@ -7,8 +7,6 @@
 using namespace glm;
 using namespace std;
 
-#include "object/object.h"
-
 class Light
 {
 public:

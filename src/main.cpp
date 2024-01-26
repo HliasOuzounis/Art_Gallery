@@ -46,15 +46,6 @@ void depth_pass();
 void light_pass(mat4, mat4, vec3);
 void free();
 
-#define W_WIDTH 1200
-#define W_HEIGHT 900
-#define TITLE "Art Gallery"
-
-#define SHADOW_WIDTH 1024
-#define SHADOW_HEIGHT 1024
-
-#define PAINTINGS 5
-
 // Global variables
 GLuint shaderProgram, modelMatrixLocation, viewMatrixLocation, projectionMatrixLocation,
     materialLocation[4], useTextureLocation, viewPosLocation;
@@ -93,12 +84,13 @@ enum GameState
     ROOM3,
     ROOM4,
     ROOM5,
+    ROOM6,
 };
 GameState gameState = MAINROOM;
 
 void change_state();
 void change_room();
-void set_paintings_visibility();
+void updatePaintingModelMatrix();
 
 void createSceneBuffer()
 {
@@ -178,18 +170,23 @@ void createDepthBuffer()
 
 void createFinalScene()
 {
-    postProcessingProgram[MAINROOM] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                                  "src/shaders/image_processing/main_room.frag.glsl");
-    postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/floyd-steinberg.frag.glsl");
-    postProcessingProgram[ROOM2] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/painterly.frag.glsl");
+    GLuint defaultShader = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                       "src/shaders/image_processing/default.frag.glsl");
+
+    postProcessingProgram[MAINROOM] = defaultShader;
+
+    postProcessingProgram[ROOM1] = defaultShader;
+
+    postProcessingProgram[ROOM2] = defaultShader;
+
     postProcessingProgram[ROOM3] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/fish_eye.frag.glsl");
     postProcessingProgram[ROOM4] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/toon.frag.glsl");
     postProcessingProgram[ROOM5] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/chromatic_aberration.frag.glsl");
+
+    postProcessingProgram[ROOM6] = defaultShader;
 
     vector<vec3> quadVertices = {
         vec3(-1.0f, 1.0f, 0.0f),  // top left
@@ -261,9 +258,9 @@ void createContext()
           SecondaryRoomDepth = 15.0f;
 
     rooms[0] = new MainRoom(mainRoomHeight, mainRoomRadius, wallPoints);
-    Room *secondaryRoom = new SecondaryRoom(SecondaryRoomHeight, SecondaryRoomWidth, SecondaryRoomDepth);
     for (int i = 1; i < PAINTINGS + 1; i++)
     {
+        Room *secondaryRoom = new SecondaryRoom(SecondaryRoomHeight, SecondaryRoomWidth, SecondaryRoomDepth);
         rooms[i] = secondaryRoom;
     }
     currentRoom = rooms[0];
@@ -271,8 +268,15 @@ void createContext()
     float paintingHeight = 6.0f,
           paintingWidth = 4.5f,
           paintingYpos = 3.75f;
-    paintings = createPaintings(PAINTINGS, paintingHeight, paintingWidth, paintingYpos, mainRoomRadius);
-    change_room();
+
+    float angleStep = 2 * M_PI / PAINTINGS;
+    for (int i = 0; i < PAINTINGS; i++)
+    {
+        Painting *painting = new Painting(paintingHeight, paintingWidth, paintingYpos, mainRoomRadius, angleStep * i);
+        paintings.push_back(painting);
+        rooms[0]->subObjects.push_back(painting);
+        rooms[i + 1]->subObjects.push_back(painting);
+    }
 
     // Create frame buffers
     createSceneBuffer();
@@ -347,12 +351,14 @@ void mainLoop()
 
         // camera
         player->move(window, deltaTime, camera->horizontalAngle);
+        //*/
         if (!currentRoom->isInside(player->position))
         {
             player->velocity = vec3(0, player->velocity.y, 0);
             player->position = player->prevPosition;
             player->updatePosition(camera->horizontalAngle, deltaTime);
         }
+        //*/
 
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
@@ -381,25 +387,19 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
 
     glUseProgram(shaderProgram);
 
-    glActiveTexture(GL_TEXTURE2);
+    glActiveTexture(DEPTH_TEXTURE);
     glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
 
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
     glUniform3fv(viewPosLocation, 1, &viewPos[0]);
 
-    glUniform1i(glGetUniformLocation(shaderProgram, "diffuseColorSampler"), 0);
-    glUniform1i(glGetUniformLocation(shaderProgram, "specularColorSampler"), 1);
-    glUniform1i(glGetUniformLocation(shaderProgram, "depthMap"), 2);
+    glUniform1i(glGetUniformLocation(shaderProgram, "diffuseColorSampler"), DIFFUSE_TEXTURE_LOCATION);
+    glUniform1i(glGetUniformLocation(shaderProgram, "specularColorSampler"), SPECULAR_TEXTURE_LOCATION);
+    glUniform1i(glGetUniformLocation(shaderProgram, "depthMap"), DEPTH_TEXTURE_LOCATION);
 
     // Draw currentRoom
     currentRoom->render(shaderProgram, modelMatrixLocation, materialLocation, useTextureLocation);
-
-    // Draw paintings
-    for (auto &painting : paintings)
-    {
-        painting->render(modelMatrixLocation, materialLocation, useTextureLocation);
-    }
 
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)
@@ -421,10 +421,6 @@ void depth_pass()
     // ---- render the scene ---- //
     currentRoom->render(depthProgram, shadowModelLocation);
 
-    for (auto &painting : paintings)
-    {
-        painting->render(shadowModelLocation);
-    }
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)
     {
@@ -435,7 +431,7 @@ void depth_pass()
 
 void displayScene(GLuint texture)
 {
-    glActiveTexture(GL_TEXTURE3);
+    glActiveTexture(DIFFUSE_TEXTURE);
     glBindTexture(GL_TEXTURE_2D, texture);
 
     // time how long this function takes
@@ -466,8 +462,7 @@ void displayScene(GLuint texture)
         GLuint timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
         glUniform1f(timeLocation, (float)glfwGetTime());
     }
-    glUniform1i(quadTextureSamplerLocation[gameState], 3);
-    glUniform1i(glGetUniformLocation(postProcessingProgram[gameState], "pointsTexture"), 4);
+    glUniform1i(quadTextureSamplerLocation[gameState], DIFFUSE_TEXTURE_LOCATION);
     quad->bind();
     quad->draw();
 
@@ -488,7 +483,11 @@ void change_state()
         player->position = vec3(0, 0, 0.0);
         camera->horizontalAngle = 0.0f;
         camera->verticalAngle = 0.0f;
-        set_paintings_visibility();
+        for (auto &painting : paintings)
+        {
+            painting->modelMatrix = painting->mainRoomModelMatrix;
+            painting->update_frame_model_matrix();
+        }
         return;
     }
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
@@ -516,6 +515,11 @@ void change_state()
         gameState = ROOM5;
         change_room();
     }
+    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+    {
+        gameState = ROOM6;
+        change_room();
+    }
 }
 
 void change_room()
@@ -523,27 +527,8 @@ void change_room()
     player->position = vec3(0, 0, -rooms[gameState]->depth / 2 + 1);
     camera->horizontalAngle = -3.14f;
     camera->verticalAngle = 0.0f;
-    set_paintings_visibility();
-}
-
-void set_paintings_visibility()
-{
-    if (gameState == MAINROOM)
-    {
-        for (auto &painting : paintings)
-        {
-            painting->modelMatrix = painting->mainRoomModelMatrix;
-            painting->update_frame_model_matrix();
-            painting->visible = true;
-        }
-        return;
-    }
-    for (auto &painting : paintings)
-    {
-        painting->visible = false;
-    }
-    paintings[gameState - 1]->visible = true;
-    paintings[gameState - 1]->modelMatrix = translate(mat4(1.0f), vec3(0, rooms[gameState]->height / 2, -rooms[gameState]->depth / 2 + 0.1));
+    paintings[gameState - 1]->modelMatrix = paintings[gameState - 1]->secondaryRoomModelMatrix *
+                                            translate(mat4(1.0f), vec3(0, 0, -rooms[gameState]->depth / 2 + 0.1));
     paintings[gameState - 1]->update_frame_model_matrix();
 }
 

@@ -1,6 +1,5 @@
 #include "main_room.h"
 
-#define PI 3.14159265
 
 MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
 {
@@ -12,8 +11,8 @@ MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
     vector<vec3> vertices;
     for (int i = 0; i < points; i++)
     {
-        float angle = i * 2 * PI / points;
-        float next_angle = (i + 1) * 2 * PI / points;
+        float angle = i * 2 * M_PI / points;
+        float next_angle = (i + 1) * 2 * M_PI / points;
 
         vec3 point1 = vec3(radius * cos(angle), 0, radius * sin(angle)),
              point2 = vec3(radius * cos(next_angle), 0, radius * sin(next_angle)),
@@ -68,7 +67,6 @@ MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
 
     addFloor();
     addCeiling();
-
     addLightBulb();
 };
 

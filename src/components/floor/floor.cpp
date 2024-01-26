@@ -2,12 +2,12 @@
 
 #include "object/object.h"
 
-Floor::Floor(float width, float depth)
+Floor::Floor()
 {
-    vec3 point1 = vec3(-width, 0, depth);
-    vec3 point2 = vec3(-width, 0, -depth);
-    vec3 point3 = vec3(width, 0, depth);
-    vec3 point4 = vec3(width, 0, -depth);
+    vec3 point1 = vec3(-1, 0, 1);
+    vec3 point2 = vec3(-1, 0, -1);
+    vec3 point3 = vec3(1, 0, 1);
+    vec3 point4 = vec3(1, 0, -1);
 
     vec3 normal = vec3(0, 1, 0);
 
@@ -40,11 +40,12 @@ Floor::Floor(float width, float depth)
         1.0f};
 }
 
-Floor::Floor(float width, float depth, float height, bool isCeiling) : Floor(width, depth)
-{
+Floor::Floor(float width, float depth, float height, bool isCeiling) : Floor()
+{   
+    this->scaleObject(vec3(width, 1, depth));
+
     if (isCeiling)
-    {
         this->rotateObject(vec3(0, 0, 1), 3.1415f);
-    }
+        
     this->translateObject(vec3(0, height, 0));
 }

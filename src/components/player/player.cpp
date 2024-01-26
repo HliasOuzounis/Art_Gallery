@@ -2,7 +2,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
-#define PI 3.14159265f
 #include <iostream>
 
 using namespace glm;
