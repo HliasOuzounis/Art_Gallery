@@ -98,6 +98,7 @@ add_definitions(
 # source files
 add_executable(art_gallery
   src/main.cpp
+  src/constants.h
 
   common/util.cpp
   common/util.h
@@ -132,6 +133,11 @@ add_executable(art_gallery
 
   src/components/light/light.h
   src/components/light/light.cpp
+
+  src/post_processing/floyd_steinberg.h
+  src/post_processing/floyd_steinberg.cpp
+  src/post_processing/painterly.h
+  src/post_processing/painterly.cpp
   )
   
 target_link_libraries(art_gallery

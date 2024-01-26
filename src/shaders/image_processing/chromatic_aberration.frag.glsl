@@ -8,7 +8,6 @@ uniform float time;
 out vec4 fragmentColor;
 
 float periodicFunction(float time) {
-    // Adjust the frequency and amplitude as needed
     float frequency = 0.2;
     float amplitude = 0.03;
 
@@ -33,7 +32,7 @@ void main()
 
     // Apply chromatic aberration
     color.r = texture(screenTexture, vertexUV + vec2(aberrationAmount + periodicFunction(time), periodicFunction(-time * 2))).r;
-    color.g = texture(screenTexture, vertexUV + vec2(periodicFunction(time), periodicFunction(time))).g;
+    color.g = texture(screenTexture, vertexUV + vec2(periodicFunction(time * 0.5), periodicFunction(-time * 0.5))).g;
     color.b = texture(screenTexture, vertexUV - vec2(aberrationAmount + periodicFunction(-time * 1.5), periodicFunction(time))).b;
 
     fragmentColor = vec4(color, 1.0);
