@@ -26,9 +26,6 @@ public:
     mat4 viewMatrix;
     mat4 shadowTransforms[6];
 
-    Drawable *drawable;
-    mat4 modelMatrix = mat4(1.0f);
-
     Light(vec3 position, vec4 color, float intensity, float radius);
     void upload_to_shaders(GLuint shaderProgram);
     void upload_depth_shader(GLuint shaderProgram);

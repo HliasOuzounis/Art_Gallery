@@ -52,7 +52,7 @@ void free();
 #define PAINTINGS 5
 
 // Global variables
-GLuint shaderProgram, ModelMatrixLocation, ViewMatrixLocation, ProjectionMatrixLocation,
+GLuint shaderProgram, modelMatrixLocation, viewMatrixLocation, projectionMatrixLocation,
     materialLocation[4], useTextureLocation, viewPosLocation;
 
 GLuint sceneFBO, textureColorbuffer, rbo;
@@ -191,25 +191,24 @@ void createFinalScene()
 {
     postProcessingProgram[MAINROOM] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                   "src/shaders/image_processing/main_room.frag.glsl");
-
-    for (int i = 0; i < 6; i++)
-    {
-        postProcessingProgram[i] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/main_room.frag.glsl");
-        quadTextureSamplerLocation[i] = glGetUniformLocation(postProcessingProgram[i], "screenTexture");
-    }
-
-    pointsTexture = loadSOIL("src/textures/pointillism.png");
-
     postProcessingProgram[ROOM1] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/floyd-steinberg.frag.glsl");
     postProcessingProgram[ROOM2] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/painterly.frag.glsl");
+    postProcessingProgram[ROOM3] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/fish_eye.frag.glsl");
     postProcessingProgram[ROOM4] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/toon.frag.glsl");
     postProcessingProgram[ROOM5] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/chromatic_aberration.frag.glsl");
-    // exit(0);
+
+    for (int i = 0; i <= PAINTINGS; i++)
+    {
+        postProcessingProgram[i] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/fish_eye.frag.glsl");
+        quadTextureSamplerLocation[i] = glGetUniformLocation(postProcessingProgram[i], "screenTexture");
+    }
+
     vector<vec3> quadVertices = {
         vec3(-1.0f, 1.0f, 0.0f),  // top left
         vec3(-1.0f, -1.0f, 0.0f), // bottom left
@@ -259,9 +258,9 @@ void createContext()
                                "src/shaders/depth_pass/depth_geometry.glsl");
 
     // Find uniforms
-    ModelMatrixLocation = glGetUniformLocation(shaderProgram, "M");
-    ViewMatrixLocation = glGetUniformLocation(shaderProgram, "V");
-    ProjectionMatrixLocation = glGetUniformLocation(shaderProgram, "P");
+    modelMatrixLocation = glGetUniformLocation(shaderProgram, "M");
+    viewMatrixLocation = glGetUniformLocation(shaderProgram, "V");
+    projectionMatrixLocation = glGetUniformLocation(shaderProgram, "P");
     materialLocation[0] = glGetUniformLocation(shaderProgram, "material.Ka");
     materialLocation[1] = glGetUniformLocation(shaderProgram, "material.Kd");
     materialLocation[2] = glGetUniformLocation(shaderProgram, "material.Ks");
@@ -413,25 +412,21 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
 
-    glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
-    glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
+    glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
+    glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
     glUniform3fv(viewPosLocation, 1, &viewPos[0]);
 
     glUniform1i(glGetUniformLocation(shaderProgram, "diffuseColorSampler"), 0);
     glUniform1i(glGetUniformLocation(shaderProgram, "specularColorSampler"), 1);
     glUniform1i(glGetUniformLocation(shaderProgram, "depthMap"), 2);
 
-    currentRoom->light->upload_to_shaders(shaderProgram);
-
-    currentRoom->light->render(ModelMatrixLocation, materialLocation);
-
     // Draw currentRoom
-    currentRoom->render(ModelMatrixLocation, materialLocation, useTextureLocation);
+    currentRoom->render(shaderProgram, modelMatrixLocation, materialLocation, useTextureLocation);
 
     // Draw paintings
     for (auto &painting : paintings)
     {
-        painting->render(ModelMatrixLocation, materialLocation, useTextureLocation);
+        painting->render(modelMatrixLocation, materialLocation, useTextureLocation);
     }
 
     GLenum error = glGetError();
@@ -451,10 +446,8 @@ void depth_pass()
 
     glUseProgram(depthProgram);
 
-    currentRoom->light->upload_depth_shader(depthProgram);
-
-    // ---- rendering the scene ---- //
-    currentRoom->render(shadowModelLocation);
+    // ---- render the scene ---- //
+    currentRoom->render(depthProgram, shadowModelLocation);
 
     for (auto &painting : paintings)
     {

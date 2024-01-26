@@ -68,6 +68,8 @@ MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
 
     addFloor();
     addCeiling();
+
+    addLightBulb();
 };
 
 void MainRoom::addFloor()

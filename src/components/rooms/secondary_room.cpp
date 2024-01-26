@@ -158,6 +158,7 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
 
     addFloor();
     addCeiling();
+    addLightBulb();
 }
 
 void SecondaryRoom::addFloor()

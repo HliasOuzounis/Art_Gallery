@@ -15,6 +15,7 @@ using namespace std;
 class Room : public Object
 {
 public:
+    using Object::render;
 
     float height;
     float depth;
@@ -25,4 +26,9 @@ public:
     virtual bool isInside(vec3 position) { return false; }
     virtual void addFloor(){};
     virtual void addCeiling(){};
+
+    void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation);
+    void render(GLuint depthShader, GLuint modelMatrixLocation);
+
+    void addLightBulb();
 };
