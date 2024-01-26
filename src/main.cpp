@@ -1,5 +1,4 @@
 #include <chrono>
-#include <stack>
 
 // Include C++ headers
 #include <iostream>
@@ -77,18 +76,6 @@ void createPaintingTextures();
 GLuint paintingTexturesFBO;
 GLuint paintingTextures[PAINTINGS];
 GLuint paintingsDepthMap[PAINTINGS];
-
-void applyPainterlyEffect(GLuint texture);
-void regionColoring();
-void edgeDetection();
-void changeColor(int x, int deltaX, int i, int y, int deltaY, int j, int b1);
-GLuint imagePixels[W_WIDTH * W_HEIGHT];
-GLuint brushPixels[W_WIDTH * W_HEIGHT];
-int brushColors[W_HEIGHT][W_WIDTH][3];
-int borders[W_HEIGHT][W_WIDTH];
-void dfs(int startX, int startY, int color);
-
-GLuint pointsTexture;
 
 Room *currentRoom;
 Room *rooms[PAINTINGS + 1];
