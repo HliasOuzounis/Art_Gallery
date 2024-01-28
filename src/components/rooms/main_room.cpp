@@ -76,8 +76,8 @@ void MainRoom::addFloor()
     Floor *floor = new Floor(radius, radius, 0, false);
 
     floor->texture = {
-        "src/textures/floor/wood_floor_diffuse.png",
-        "src/textures/floor/wood_floor_specular.png"};
+        "src/assets/textures/floor/wood_floor_diffuse.png",
+        "src/assets/textures/floor/wood_floor_specular.png"};
     floor->useTexture = true;
 
     subObjects.push_back(floor);

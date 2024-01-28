@@ -19,7 +19,7 @@ void Room::render(GLuint depthShader, GLuint modelMatrixLocation)
 
 void Room::addLightBulb()
 {
-    Drawable *lightBulb = new Drawable("src/models/sphere.obj");
+    Drawable *lightBulb = new Drawable("src/assets/models/sphere.obj");
     vector<vec3> normals;
     for (auto &n : lightBulb->normals)
         normals.push_back(-n);

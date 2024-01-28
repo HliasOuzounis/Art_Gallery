@@ -150,8 +150,8 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     this->drawable = new Drawable(vertices, uvs, normals);
 
     this->texture = {
-        "src/textures/walls/blue_walls_diffuse.png",
-        "src/textures/walls/blue_walls_specular.png"};
+        "src/assets/textures/walls/blue_walls_diffuse.png",
+        "src/assets/textures/walls/blue_walls_specular.png"};
     this->useTexture = true;
 
     this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 150.0f, 10.0f);
@@ -166,8 +166,8 @@ void SecondaryRoom::addFloor()
     Floor *floor = new Floor(width / 2, depth / 2, 0, false);
 
     floor->texture = {
-        "src/textures/floor/damaged_wood_diffuse.png",
-        "src/textures/floor/damaged_wood_specular.png"};
+        "src/assets/textures/floor/damaged_wood_diffuse.png",
+        "src/assets/textures/floor/damaged_wood_specular.png"};
     floor->useTexture = true;
 
     subObjects.push_back(floor);

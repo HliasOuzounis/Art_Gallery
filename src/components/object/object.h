@@ -26,8 +26,8 @@ struct Texture
 
     // Constructor with default values
     Texture()
-        : diffuse(loadSOIL("src/textures/default.png")),
-          specular(loadSOIL("src/textures/default.png"))
+        : diffuse(loadSOIL("src/assets/textures/default.png")),
+          specular(loadSOIL("src/assets/textures/default.png"))
     {
     }
 
