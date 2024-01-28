@@ -143,6 +143,8 @@ add_executable(art_gallery
   src/FBOs/sceneFBO/sceneFBO.cpp
   src/FBOs/depthFBO/depthFBO.h
   src/FBOs/depthFBO/depthFBO.cpp
+  src/FBOs/paintingsFBO/paintingsFBO.h
+  src/FBOs/paintingsFBO/paintingsFBO.cpp
   )
   
 target_link_libraries(art_gallery

@@ -37,6 +37,7 @@
 
 #include "FBOs/sceneFBO/sceneFBO.h"
 #include "FBOs/depthFBO/depthFBO.h"
+#include "FBOs/paintingsFBO/paintingsFBO.h"
 
 using namespace std;
 using namespace glm;
@@ -105,14 +106,15 @@ void createFinalScene()
 
     postProcessingProgram[ROOM2] = defaultShader;
 
-    postProcessingProgram[ROOM3] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/fish_eye.frag.glsl");
+    postProcessingProgram[ROOM3] = defaultShader;
+
     postProcessingProgram[ROOM4] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/toon.frag.glsl");
+                                               "src/shaders/image_processing/fish_eye.frag.glsl");
     postProcessingProgram[ROOM5] = loadShaders("src/shaders/image_processing/vertex.glsl",
+                                               "src/shaders/image_processing/toon.frag.glsl");
+    postProcessingProgram[ROOM6] = loadShaders("src/shaders/image_processing/vertex.glsl",
                                                "src/shaders/image_processing/chromatic_aberration.frag.glsl");
 
-    postProcessingProgram[ROOM6] = defaultShader;
 
     vector<vec3> quadVertices = {
         vec3(-1.0f, 1.0f, 0.0f),  // top left
@@ -214,37 +216,58 @@ void createContext()
     createFinalScene();
 
     // --- painting textures ---
-    // createPaintingTextures();
+    createPaintingTextures();
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void createPaintingTextures()
 {
+    PaintingsFBO *paintingsFBO = new PaintingsFBO();
     for (int i = 0; i < PAINTINGS; i++)
-    {
-        glGenTextures(1, &paintingTextures[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W_WIDTH, W_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    {   
+        GLuint paintingTexture;
+        paintingsFBO->addTexture(paintingTexture);
 
-        glBindTexture(GL_TEXTURE_2D, paintingTextures[i]);
         gameState = GameState(i + 1);
         change_room();
-
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
+
 
         depth_pass();
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
-        // copy textureColorbuffer to paintingTextures[i]
-        glBindTexture(GL_TEXTURE_2D, paintingTextures[i]);
-        glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, W_WIDTH, W_HEIGHT, 0);
+        glUseProgram(postProcessingProgram[gameState]);
+        
+        glActiveTexture(DIFFUSE_TEXTURE);
+        glBindTexture(GL_TEXTURE_2D, sceneFBO->colorTexture);
+        
+        GLuint timeLocation;
+        const int colors = 2;
+        switch (gameState)
+        {
+        case ROOM2:
+            FloydSteinbergDithering::applyDithering(colors);
+            break;
+        case ROOM3:
+            Painterly::applyPainterly();
+            break;
+        case ROOM6:
+            timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
+            glUniform1f(timeLocation, (float)glfwGetTime());
+            break;
+        default:
+            break;
+        }
 
-        glBindTexture(GL_TEXTURE_2D, 0);
+        paintingsFBO->bind();
 
-        paintings[i]->texture.diffuse = paintingTextures[i];
+        glUniform1i(quadTextureSamplerLocation[gameState], DIFFUSE_TEXTURE_LOCATION);
+        quad->bind();
+        quad->draw();
+
+        paintings[i]->texture.diffuse = paintingTexture;
         paintings[i]->useTexture = true;
     }
     gameState = MAINROOM;
@@ -264,8 +287,6 @@ void mainLoop()
     do
     {
         static double lastTime = glfwGetTime();
-
-        currentRoom = rooms[gameState];
 
         // Compute time difference between current and last frame
         double currentTime = glfwGetTime();
@@ -355,13 +376,13 @@ void displayScene(GLuint texture)
     const int colors = 2;
     switch (gameState)
     {
-    case ROOM1:
+    case ROOM2:
         FloydSteinbergDithering::applyDithering(colors);
         break;
-    case ROOM2:
+    case ROOM3:
         Painterly::applyPainterly();
         break;
-    case ROOM5:
+    case ROOM6:
         timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
         glUniform1f(timeLocation, (float)glfwGetTime());
         break;
@@ -393,15 +414,7 @@ void change_state()
     if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
     {
         gameState = MAINROOM;
-        player->position = vec3(0, 0, 0.0);
-        camera->horizontalAngle = 0.0f;
-        camera->verticalAngle = 0.0f;
-        for (auto &painting : paintings)
-        {
-            painting->modelMatrix = painting->mainRoomModelMatrix;
-            painting->update_frame_model_matrix();
-        }
-        return;
+        change_room();
     }
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
     {
@@ -437,9 +450,21 @@ void change_state()
 
 void change_room()
 {
+    currentRoom = rooms[gameState];
+    if (gameState == MAINROOM){
+        player->position = vec3(0, 0, 0.0);
+        camera->horizontalAngle = 0.0f;
+        camera->verticalAngle = 0.0f;
+        for (auto &painting : paintings)
+        {
+            painting->modelMatrix = painting->mainRoomModelMatrix;
+            painting->update_frame_model_matrix();
+        }
+        return;
+    }
     player->position = vec3(0, 0, -rooms[gameState]->depth / 2 + 1);
     camera->horizontalAngle = -3.14f;
-    camera->verticalAngle = 0.0f;
+    camera->verticalAngle = 0.1f;
     paintings[gameState - 1]->modelMatrix = paintings[gameState - 1]->secondaryRoomModelMatrix *
                                             translate(mat4(1.0f), vec3(0, 0, -rooms[gameState]->depth / 2 + 0.1));
     paintings[gameState - 1]->update_frame_model_matrix();
