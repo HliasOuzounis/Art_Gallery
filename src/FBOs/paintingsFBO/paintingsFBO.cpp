@@ -1,12 +1,12 @@
 #include "paintingsFBO.h"
 
-#include <iostream>
-#include <glfw3.h>
-
 PaintingsFBO::PaintingsFBO()
 {
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+    this->viewPortHeight = W_HEIGHT;
+    this->viewPortWidth = W_WIDTH;
 
     // create a color attachment texture
     glGenTextures(1, &colorTexture);
@@ -28,7 +28,7 @@ PaintingsFBO::PaintingsFBO()
     // now actually attach it
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
 
-    checkErrors();
+    checkErrors("paintingsFBO");
 }
 
 void PaintingsFBO::addTexture(GLuint &texture)
@@ -48,30 +48,11 @@ void PaintingsFBO::addTexture(GLuint &texture)
     // Attach the provided texture as the color attachment
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
 
-    checkErrors();
+    checkErrors("paintingsFBO");
 }
-
-void PaintingsFBO::checkErrors()
-{
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error in paintings buffer" << std::endl;
-    }
-
-    // now that we have created the framebuffer and added all attachments we want to check if it is actually complete
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        glfwTerminate();
-        throw std::runtime_error("Frame buffer not initialized correctly");
-    }
-}
-
 void PaintingsFBO::bind()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glViewport(0, 0, viewPortWidth, viewPortHeight);
+    FBO::bind();
 
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

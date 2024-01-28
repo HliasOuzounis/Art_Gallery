@@ -4,18 +4,14 @@
 #include <GL/glew.h>
 
 #include "src/constants.h"
+#include "src/FBOs/FBO.h"
 
-class SceneFBO
+class SceneFBO : public FBO
 {
 public:
-    GLuint fbo;
     GLuint colorTexture;
     GLuint rbo;
 
-    int viewPortHeight = W_HEIGHT;
-    int viewPortWidth = W_WIDTH;
-
     SceneFBO();
-    void checkErrors();
     void bind();
 };

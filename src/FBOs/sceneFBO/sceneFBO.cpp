@@ -1,11 +1,11 @@
 #include "sceneFBO.h"
 
-#include <iostream>
-#include <glfw3.h>
-
 SceneFBO::SceneFBO(){
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+    this->viewPortHeight = W_HEIGHT;
+    this->viewPortWidth = W_WIDTH;
 
     // create a color attachment texture
     glGenTextures(1, &colorTexture);
@@ -27,29 +27,11 @@ SceneFBO::SceneFBO(){
     // now actually attach it
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
 
-    checkErrors();
-}
-
-void SceneFBO::checkErrors()
-{
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error creating scene buffer" << std::endl;
-    }
-
-    // now that we have created the framebuffer and added all attachments we want to check if it is actually complete
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        glfwTerminate();
-        throw std::runtime_error("Frame buffer not initialized correctly");
-    }
+    checkErrors("sceneFBO");
 }
 
 void SceneFBO::bind(){
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glViewport(0, 0, viewPortWidth, viewPortHeight);
+    FBO::bind();
 
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

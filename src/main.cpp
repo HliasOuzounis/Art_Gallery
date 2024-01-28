@@ -35,9 +35,11 @@
 #include "post_processing/floyd_steinberg.h"
 #include "post_processing/painterly.h"
 
+#include "FBOs/FBO.h"
 #include "FBOs/sceneFBO/sceneFBO.h"
 #include "FBOs/depthFBO/depthFBO.h"
 #include "FBOs/paintingsFBO/paintingsFBO.h"
+#include "FBOs/renderFBO/renderFBO.h"
 
 using namespace std;
 using namespace glm;
@@ -62,9 +64,10 @@ GLuint depthProgram;
 GLuint shadowViewProjectionLocation, shadowModelLocation;
 DepthFBO *depthFBO;
 
-void displayScene(GLuint texture);
+void displayScene(FBO *fbo, GLuint texture);
 Drawable *quad;
-GLuint postProcessingProgram[PAINTINGS + 1], quadTextureSamplerLocation[PAINTINGS + 1];
+GLuint postProcessingProgram[PAINTINGS + 1], quadTextureSamplerLocation[PAINTINGS + 1];\
+RenderFBO *renderFBO;
 
 void createPaintingTextures();
 GLuint paintingTexturesFBO;
@@ -214,6 +217,7 @@ void createContext()
 
     // --- postProcessingProgram ---
     createFinalScene();
+    renderFBO = new RenderFBO();
 
     // --- painting textures ---
     createPaintingTextures();
@@ -238,34 +242,7 @@ void createPaintingTextures()
         depth_pass();
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
-        glUseProgram(postProcessingProgram[gameState]);
-        
-        glActiveTexture(DIFFUSE_TEXTURE);
-        glBindTexture(GL_TEXTURE_2D, sceneFBO->colorTexture);
-        
-        GLuint timeLocation;
-        const int colors = 2;
-        switch (gameState)
-        {
-        case ROOM2:
-            FloydSteinbergDithering::applyDithering(colors);
-            break;
-        case ROOM3:
-            Painterly::applyPainterly();
-            break;
-        case ROOM6:
-            timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
-            glUniform1f(timeLocation, (float)glfwGetTime());
-            break;
-        default:
-            break;
-        }
-
-        paintingsFBO->bind();
-
-        glUniform1i(quadTextureSamplerLocation[gameState], DIFFUSE_TEXTURE_LOCATION);
-        quad->bind();
-        quad->draw();
+        displayScene(paintingsFBO, sceneFBO->colorTexture);
 
         paintings[i]->texture.diffuse = paintingTexture;
         paintings[i]->useTexture = true;
@@ -309,7 +286,7 @@ void mainLoop()
         depth_pass();
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
-        displayScene(sceneFBO->colorTexture);
+        displayScene(renderFBO, sceneFBO->colorTexture);
 
         change_state();
         glfwSwapBuffers(window);
@@ -365,7 +342,7 @@ void depth_pass()
     }
 }
 
-void displayScene(GLuint texture)
+void displayScene(FBO *fbo, GLuint texture)
 {
     glUseProgram(postProcessingProgram[gameState]);
 
@@ -390,11 +367,7 @@ void displayScene(GLuint texture)
         break;
     }
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    glViewport(0, 0, W_WIDTH, W_HEIGHT);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glDisable(GL_DEPTH_TEST);
+    fbo->bind();
 
     glUniform1i(quadTextureSamplerLocation[gameState], DIFFUSE_TEXTURE_LOCATION);
     quad->bind();

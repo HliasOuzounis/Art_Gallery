@@ -168,12 +168,14 @@ void SecondaryRoom::addFloor()
     floor->texture = {
         "src/assets/textures/floor/damaged_wood_diffuse.png",
         "src/assets/textures/floor/damaged_wood_specular.png"};
+
     floor->useTexture = true;
 
     subObjects.push_back(floor);
 }
 
-void SecondaryRoom::addCeiling(){
+void SecondaryRoom::addCeiling()
+{
     Floor *ceiling = new Floor(width / 2, depth / 2, height, true);
 
     ceiling->material = {
@@ -183,8 +185,7 @@ void SecondaryRoom::addCeiling(){
         1.0};
 
     subObjects.push_back(ceiling);
-} 
-
+}
 
 bool SecondaryRoom::isInside(vec3 position)
 {

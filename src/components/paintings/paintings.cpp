@@ -73,6 +73,6 @@ void Painting::update_frame_model_matrix()
 {
     subObjects[0]->modelMatrix = this->modelMatrix *
                                  glm::scale(mat4(), vec3(1.5, 1.2, 2)) *
-                                 translate(mat4(), vec3(0.5, 0, 0)) *
+                                 translate(mat4(), vec3(0.53, 0, 0)) *
                                  rotate(mat4(), (float)M_PI / 2, vec3(1, 0, 0));
 }

@@ -8,6 +8,9 @@ DepthFBO::DepthFBO()
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
+    this->viewPortHeight = SHADOW_HEIGHT;
+    this->viewPortWidth = SHADOW_WIDTH;
+
     glGenTextures(1, &depthCubeMap);
     glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
     for (unsigned int i = 0; i < 6; ++i)
@@ -24,30 +27,13 @@ DepthFBO::DepthFBO()
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
 
-    checkErrors();
-}
-
-void DepthFBO::checkErrors()
-{
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error creating depth buffer" << std::endl;
-    }
-
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        glfwTerminate();
-        throw std::runtime_error("Depth buffer not initialized correctly");
-    }
+    checkErrors("depthFBO");
 }
 
 void DepthFBO::bind()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-    
+    FBO::bind();
+
     glEnable(GL_DEPTH_TEST);
     glClear(GL_DEPTH_BUFFER_BIT);
 }

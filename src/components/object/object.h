@@ -45,9 +45,9 @@ struct Texture
 
     // Constructor with custom values
     Texture(const char *diffusePath, const char *specularPath)
-        : diffuse(loadSOIL(diffusePath)),
-          specular(loadSOIL(specularPath))
     {
+        diffuse = loadSOIL(diffusePath);
+        specular = loadSOIL(specularPath);
     }
 };
 

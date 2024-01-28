@@ -4,17 +4,13 @@
 #include <GL/glew.h>
 
 #include "src/constants.h"
+#include "src/FBOs/FBO.h"
 
-class DepthFBO
+class DepthFBO : public FBO
 {
 public:
-    GLuint fbo;
     GLuint depthCubeMap;
 
-    int viewPortHeight = SHADOW_HEIGHT;
-    int viewPortWidth = SHADOW_WIDTH;
-
     DepthFBO();
-    void checkErrors();
     void bind();
 };
