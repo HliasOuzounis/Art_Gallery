@@ -35,6 +35,9 @@
 #include "post_processing/floyd_steinberg.h"
 #include "post_processing/painterly.h"
 
+#include "FBOs/sceneFBO/sceneFBO.h"
+#include "FBOs/depthFBO/depthFBO.h"
+
 using namespace std;
 using namespace glm;
 
@@ -49,15 +52,14 @@ void free();
 // Global variables
 GLuint shaderProgram, modelMatrixLocation, viewMatrixLocation, projectionMatrixLocation,
     materialLocation[4], useTextureLocation, viewPosLocation;
-
-GLuint sceneFBO, textureColorbuffer, rbo;
+SceneFBO *sceneFBO;
 
 GLFWwindow *window;
 Camera *camera;
 
 GLuint depthProgram;
 GLuint shadowViewProjectionLocation, shadowModelLocation;
-GLuint depthMapFBO, depthCubeMap;
+DepthFBO *depthFBO;
 
 void displayScene(GLuint texture);
 Drawable *quad;
@@ -90,83 +92,7 @@ GameState gameState = MAINROOM;
 
 void change_state();
 void change_room();
-void updatePaintingModelMatrix();
 
-void createSceneBuffer()
-{
-    glGenFramebuffers(1, &sceneFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, sceneFBO);
-
-    // create a color attachment texture
-    glGenTextures(1, &textureColorbuffer);
-    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, W_WIDTH, W_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // attach it to currently bound framebuffer object
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
-
-    // create a renderbuffer object for depth and stencil attachment (we won't be sampling these)
-    glGenRenderbuffers(1, &rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    // use a single renderbuffer object for both a depth AND stencil buffer.
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, W_WIDTH, W_HEIGHT);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-    // now actually attach it
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error creating scene buffer" << std::endl;
-    }
-
-    // now that we have created the framebuffer and added all attachments we want to check if it is actually complete
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        glfwTerminate();
-        throw runtime_error("Frame buffer not initialized correctly");
-    }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
-void createDepthBuffer()
-{
-    glGenFramebuffers(1, &depthMapFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-
-    glGenTextures(1, &depthCubeMap);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
-    for (unsigned int i = 0; i < 6; ++i)
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT,
-                     SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubeMap, 0);
-    glDrawBuffer(GL_NONE);
-    glReadBuffer(GL_NONE);
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error creating depth buffer" << std::endl;
-    }
-
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        glfwTerminate();
-        throw runtime_error("Depth buffer not initialized correctly");
-    }
-}
 
 void createFinalScene()
 {
@@ -279,10 +205,10 @@ void createContext()
     }
 
     // Create frame buffers
-    createSceneBuffer();
+    sceneFBO = new SceneFBO();
 
     // --- depthProgram ---
-    createDepthBuffer();
+    depthFBO = new DepthFBO();
 
     // --- postProcessingProgram ---
     createFinalScene();
@@ -329,10 +255,6 @@ void free()
 {
     glDeleteProgram(shaderProgram);
     glDeleteProgram(depthProgram);
-    glDeleteFramebuffers(1, &sceneFBO);
-    glDeleteTextures(1, &textureColorbuffer);
-    glDeleteFramebuffers(1, &depthMapFBO);
-    glDeleteTextures(1, &depthCubeMap);
     glDeleteProgram(postProcessingProgram[gameState]);
     glfwTerminate();
 }
@@ -366,7 +288,7 @@ void mainLoop()
         depth_pass();
         light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
 
-        displayScene(textureColorbuffer);
+        displayScene(sceneFBO->colorTexture);
 
         change_state();
         glfwSwapBuffers(window);
@@ -379,16 +301,12 @@ void mainLoop()
 
 void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, sceneFBO);
-    glViewport(0, 0, W_WIDTH, W_HEIGHT);
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
+    sceneFBO->bind();
 
     glUseProgram(shaderProgram);
 
     glActiveTexture(DEPTH_TEXTURE);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubeMap);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, depthFBO->depthCubeMap);
 
     glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
     glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
@@ -411,10 +329,7 @@ void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
 
 void depth_pass()
 {
-    glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-    glEnable(GL_DEPTH_TEST);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    depthFBO->bind();
 
     glUseProgram(depthProgram);
 

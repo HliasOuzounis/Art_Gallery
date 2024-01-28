@@ -138,6 +138,11 @@ add_executable(art_gallery
   src/post_processing/floyd_steinberg.cpp
   src/post_processing/painterly.h
   src/post_processing/painterly.cpp
+
+  src/FBOs/sceneFBO/sceneFBO.h
+  src/FBOs/sceneFBO/sceneFBO.cpp
+  src/FBOs/depthFBO/depthFBO.h
+  src/FBOs/depthFBO/depthFBO.cpp
   )
   
 target_link_libraries(art_gallery
