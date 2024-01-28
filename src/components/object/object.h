@@ -8,6 +8,8 @@
 
 #include <iostream>
 
+#include "src/constants.h"
+
 using namespace glm;
 using namespace std;
 
@@ -21,14 +23,24 @@ struct Material
 
 struct Texture
 {
+    static GLuint defaultTexture;
+
     GLuint diffuse;
     GLuint specular;
+    GLuint normalMap;
+    GLuint displacementMap;
 
     // Constructor with default values
     Texture()
-        : diffuse(loadSOIL("src/assets/textures/default.png")),
-          specular(loadSOIL("src/assets/textures/default.png"))
     {
+        if (defaultTexture == 0)
+        {
+            defaultTexture = loadSOIL("src/assets/textures/default.png");
+        }
+        diffuse = defaultTexture;
+        specular = defaultTexture;
+        normalMap = defaultTexture;
+        displacementMap = defaultTexture;
     }
 
     // Constructor with custom values

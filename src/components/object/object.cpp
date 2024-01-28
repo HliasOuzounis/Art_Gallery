@@ -7,6 +7,8 @@
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
 
+GLuint Texture::defaultTexture = 0;
+
 Object::Object(Drawable *drawable)
 {
     this->drawable = drawable;
