@@ -431,37 +431,35 @@ void depth_pass()
 
 void displayScene(GLuint texture)
 {
+    glUseProgram(postProcessingProgram[gameState]);
+
     glActiveTexture(DIFFUSE_TEXTURE);
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    // time how long this function takes
-    if (gameState == ROOM1)
+    GLuint timeLocation;
+    const int colors = 2;
+    switch (gameState)
     {
-        auto start = std::chrono::high_resolution_clock::now();
-        const int colors = 2;
+    case ROOM1:
         FloydSteinbergDithering::applyDithering(colors);
-        cout << "Time to apply dithering: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
-    }
-    if (gameState == ROOM2)
-    {
-        auto start = std::chrono::high_resolution_clock::now();
+        break;
+    case ROOM2:
         Painterly::applyPainterly();
-        cout << "Time to apply Painterly: " << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count() << "ms" << endl;
+        break;
+    case ROOM5:
+        timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
+        glUniform1f(timeLocation, (float)glfwGetTime());
+        break;
+    default:
+        break;
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, W_WIDTH, W_HEIGHT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    glUseProgram(postProcessingProgram[gameState]);
     glDisable(GL_DEPTH_TEST);
 
-    if (gameState == ROOM5)
-    {
-        GLuint timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
-        glUniform1f(timeLocation, (float)glfwGetTime());
-    }
     glUniform1i(quadTextureSamplerLocation[gameState], DIFFUSE_TEXTURE_LOCATION);
     quad->bind();
     quad->draw();

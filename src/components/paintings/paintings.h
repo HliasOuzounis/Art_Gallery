@@ -22,10 +22,6 @@ public:
     Painting(float height, float width, float yPos, float mainRoomRadius, float angle);
 
     void update_frame_model_matrix();
-    void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation){
-        Object::render(modelMatrixLocation, materialLocation, useTextureLocation);
-        cout << "painting" << endl;
-    }
 
 private:
     void addFrame();

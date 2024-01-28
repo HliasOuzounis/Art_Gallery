@@ -57,22 +57,22 @@ Painting::Painting(float height, float width, float yPos, float mainRoomRadius, 
 
 void Painting::addFrame()
 {
-    const Material tintedGold = {
-        vec4(0.24725, 0.1995, 0.0745, 1),
-        vec4(0.75164, 0.60648, 0.22648, 1),
-        vec4(0.628281, 0.555802, 0.366065, 1),
-        0.4f,
-    };
+    const Material gold = {
+        vec4(0.24725f, 0.1995f, 0.0745f, 1.0f),
+        vec4(0.75164f, 0.60648f, 0.22648f, 1.0f),
+        vec4(0.628281f, 0.555802f, 0.366065f, 1.0f),
+        51.2f};
+
     Drawable *frame = new Drawable("src/models/frame.obj");
 
-    Object *frameObject = new Object(frame, tintedGold);
+    Object *frameObject = new Object(frame, gold);
     subObjects.push_back(frameObject);
 }
 
 void Painting::update_frame_model_matrix()
 {
     subObjects[0]->modelMatrix = this->modelMatrix *
-        glm::scale(mat4(), vec3(1.5, 1.2, 2)) *
-        translate(mat4(), vec3(0.5, 0, 0)) *
-        rotate(mat4(), (float)M_PI / 2, vec3(1, 0, 0));
+                                 glm::scale(mat4(), vec3(1.5, 1.2, 2)) *
+                                 translate(mat4(), vec3(0.5, 0, 0)) *
+                                 rotate(mat4(), (float)M_PI / 2, vec3(1, 0, 0));
 }

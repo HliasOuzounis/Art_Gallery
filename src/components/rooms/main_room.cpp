@@ -63,7 +63,7 @@ MainRoom::MainRoom(float height, float radius, int points) : radius(radius)
         vec4(0.1, 0.1, 0.1, 1.0),
         1.0};
 
-    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 500.0f, 10.0f);
+    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 300.0f, 10.0f);
 
     addFloor();
     addCeiling();

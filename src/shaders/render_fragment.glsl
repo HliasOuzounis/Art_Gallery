@@ -82,7 +82,7 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, vertex_UV);
         Ks = texture(specularColorSampler, vertex_UV);
-        Ns = 25;
+        Ns = 10;
     } else {
         Ks = material.Ks;
         Kd = material.Kd;
@@ -97,6 +97,9 @@ vec4 phong(float visibility){
     vec3 viewDir = normalize(viewPos - vertex_position_worldspace);
     vec3 halfwayDir = normalize(lightDir + viewDir);
     vec4 Is = pow(max(dot(vertex_normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
+
+    if (useTexture == 1)
+        Is /= 2;
 
     float attenuation = 1.0 / (1.0 + pow(length(light.lightPos - vertex_position_worldspace), 2) / light.lightIntensity);
 
