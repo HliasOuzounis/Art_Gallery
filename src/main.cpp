@@ -41,6 +41,8 @@
 #include "FBOs/paintingsFBO/paintingsFBO.h"
 #include "FBOs/renderFBO/renderFBO.h"
 
+#include "rendering/main_loop.h"
+
 using namespace std;
 using namespace glm;
 
@@ -48,31 +50,22 @@ using namespace glm;
 void initialize();
 void createContext();
 void mainLoop();
-void depth_pass();
-void light_pass(mat4, mat4, vec3);
 void free();
 
 // Global variables
-GLuint shaderProgram, modelMatrixLocation, viewMatrixLocation, projectionMatrixLocation,
-    materialLocation[4], useTextureLocation, viewPosLocation;
-SceneFBO *sceneFBO;
-
 GLFWwindow *window;
 Camera *camera;
 
-GLuint depthProgram;
-GLuint shadowViewProjectionLocation, shadowModelLocation;
+SceneFBO *sceneFBO;
 DepthFBO *depthFBO;
 
 void displayScene(FBO *fbo, GLuint texture);
 Drawable *quad;
-GLuint postProcessingProgram[PAINTINGS + 1], quadTextureSamplerLocation[PAINTINGS + 1];\
+GLuint postProcessingProgram[PAINTINGS + 1], quadTextureSamplerLocation[PAINTINGS + 1];
 RenderFBO *renderFBO;
 
 void createPaintingTextures();
 GLuint paintingTexturesFBO;
-GLuint paintingTextures[PAINTINGS];
-GLuint paintingsDepthMap[PAINTINGS];
 
 Room *currentRoom;
 Room *rooms[PAINTINGS + 1];
@@ -151,25 +144,7 @@ void createFinalScene()
 
 void createContext()
 {
-    shaderProgram = loadShaders("src/shaders/render_vertex.glsl", "src/shaders/render_fragment.glsl");
-
-    depthProgram = loadShaders("src/shaders/depth_pass/depth_vertex.glsl",
-                               "src/shaders/depth_pass/depth_fragment.glsl",
-                               "src/shaders/depth_pass/depth_geometry.glsl");
-
-    // Find uniforms
-    modelMatrixLocation = glGetUniformLocation(shaderProgram, "M");
-    viewMatrixLocation = glGetUniformLocation(shaderProgram, "V");
-    projectionMatrixLocation = glGetUniformLocation(shaderProgram, "P");
-    materialLocation[0] = glGetUniformLocation(shaderProgram, "material.Ka");
-    materialLocation[1] = glGetUniformLocation(shaderProgram, "material.Kd");
-    materialLocation[2] = glGetUniformLocation(shaderProgram, "material.Ks");
-    materialLocation[3] = glGetUniformLocation(shaderProgram, "material.shininess");
-    useTextureLocation = glGetUniformLocation(shaderProgram, "useTexture");
-    viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
-
-    // --- depthProgram ---
-    shadowModelLocation = glGetUniformLocation(depthProgram, "M");
+    initializeMainRenderLoop();
 
     // --- postProcessingProgram ---
 
@@ -239,8 +214,8 @@ void createPaintingTextures()
         camera->update();
 
 
-        depth_pass();
-        light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
+        depthPass(depthFBO, currentRoom);
+        lightPass(sceneFBO, camera, currentRoom, depthFBO->depthCubeMap);
 
         displayScene(paintingsFBO, sceneFBO->colorTexture);
 
@@ -253,9 +228,6 @@ void createPaintingTextures()
 
 void free()
 {
-    glDeleteProgram(shaderProgram);
-    glDeleteProgram(depthProgram);
-    glDeleteProgram(postProcessingProgram[gameState]);
     glfwTerminate();
 }
 
@@ -269,7 +241,7 @@ void mainLoop()
         double currentTime = glfwGetTime();
         float deltaTime = float(currentTime - lastTime);
 
-        // camera
+
         player->move(window, deltaTime, camera->horizontalAngle);
         //*/
         if (!currentRoom->isInside(player->position))
@@ -283,8 +255,8 @@ void mainLoop()
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
-        depth_pass();
-        light_pass(camera->viewMatrix, camera->projectionMatrix, camera->position);
+        depthPass(depthFBO, currentRoom);
+        lightPass(sceneFBO, camera, currentRoom, depthFBO->depthCubeMap);
 
         displayScene(renderFBO, sceneFBO->colorTexture);
 
@@ -295,51 +267,6 @@ void mainLoop()
         lastTime = currentTime;
 
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
-}
-
-void light_pass(mat4 viewMatrix, mat4 projectionMatrix, vec3 viewPos)
-{
-    sceneFBO->bind();
-
-    glUseProgram(shaderProgram);
-
-    glActiveTexture(DEPTH_TEXTURE);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, depthFBO->depthCubeMap);
-
-    glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, &viewMatrix[0][0]);
-    glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, &projectionMatrix[0][0]);
-    glUniform3fv(viewPosLocation, 1, &viewPos[0]);
-
-    glUniform1i(glGetUniformLocation(shaderProgram, "diffuseColorSampler"), DIFFUSE_TEXTURE_LOCATION);
-    glUniform1i(glGetUniformLocation(shaderProgram, "specularColorSampler"), SPECULAR_TEXTURE_LOCATION);
-    glUniform1i(glGetUniformLocation(shaderProgram, "depthMap"), DEPTH_TEXTURE_LOCATION);
-
-    // Draw currentRoom
-    currentRoom->render(shaderProgram, modelMatrixLocation, materialLocation, useTextureLocation);
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error in light pass" << std::endl;
-    }
-}
-
-void depth_pass()
-{
-    depthFBO->bind();
-
-    glUseProgram(depthProgram);
-
-    // ---- render the scene ---- //
-    currentRoom->render(depthProgram, shadowModelLocation);
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error in depth pass" << std::endl;
-    }
 }
 
 void displayScene(FBO *fbo, GLuint texture)
@@ -431,7 +358,7 @@ void change_room()
         for (auto &painting : paintings)
         {
             painting->modelMatrix = painting->mainRoomModelMatrix;
-            painting->update_frame_model_matrix();
+            painting->updateFrameModelMatrix();
         }
         return;
     }
@@ -440,7 +367,7 @@ void change_room()
     camera->verticalAngle = 0.1f;
     paintings[gameState - 1]->modelMatrix = paintings[gameState - 1]->secondaryRoomModelMatrix *
                                             translate(mat4(1.0f), vec3(0, 0, -rooms[gameState]->depth / 2 + 0.1));
-    paintings[gameState - 1]->update_frame_model_matrix();
+    paintings[gameState - 1]->updateFrameModelMatrix();
 }
 
 void initialize()

@@ -150,6 +150,9 @@ add_executable(art_gallery
   src/FBOs/paintingsFBO/paintingsFBO.cpp
   src/FBOs/renderFBO/renderFBO.h
   src/FBOs/renderFBO/renderFBO.cpp
+
+  src/rendering/main_loop.h
+  src/rendering/main_loop.cpp
   )
   
 target_link_libraries(art_gallery

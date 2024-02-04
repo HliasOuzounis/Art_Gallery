@@ -39,7 +39,7 @@ Painting::Painting()
     };
     this->drawable = new Drawable(vertices, uvs, normals);
     addFrame();
-    update_frame_model_matrix();
+    updateFrameModelMatrix();
 }
 
 Painting::Painting(float height, float width, float yPos, float mainRoomRadius, float angle) : Painting()
@@ -52,7 +52,7 @@ Painting::Painting(float height, float width, float yPos, float mainRoomRadius, 
     this->rotateObject(vec3(0, 1, 0), angle);
 
     mainRoomModelMatrix = this->modelMatrix;
-    update_frame_model_matrix();
+    updateFrameModelMatrix();
 }
 
 void Painting::addFrame()
@@ -69,7 +69,7 @@ void Painting::addFrame()
     subObjects.push_back(frameObject);
 }
 
-void Painting::update_frame_model_matrix()
+void Painting::updateFrameModelMatrix()
 {
     subObjects[0]->modelMatrix = this->modelMatrix *
                                  glm::scale(mat4(), vec3(1.5, 1.2, 2)) *

@@ -21,7 +21,7 @@ public:
     Painting();
     Painting(float height, float width, float yPos, float mainRoomRadius, float angle);
 
-    void update_frame_model_matrix();
+    void updateFrameModelMatrix();
 
 private:
     void addFrame();
