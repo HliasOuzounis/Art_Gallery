@@ -20,3 +20,14 @@
 #define BUMP_TEXTURE_LOCATION 2
 #define DISPLACEMENT_TEXTURE_LOCATION 3
 #define DEPTH_TEXTURE_LOCATION 4
+
+enum GameState
+{
+    MAINROOM,
+    ROOM1,
+    ROOM2,
+    ROOM3,
+    ROOM4,
+    ROOM5,
+    ROOM6,
+};

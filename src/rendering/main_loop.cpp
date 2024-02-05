@@ -17,7 +17,7 @@ GLuint shadowViewProjectionLocation, shadowModelLocation;
 
 void initializeMainRenderLoop()
 {
-    shaderProgram = loadShaders("src/shaders/render.vertex.glsl", "src/shaders/render.frag.glsl");
+    shaderProgram = loadShaders("src/shaders/render.vertex.glsl", "src/shaders/render.frag.glsl", nullptr);
 
     depthProgram = loadShaders("src/shaders/depth_pass/depth_vertex.glsl",
                                "src/shaders/depth_pass/depth_fragment.glsl",

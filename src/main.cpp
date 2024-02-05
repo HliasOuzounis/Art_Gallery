@@ -42,6 +42,7 @@
 #include "FBOs/renderFBO/renderFBO.h"
 
 #include "rendering/main_loop.h"
+#include "rendering/final_render.h"
 
 using namespace std;
 using namespace glm;
@@ -58,10 +59,6 @@ Camera *camera;
 
 SceneFBO *sceneFBO;
 DepthFBO *depthFBO;
-
-void displayScene(FBO *fbo, GLuint texture);
-Drawable *quad;
-GLuint postProcessingProgram[PAINTINGS + 1], quadTextureSamplerLocation[PAINTINGS + 1];
 RenderFBO *renderFBO;
 
 void createPaintingTextures();
@@ -75,86 +72,14 @@ Player *player = new Player();
 
 GLuint testTexture;
 
-enum GameState
-{
-    MAINROOM,
-    ROOM1,
-    ROOM2,
-    ROOM3,
-    ROOM4,
-    ROOM5,
-    ROOM6,
-};
 GameState gameState = MAINROOM;
 
 void change_state();
 void change_room();
 
 
-void createFinalScene()
-{
-    GLuint defaultShader = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                       "src/shaders/image_processing/default.frag.glsl");
-
-    postProcessingProgram[MAINROOM] = defaultShader;
-
-    postProcessingProgram[ROOM1] = defaultShader;
-
-    postProcessingProgram[ROOM2] = defaultShader;
-
-    postProcessingProgram[ROOM3] = defaultShader;
-
-    postProcessingProgram[ROOM4] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/fish_eye.frag.glsl");
-    postProcessingProgram[ROOM5] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/toon.frag.glsl");
-    postProcessingProgram[ROOM6] = loadShaders("src/shaders/image_processing/vertex.glsl",
-                                               "src/shaders/image_processing/chromatic_aberration.frag.glsl");
-
-
-    vector<vec3> quadVertices = {
-        vec3(-1.0f, 1.0f, 0.0f),  // top left
-        vec3(-1.0f, -1.0f, 0.0f), // bottom left
-        vec3(1.0f, -1.0f, 0.0f),  // bottom right
-
-        vec3(-1.0f, 1.0f, 0.0f), // top left
-        vec3(1.0f, -1.0f, 0.0f), // bottom right
-        vec3(1.0f, 1.0f, 0.0f)   // top right
-    };
-    vector<vec2> quadUVs = {
-        vec2(0.0f, 1.0f), // top left
-        vec2(0.0f, 0.0f), // bottom left
-        vec2(1.0f, 0.0f), // bottom right
-
-        vec2(0.0f, 1.0f), // top left
-        vec2(1.0f, 0.0f), // bottom right
-        vec2(1.0f, 1.0f)  // top right
-    };
-    vector<vec3> quadNormals = {
-        vec3(0.0f, 0.0f, 1.0f), // top left
-        vec3(0.0f, 0.0f, 1.0f), // bottom left
-        vec3(0.0f, 0.0f, 1.0f), // bottom right
-
-        vec3(0.0f, 0.0f, 1.0f), // top left
-        vec3(0.0f, 0.0f, 1.0f), // bottom right
-        vec3(0.0f, 0.0f, 1.0f)  // top right
-    };
-    quad = new Drawable(quadVertices, quadUVs, quadNormals);
-}
-
 void createContext()
-{
-    initializeMainRenderLoop();
-
-    // --- postProcessingProgram ---
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error in shader creation" << std::endl;
-    }
-
+{    
     int wallPoints = 50;
     float mainRoomRadius = 10.0f,
           mainRoomHeight = 8.5f;
@@ -191,8 +116,10 @@ void createContext()
     depthFBO = new DepthFBO();
 
     // --- postProcessingProgram ---
-    createFinalScene();
     renderFBO = new RenderFBO();
+
+    initializeMainRenderLoop();
+    initializeFinalRender();
 
     // --- painting textures ---
     createPaintingTextures();
@@ -217,7 +144,7 @@ void createPaintingTextures()
         depthPass(depthFBO, currentRoom);
         lightPass(sceneFBO, camera, currentRoom, depthFBO->depthCubeMap);
 
-        displayScene(paintingsFBO, sceneFBO->colorTexture);
+        displayScene(paintingsFBO, sceneFBO->colorTexture, gameState);
 
         paintings[i]->texture.diffuse = paintingTexture;
         paintings[i]->useTexture = true;
@@ -258,7 +185,7 @@ void mainLoop()
         depthPass(depthFBO, currentRoom);
         lightPass(sceneFBO, camera, currentRoom, depthFBO->depthCubeMap);
 
-        displayScene(renderFBO, sceneFBO->colorTexture);
+        displayScene(renderFBO, sceneFBO->colorTexture, gameState);
 
         change_state();
         glfwSwapBuffers(window);
@@ -267,46 +194,6 @@ void mainLoop()
         lastTime = currentTime;
 
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
-}
-
-void displayScene(FBO *fbo, GLuint texture)
-{
-    glUseProgram(postProcessingProgram[gameState]);
-
-    glActiveTexture(DIFFUSE_TEXTURE);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    GLuint timeLocation;
-    const int colors = 2;
-    switch (gameState)
-    {
-    case ROOM2:
-        FloydSteinbergDithering::applyDithering(colors);
-        break;
-    case ROOM3:
-        Painterly::applyPainterly();
-        break;
-    case ROOM6:
-        timeLocation = glGetUniformLocation(postProcessingProgram[gameState], "time");
-        glUniform1f(timeLocation, (float)glfwGetTime());
-        break;
-    default:
-        break;
-    }
-
-    fbo->bind();
-
-    glUniform1i(quadTextureSamplerLocation[gameState], DIFFUSE_TEXTURE_LOCATION);
-    quad->bind();
-    quad->draw();
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        glewGetErrorString(error);
-        std::cerr << "OpenGL error: " << glewGetErrorString(error) << std::endl;
-        std::cerr << "Error in display scene pass" << std::endl;
-    }
 }
 
 void change_state()

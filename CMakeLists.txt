@@ -153,6 +153,8 @@ add_executable(art_gallery
 
   src/rendering/main_loop.h
   src/rendering/main_loop.cpp
+  src/rendering/final_render.h
+  src/rendering/final_render.cpp
   )
   
 target_link_libraries(art_gallery
