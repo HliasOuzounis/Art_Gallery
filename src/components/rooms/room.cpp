@@ -16,7 +16,6 @@ void Room::render(GLuint depthShader, GLuint modelMatrixLocation)
         subObject->render(modelMatrixLocation);
 }
 
-
 void Room::addLightBulb()
 {
     Drawable *lightBulb = new Drawable("src/assets/models/sphere.obj");

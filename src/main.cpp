@@ -40,9 +40,11 @@
 #include "FBOs/depthFBO/depthFBO.h"
 #include "FBOs/paintingsFBO/paintingsFBO.h"
 #include "FBOs/renderFBO/renderFBO.h"
+#include "FBOs/bumpFBO/bumpFBO.h"
 
 #include "rendering/main_loop.h"
 #include "rendering/final_render.h"
+#include "rendering/bump_render.h"
 
 using namespace std;
 using namespace glm;
@@ -57,29 +59,24 @@ void free();
 GLFWwindow *window;
 Camera *camera;
 
-SceneFBO *sceneFBO;
-DepthFBO *depthFBO;
-RenderFBO *renderFBO;
-
-void createPaintingTextures();
-GLuint paintingTexturesFBO;
-
 Room *currentRoom;
 Room *rooms[PAINTINGS + 1];
 MainRoom *mainRoom;
 vector<Painting *> paintings;
 Player *player = new Player();
-
-GLuint testTexture;
-
 GameState gameState = MAINROOM;
+
+SceneFBO *sceneFBO;
+DepthFBO *depthFBO;
+RenderFBO *renderFBO;
+
+void createPaintingTextures();
 
 void change_state();
 void change_room();
 
-
 void createContext()
-{    
+{
     int wallPoints = 50;
     float mainRoomRadius = 10.0f,
           mainRoomHeight = 8.5f;
@@ -130,8 +127,12 @@ void createContext()
 void createPaintingTextures()
 {
     PaintingsFBO *paintingsFBO = new PaintingsFBO();
+    BumpFBO *bumpFBO = new BumpFBO();
+
+    initializeBumpRenderLoop();
+
     for (int i = 0; i < PAINTINGS; i++)
-    {   
+    {
         GLuint paintingTexture;
         paintingsFBO->addTexture(paintingTexture);
 
@@ -140,13 +141,20 @@ void createPaintingTextures()
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
-
         depthPass(depthFBO, currentRoom);
         lightPass(sceneFBO, camera, currentRoom, depthFBO->depthCubeMap);
 
         displayScene(paintingsFBO, sceneFBO->colorTexture, gameState);
 
+        GLuint normalTexture, depthTexture;
+        bumpFBO->addNormalTexture(normalTexture);
+        bumpFBO->addDepthTexture(depthTexture);
+        
+        bumpPass(bumpFBO, camera, currentRoom);
+
         paintings[i]->texture.diffuse = paintingTexture;
+        paintings[i]->texture.normalMap = normalTexture;
+        paintings[i]->texture.displacementMap = depthTexture;
         paintings[i]->useTexture = true;
     }
     gameState = MAINROOM;
@@ -167,7 +175,6 @@ void mainLoop()
         // Compute time difference between current and last frame
         double currentTime = glfwGetTime();
         float deltaTime = float(currentTime - lastTime);
-
 
         player->move(window, deltaTime, camera->horizontalAngle);
         //*/
@@ -238,7 +245,8 @@ void change_state()
 void change_room()
 {
     currentRoom = rooms[gameState];
-    if (gameState == MAINROOM){
+    if (gameState == MAINROOM)
+    {
         player->position = vec3(0, 0, 0.0);
         camera->horizontalAngle = 0.0f;
         camera->verticalAngle = 0.0f;

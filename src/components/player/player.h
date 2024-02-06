@@ -10,7 +10,7 @@ using namespace std;
 class Player
 {
 public:
-    const float height = 1.5f;
+    const float height = 2.0f;
     const float playerRadius = 0.2f;
     vec3 prevPosition = vec3(0, 0, 0);
     vec3 position = vec3(0, 0, 0);
