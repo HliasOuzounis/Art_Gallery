@@ -156,6 +156,7 @@ void createPaintingTextures()
         paintings[i]->texture.normalMap = normalTexture;
         paintings[i]->texture.displacementMap = depthTexture;
         paintings[i]->useTexture = true;
+        paintings[i]->useNormalMap = true;
     }
     gameState = MAINROOM;
     change_room();

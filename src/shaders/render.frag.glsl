@@ -26,8 +26,10 @@ struct Material {
 uniform Material material;
 
 uniform int useTexture = 0;
+uniform int useNormalMap = 0;
 uniform sampler2D diffuseColorSampler;
 uniform sampler2D specularColorSampler;
+uniform sampler2D normalMapSampler;
 
 uniform samplerCube depthMap;
 
@@ -89,6 +91,12 @@ vec4 phong(float visibility){
         Ka = material.Ka;
         Ns = material.Ns;
     }
+    if (useNormalMap == 1){
+        vec3 normal = normalize(texture(normalMapSampler, vertex_UV).rgb * 2.0 - 1.0);
+    } else {
+        vec3 normal = vertex_normal;
+    }
+
     vec4 Ia = Ka * light.La;
 
     vec3 lightDir = normalize(light.lightPos - vertex_position_worldspace);

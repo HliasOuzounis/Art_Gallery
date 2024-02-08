@@ -9,8 +9,8 @@
 
 GLuint shaderProgram;
 GLuint modelMatrixLocation, viewMatrixLocation, projectionMatrixLocation,
-    materialLocation[4], useTextureLocation, viewPosLocation,
-    diffuseSamplerLocation, specularSamplerLocation, depthMapLocation;
+    materialLocation[4], useTextureLocation[3], viewPosLocation,
+    diffuseSamplerLocation, specularSamplerLocation, normalMapSamplerLocation, depthMapLocation;
 
 GLuint depthProgram;
 GLuint shadowViewProjectionLocation, shadowModelLocation;
@@ -27,14 +27,20 @@ void initializeMainRenderLoop()
     modelMatrixLocation = glGetUniformLocation(shaderProgram, "M");
     viewMatrixLocation = glGetUniformLocation(shaderProgram, "V");
     projectionMatrixLocation = glGetUniformLocation(shaderProgram, "P");
+    
     materialLocation[0] = glGetUniformLocation(shaderProgram, "material.Ka");
     materialLocation[1] = glGetUniformLocation(shaderProgram, "material.Kd");
     materialLocation[2] = glGetUniformLocation(shaderProgram, "material.Ks");
     materialLocation[3] = glGetUniformLocation(shaderProgram, "material.shininess");
-    useTextureLocation = glGetUniformLocation(shaderProgram, "useTexture");
+
+    useTextureLocation[0] = glGetUniformLocation(shaderProgram, "useTexture");
+    useTextureLocation[1] = glGetUniformLocation(shaderProgram, "useNormalMap");
+
     viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
+
     diffuseSamplerLocation = glGetUniformLocation(shaderProgram, "diffuseSampler");
     specularSamplerLocation = glGetUniformLocation(shaderProgram, "specularSampler");
+    normalMapSamplerLocation = glGetUniformLocation(shaderProgram, "normalMapSampler");
     depthMapLocation = glGetUniformLocation(shaderProgram, "depthMap");
 
     // --- depthProgram ---
@@ -74,6 +80,7 @@ void lightPass(SceneFBO *sceneFBO,Camera *camera, Room *currentRoom, GLuint dept
 
     glUniform1i(diffuseSamplerLocation, DIFFUSE_TEXTURE_LOCATION);
     glUniform1i(specularSamplerLocation, SPECULAR_TEXTURE_LOCATION);
+    glUniform1i(normalMapSamplerLocation, BUMP_TEXTURE_LOCATION);
     glUniform1i(depthMapLocation, DEPTH_TEXTURE_LOCATION);
 
     // Draw currentRoom

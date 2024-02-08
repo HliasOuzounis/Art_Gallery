@@ -27,7 +27,7 @@ public:
     virtual void addFloor(){};
     virtual void addCeiling(){};
 
-    void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation);
+    void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3]);
     void render(GLuint depthShader, GLuint modelMatrixLocation);
 
     void addLightBulb();

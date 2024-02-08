@@ -41,7 +41,7 @@ void Object::translateObject(vec3 translation)
     modelMatrix = translationMatrix * modelMatrix;
 }
 
-void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation)
+void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3])
 {
     if (useTexture)
     {
@@ -51,7 +51,7 @@ void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLui
         glActiveTexture(SPECULAR_TEXTURE);
         glBindTexture(GL_TEXTURE_2D, texture.specular);
 
-        glUniform1i(useTextureLocation, 1);
+        glUniform1i(useTextureLocation[0], 1);
     }
     else
     {
@@ -60,12 +60,19 @@ void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLui
         glUniform4fv(materialLocation[2], 1, &material.specular[0]);
         glUniform1f(materialLocation[3], material.shininess);
     }
+    if (useNormalMap)
+    {
+        glActiveTexture(BUMP_TEXTURE);
+        glBindTexture(GL_TEXTURE_2D, texture.normalMap);
+        glUniform1f(useTextureLocation[1], 1);
+    }
 
     drawable->bind();
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
     drawable->draw();
     
-    glUniform1i(useTextureLocation, 0);
+    glUniform1i(useTextureLocation[0], 0);
+    glUniform1f(useTextureLocation[1], 0);
 
     for (int i = 0; i < subObjects.size(); i++)
         subObjects[i]->render(modelMatrixLocation, materialLocation, useTextureLocation);
