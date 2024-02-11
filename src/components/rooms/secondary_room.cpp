@@ -18,14 +18,14 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
 
 void SecondaryRoom::addWalls(float width, float height, float depth)
 {
-    Wall *wall1 = new Wall(width, height);
-    wall1->translateObject(vec3(0, 0, -depth / 2));
-    this->roomObjects.push_back(wall1);
-
+    // Wall *wall1 = new Wall(width, height);
+    // wall1->translateObject(vec3(0, 0, -depth / 2));
+    // this->roomObjects.push_back(wall1);
     Wall *wall2 = new Wall(width, height);
     wall2->rotateObject(vec3(0, 1, 0), M_PI);
     wall2->translateObject(vec3(0, 0, depth / 2));
     this->roomObjects.push_back(wall2);
+    /*/
 
     Wall *wall3 = new Wall(depth / 2, height);
     wall3->rotateObject(vec3(0, 1, 0), M_PI / 2);
@@ -46,7 +46,7 @@ void SecondaryRoom::addWalls(float width, float height, float depth)
     wall6->rotateObject(vec3(0, 1, 0), -M_PI / 2);
     wall6->translateObject(vec3(width / 2, 0, depth / 4));
     this->roomObjects.push_back(wall6);
-
+    //*/
     static const Texture wallTexture = {
         "src/assets/textures/walls/blue_walls_diffuse.png",
         "src/assets/textures/walls/blue_walls_specular.png"};
