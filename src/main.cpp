@@ -151,7 +151,15 @@ void createPaintingTextures()
 
         bumpFBO->addNormalTexture(normalTexture);
         bumpPass(bumpFBO, camera, currentRoom);
-        paintings[i]->addNormalTexture(normalTexture);
+        if (gameState == ROOM4){
+            // Room 4 is fish-eye distortion. Normal map needs to be distorted as well
+            GLuint normalTexture2;
+            paintingsFBO->addTexture(normalTexture2);
+            displayScene(paintingsFBO, normalTexture, gameState);
+            paintings[i]->addNormalTexture(normalTexture2);
+        }
+        else
+            paintings[i]->addNormalTexture(normalTexture);
 
         bumpFBO->addDepthTexture(depthTexture);
         bumpPass(bumpFBO, camera, currentRoom);
