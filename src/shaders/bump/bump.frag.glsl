@@ -10,5 +10,5 @@ out vec3 normal;
 void main()
 {
     normal = vertex_normal * 0.5 + 0.5;
-    gl_FragDepth = length(vertex_position_worldspace - cameraPosition);
+    gl_FragDepth = vertex_position_worldspace.z;
 }

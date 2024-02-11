@@ -9,6 +9,8 @@ public:
 
     MainRoom(float height, float radius, int points);
     bool isInside(vec3 position);
+
+private:
     void addFloor();
     void addCeiling();
 };

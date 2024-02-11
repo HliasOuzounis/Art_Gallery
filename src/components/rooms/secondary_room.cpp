@@ -1,4 +1,5 @@
 #include "secondary_room.h"
+#include <common/texture.h>
 
 SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(width)
 {
@@ -149,10 +150,17 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
 
     this->drawable = new Drawable(vertices, uvs, normals);
 
-    this->texture = {
+    static const Texture wallTexture = {
         "src/assets/textures/walls/blue_walls_diffuse.png",
         "src/assets/textures/walls/blue_walls_specular.png"};
-    this->useTexture = true;
+        
+    static const GLuint normalMap = loadSOIL("src/assets/textures/brick/brickwall_normal.png");
+    static const GLuint wall = loadSOIL("src/assets/textures/brick/brickwall.png");
+
+    this->addTexture(wallTexture, false, false);
+
+    this->addDiffuseTexture(wall);
+    this->addNormalTexture(normalMap);
 
     this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 150.0f, 10.0f);
 
@@ -165,11 +173,11 @@ void SecondaryRoom::addFloor()
 {
     Floor *floor = new Floor(width / 2, depth / 2, 0, false);
 
-    floor->texture = {
+    static const Texture floorTexture = {
         "src/assets/textures/floor/damaged_wood_diffuse.png",
         "src/assets/textures/floor/damaged_wood_specular.png"};
 
-    floor->useTexture = true;
+    floor->addTexture(floorTexture, false, false);
 
     subObjects.push_back(floor);
 }

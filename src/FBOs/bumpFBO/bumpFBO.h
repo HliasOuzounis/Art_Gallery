@@ -17,4 +17,7 @@ public:
     void addNormalTexture(GLuint &texture);
     void addDepthTexture(GLuint &texture);
     void bind();
+
+private:
+    void unbindTextures();
 };

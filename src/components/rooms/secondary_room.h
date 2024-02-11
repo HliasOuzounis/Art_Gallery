@@ -9,10 +9,8 @@ public:
 
     SecondaryRoom(float height, float width, float depth);
     bool isInside(vec3 position);
+
+private:
     void addFloor();
     void addCeiling();
-private:
-    static Texture floorTexture;
-
-    Texture getFloorTexture();
 };

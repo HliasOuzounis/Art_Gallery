@@ -12,6 +12,8 @@ public:
     int viewPortWidth;
 
     FBO(){};
-    void checkErrors(const char *name);
     virtual void bind();
+    
+protected:
+    void checkErrors(const char *name);
 };

@@ -35,9 +35,7 @@ BumpFBO::BumpFBO()
 void BumpFBO::addNormalTexture(GLuint &texture)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    // Unbind previous texture
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, 0, 0);
+    unbindTextures();
 
     // Generate a new texture
     glGenTextures(1, &texture);
@@ -55,9 +53,7 @@ void BumpFBO::addNormalTexture(GLuint &texture)
 void BumpFBO::addDepthTexture(GLuint &texture)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    // Unbind previous texture
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, 0, 0);
+    unbindTextures();
 
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
@@ -80,4 +76,15 @@ void BumpFBO::bind()
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+}
+
+void BumpFBO::unbindTextures()
+{
+    // Unbind previous color texture
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, 0, 0);
+
+    // Unbind previous depth texture
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, 0, 0);
 }

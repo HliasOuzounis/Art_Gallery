@@ -63,7 +63,7 @@ void Painting::addFrame()
         vec4(0.628281f, 0.555802f, 0.366065f, 1.0f),
         51.2f};
 
-    Drawable *frame = new Drawable("src/assets/models/frame.obj");
+    static Drawable *frame = new Drawable("src/assets/models/frame.obj");
 
     Object *frameObject = new Object(frame, gold);
     subObjects.push_back(frameObject);

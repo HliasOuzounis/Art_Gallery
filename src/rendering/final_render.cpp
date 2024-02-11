@@ -97,7 +97,7 @@ void displayScene(FBO *fbo, GLuint texture, GameState gameState)
 
 void applyPostProcessing(GameState gameState){
     GLuint timeLocation;
-    const int colors = 2;
+    const int colors = 3;
     switch (gameState)
     {
     case ROOM2:

@@ -21,7 +21,7 @@ public:
     float depth;
 
     Light *light;
-    
+
     Room(){};
     virtual bool isInside(vec3 position) { return false; }
     virtual void addFloor(){};
@@ -30,5 +30,6 @@ public:
     void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3]);
     void render(GLuint depthShader, GLuint modelMatrixLocation);
 
+protected:
     void addLightBulb();
 };

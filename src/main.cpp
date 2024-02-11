@@ -145,18 +145,17 @@ void createPaintingTextures()
         lightPass(sceneFBO, camera, currentRoom, depthFBO->depthCubeMap);
 
         displayScene(paintingsFBO, sceneFBO->colorTexture, gameState);
+        paintings[i]->addDiffuseTexture(paintingTexture);
 
         GLuint normalTexture, depthTexture;
-        bumpFBO->addNormalTexture(normalTexture);
-        bumpFBO->addDepthTexture(depthTexture);
-        
-        bumpPass(bumpFBO, camera, currentRoom);
 
-        paintings[i]->texture.diffuse = paintingTexture;
-        paintings[i]->texture.normalMap = normalTexture;
-        paintings[i]->texture.displacementMap = depthTexture;
-        paintings[i]->useTexture = true;
-        paintings[i]->useNormalMap = true;
+        bumpFBO->addNormalTexture(normalTexture);
+        bumpPass(bumpFBO, camera, currentRoom);
+        paintings[i]->addNormalTexture(normalTexture);
+
+        bumpFBO->addDepthTexture(depthTexture);
+        bumpPass(bumpFBO, camera, currentRoom);
+        paintings[i]->addDisplacementTexture(depthTexture);
     }
     gameState = MAINROOM;
     change_room();

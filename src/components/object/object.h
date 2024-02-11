@@ -60,6 +60,8 @@ public:
     vec3 scale = vec3(1, 1, 1);
     mat4 modelMatrix = mat4(1.0f);
 
+    vector<vec3> T;
+
     Material material;
     Texture texture;
     bool useTexture = false;
@@ -78,4 +80,10 @@ public:
 
     void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3]);
     void render(GLuint modelMatrixLocation);
+
+    void addDiffuseTexture(GLuint diffuseTexture);
+    void addSpecularTexture(GLuint specularTexture);
+    void addNormalTexture(GLuint normalTexture);
+    void addDisplacementTexture(GLuint dislpacementTexture);
+    void addTexture(Texture newTexture, bool useNormal, bool useDisplacement);
 };

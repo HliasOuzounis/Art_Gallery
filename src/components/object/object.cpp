@@ -64,19 +64,18 @@ void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLui
     {
         glActiveTexture(BUMP_TEXTURE);
         glBindTexture(GL_TEXTURE_2D, texture.normalMap);
-        glUniform1f(useTextureLocation[1], 1);
+        glUniform1i(useTextureLocation[1], 1);
     }
 
     drawable->bind();
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
     drawable->draw();
-    
+
     glUniform1i(useTextureLocation[0], 0);
-    glUniform1f(useTextureLocation[1], 0);
+    glUniform1i(useTextureLocation[1], 0);
 
     for (int i = 0; i < subObjects.size(); i++)
         subObjects[i]->render(modelMatrixLocation, materialLocation, useTextureLocation);
-
 }
 
 void Object::render(GLuint modelMatrixLocation)
@@ -87,4 +86,36 @@ void Object::render(GLuint modelMatrixLocation)
 
     for (int i = 0; i < subObjects.size(); i++)
         subObjects[i]->render(modelMatrixLocation);
+}
+
+void Object::addTexture(Texture newTexture, bool useNormal, bool useDisplacement)
+{
+    this->texture = newTexture;
+    this->useTexture = true;
+    this->useNormalMap = useNormal;
+    this->useDisplacementMap = useDisplacement;
+}
+
+void Object::addDiffuseTexture(GLuint diffuseTexture)
+{
+    this->texture.diffuse = diffuseTexture;
+    this->useTexture = true;
+}
+
+void Object::addSpecularTexture(GLuint specularTexture)
+{
+    this->texture.specular = specularTexture;
+    this->useTexture = true;
+}
+
+void Object::addNormalTexture(GLuint normalTexture)
+{
+    this->texture.normalMap = normalTexture;
+    this->useNormalMap = true;
+}
+
+void Object::addDisplacementTexture(GLuint displacementTexture)
+{
+    this->texture.displacementMap = displacementTexture;
+    this->useDisplacementMap = true;
 }

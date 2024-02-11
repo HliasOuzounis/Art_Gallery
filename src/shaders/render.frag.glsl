@@ -1,8 +1,10 @@
 #version 330 core
 
-in vec3 vertex_position_worldspace;
-in vec3 vertex_normal;
-in vec2 vertex_UV;
+in VS_OUT {
+    vec3 FragPos;
+    vec3 Normal;
+    vec2 TexCoords;
+} fs_in;
 
 //lighting
 struct Light {
@@ -16,6 +18,8 @@ struct Light {
 uniform Light light;
 
 uniform vec3 viewPos;
+
+uniform mat4 M;
 
 struct Material {
     vec4 Ka;
@@ -54,7 +58,7 @@ vec3 sampleOffsetDirections[samples] = vec3[]
 
 void main()
 {   
-    float visibility = 1 - shadowCalculation(vertex_position_worldspace);
+    float visibility = 1 - shadowCalculation(fs_in.FragPos);
     fragmentColor = phong(visibility);
 }
 
@@ -82,8 +86,8 @@ float shadowCalculation(vec3 fragPos){
 vec4 phong(float visibility){
     if (useTexture == 1){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
-        Kd = texture(diffuseColorSampler, vertex_UV);
-        Ks = texture(specularColorSampler, vertex_UV);
+        Kd = texture(diffuseColorSampler, fs_in.TexCoords);
+        Ks = texture(specularColorSampler, fs_in.TexCoords);
         Ns = 10;
     } else {
         Ks = material.Ks;
@@ -92,24 +96,26 @@ vec4 phong(float visibility){
         Ns = material.Ns;
     }
     if (useNormalMap == 1){
-        vec3 normal = normalize(texture(normalMapSampler, vertex_UV).rgb * 2.0 - 1.0);
+        vec3 normal = normalize(texture(normalMapSampler, fs_in.TexCoords).rgb * 2.0 - 1.0);
+        // normal = normalize(vec3(M * TBN * vec4(normal, 0.0)));
+        // return vec4(normal * 0.5 + 0.5, 1.0);
     } else {
-        vec3 normal = vertex_normal;
+        vec3 normal = fs_in.Normal;
     }
 
     vec4 Ia = Ka * light.La;
 
-    vec3 lightDir = normalize(light.lightPos - vertex_position_worldspace);
-    vec4 Id = clamp(dot(lightDir, vertex_normal), 0, 1) * Kd * light.Ld;
+    vec3 lightDir = normalize(light.lightPos - fs_in.FragPos);
+    vec4 Id = clamp(dot(lightDir, fs_in.Normal), 0, 1) * Kd * light.Ld;
 
-    vec3 viewDir = normalize(viewPos - vertex_position_worldspace);
+    vec3 viewDir = normalize(viewPos - fs_in.FragPos);
     vec3 halfwayDir = normalize(lightDir + viewDir);
-    vec4 Is = pow(max(dot(vertex_normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
+    vec4 Is = pow(max(dot(fs_in.Normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
 
     if (useTexture == 1)
         Is /= 2;
 
-    float attenuation = 1.0 / (1.0 + pow(length(light.lightPos - vertex_position_worldspace), 2) / light.lightIntensity);
+    float attenuation = 1.0 / (1.0 + pow(length(light.lightPos - fs_in.FragPos), 2) / light.lightIntensity);
 
     vec4 finalColor = Ia + (Id + Is) * visibility * attenuation;
     finalColor.a = 1;

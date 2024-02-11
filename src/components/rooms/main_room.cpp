@@ -75,10 +75,11 @@ void MainRoom::addFloor()
 
     Floor *floor = new Floor(radius, radius, 0, false);
 
-    floor->texture = {
+    static const Texture floorTexture = {
         "src/assets/textures/floor/wood_floor_diffuse.png",
         "src/assets/textures/floor/wood_floor_specular.png"};
-    floor->useTexture = true;
+
+    floor->addTexture(floorTexture, false, false);
 
     subObjects.push_back(floor);
 }
