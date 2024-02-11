@@ -141,3 +141,11 @@
 742	893	1707687061190007574	art_gallery	c87061fa7fd0943a
 4	726	1707687066786714912	CMakeFiles/art_gallery.dir/src/components/rooms/secondary_room.cpp.o	92606359334dea0a
 726	881	1707687066933382647	art_gallery	c87061fa7fd0943a
+4	719	1707687479699732321	CMakeFiles/art_gallery.dir/src/rendering/main_loop.cpp.o	dc9367f9f9dc1f46
+3	775	1707687479756399635	CMakeFiles/art_gallery.dir/src/components/object/object.cpp.o	4aefed4b1d98e4e0
+4	779	1707687479759733006	CMakeFiles/art_gallery.dir/src/components/rooms/secondary_room.cpp.o	92606359334dea0a
+779	910	1707687479883067749	art_gallery	c87061fa7fd0943a
+2	832	1707687926092608564	CMakeFiles/art_gallery.dir/src/main.cpp.o	b12b39c97c4e24af
+832	984	1707687926235942790	art_gallery	c87061fa7fd0943a
+2	804	1707688656161877412	CMakeFiles/art_gallery.dir/src/main.cpp.o	b12b39c97c4e24af
+804	974	1707688656321878837	art_gallery	c87061fa7fd0943a

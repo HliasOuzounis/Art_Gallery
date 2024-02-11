@@ -55,6 +55,7 @@ void SecondaryRoom::addWalls(float width, float height, float depth)
 
     static const GLuint normalMap = loadSOIL("src/assets/textures/brick/bricks2_normal.png");
     static const GLuint wallT = loadSOIL("src/assets/textures/brick/bricks2.png");
+    static const GLuint dispMap = loadSOIL("src/assets/textures/brick/bricks2_disp.png");
     
 
     for (auto wall : roomObjects)
@@ -62,6 +63,7 @@ void SecondaryRoom::addWalls(float width, float height, float depth)
         wall->addTexture(wallTexture, false, false);
         wall->addDiffuseTexture(wallT);
         wall->addNormalTexture(normalMap);
+        wall->addDisplacementTexture(dispMap);
     }
 }
 

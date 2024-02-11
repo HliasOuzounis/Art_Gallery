@@ -163,7 +163,16 @@ void createPaintingTextures()
 
         bumpFBO->addDepthTexture(depthTexture);
         bumpPass(bumpFBO, camera, currentRoom);
-        paintings[i]->addDisplacementTexture(depthTexture);
+        if (gameState == ROOM4)
+        {
+            // Room 4 is fish-eye distortion. Normal map needs to be distorted as well
+            GLuint depthTexture2;
+            paintingsFBO->addTexture(depthTexture2);
+            displayScene(paintingsFBO, depthTexture, gameState);
+            paintings[i]->addDisplacementTexture(depthTexture2);
+        }
+        else
+            paintings[i]->addDisplacementTexture(depthTexture);
     }
     gameState = MAINROOM;
     change_room();
@@ -185,7 +194,7 @@ void mainLoop()
         float deltaTime = float(currentTime - lastTime);
 
         player->move(window, deltaTime, camera->horizontalAngle);
-        //*/
+        /*/
         if (!currentRoom->isInside(player->position))
         {
             player->velocity = vec3(0, player->velocity.y, 0);
