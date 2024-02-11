@@ -1,4 +1,5 @@
 #include "secondary_room.h"
+#include "wall/wall.h"
 #include <common/texture.h>
 
 SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(width)
@@ -6,163 +7,57 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     this->height = height;
     this->depth = depth;
 
-    vec3 point1 = vec3(-width / 2, 0, -depth / 2),
-         point2 = vec3(width / 2, 0, -depth / 2),
-         point3 = vec3(-width / 2, height, -depth / 2),
-         point4 = vec3(width / 2, height, -depth / 2),
-         point5 = vec3(-width / 2, 0, 0),
-         point6 = vec3(width / 2, 0, 0),
-         point7 = vec3(-width / 2, height, 0),
-         point8 = vec3(width / 2, height, 0),
-         point9 = vec3(-width / 2, 0, depth / 2),
-         point10 = vec3(width / 2, 0, depth / 2),
-         point11 = vec3(-width / 2, height, depth / 2),
-         point12 = vec3(width / 2, height, depth / 2);
+    this->drawable = new Drawable(VEC_VEC3_DEFAUTL_VALUE);
 
-    vec3 normal1 = normalize(cross(point2 - point1, point3 - point1)),
-         normal2 = -normalize(cross(point1 - point3, point5 - point3)),
-         normal3 = -normalize(cross(point4 - point2, point6 - point2)),
-         normal4 = normalize(cross(point5 - point6, point7 - point6));
+    Wall *wall1 = new Wall(width, height);
+    wall1->translateObject(vec3(0, 0, -depth / 2));
+    this->subObjects.push_back(wall1);
 
-    vector<vec3> vertices;
-    vector<vec2> uvs;
-    vector<vec3> normals;
+    Wall *wall2 = new Wall(width, height);
+    wall2->rotateObject(vec3(0, 1, 0), M_PI);
+    wall2->translateObject(vec3(0, 0, depth / 2));
+    this->subObjects.push_back(wall2);
 
-    vertices.push_back(point1);
-    vertices.push_back(point2);
-    vertices.push_back(point3);
-    normals.push_back(normal1);
-    normals.push_back(normal1);
-    normals.push_back(normal1);
-    uvs.push_back(vec2(0, 0));
-    uvs.push_back(vec2(1, 0));
-    uvs.push_back(vec2(0, 1));
+    Wall *wall3 = new Wall(depth / 2, height);
+    wall3->rotateObject(vec3(0, 1, 0), M_PI / 2);
+    wall3->translateObject(vec3(-width / 2, 0, -depth / 4));
+    this->subObjects.push_back(wall3);
 
-    vertices.push_back(point4);
-    vertices.push_back(point3);
-    vertices.push_back(point2);
-    normals.push_back(normal1);
-    normals.push_back(normal1);
-    normals.push_back(normal1);
-    uvs.push_back(vec2(1, 1));
-    uvs.push_back(vec2(0, 1));
-    uvs.push_back(vec2(1, 0));
+    Wall *wall4 = new Wall(depth / 2, height);
+    wall4->rotateObject(vec3(0, 1, 0), -M_PI / 2);
+    wall4->translateObject(vec3(width / 2, 0, -depth / 4));
+    this->subObjects.push_back(wall4);
 
-    vertices.push_back(point5);
-    vertices.push_back(point1);
-    vertices.push_back(point7);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    uvs.push_back(vec2(0, 0));
-    uvs.push_back(vec2(1, 0));
-    uvs.push_back(vec2(0, 1));
+    Wall *wall5 = new Wall(depth / 2, height);
+    wall5->rotateObject(vec3(0, 1, 0), M_PI / 2);
+    wall5->translateObject(vec3(-width / 2, 0, depth / 4));
+    this->subObjects.push_back(wall5);
 
-    vertices.push_back(point3);
-    vertices.push_back(point7);
-    vertices.push_back(point1);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    uvs.push_back(vec2(1, 1));
-    uvs.push_back(vec2(0, 1));
-    uvs.push_back(vec2(1, 0));
+    Wall *wall6 = new Wall(depth / 2, height);
+    wall6->rotateObject(vec3(0, 1, 0), -M_PI / 2);
+    wall6->translateObject(vec3(width / 2, 0, depth / 4));
+    this->subObjects.push_back(wall6);
 
-    vertices.push_back(point2);
-    vertices.push_back(point6);
-    vertices.push_back(point4);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    uvs.push_back(vec2(0, 0));
-    uvs.push_back(vec2(1, 0));
-    uvs.push_back(vec2(0, 1));
-
-    vertices.push_back(point8);
-    vertices.push_back(point4);
-    vertices.push_back(point6);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    uvs.push_back(vec2(1, 1));
-    uvs.push_back(vec2(0, 1));
-    uvs.push_back(vec2(1, 0));
-
-    vertices.push_back(point9);
-    vertices.push_back(point5);
-    vertices.push_back(point11);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    uvs.push_back(vec2(0, 0));
-    uvs.push_back(vec2(1, 0));
-    uvs.push_back(vec2(0, 1));
-
-    vertices.push_back(point7);
-    vertices.push_back(point11);
-    vertices.push_back(point5);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    normals.push_back(normal2);
-    uvs.push_back(vec2(1, 1));
-    uvs.push_back(vec2(0, 1));
-    uvs.push_back(vec2(1, 0));
-
-    vertices.push_back(point6);
-    vertices.push_back(point10);
-    vertices.push_back(point8);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    uvs.push_back(vec2(0, 0));
-    uvs.push_back(vec2(1, 0));
-    uvs.push_back(vec2(0, 1));
-
-    vertices.push_back(point12);
-    vertices.push_back(point8);
-    vertices.push_back(point10);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    normals.push_back(normal3);
-    uvs.push_back(vec2(1, 1));
-    uvs.push_back(vec2(0, 1));
-    uvs.push_back(vec2(1, 0));
-
-    vertices.push_back(point10);
-    vertices.push_back(point9);
-    vertices.push_back(point12);
-    normals.push_back(normal4);
-    normals.push_back(normal4);
-    normals.push_back(normal4);
-    uvs.push_back(vec2(0, 0));
-    uvs.push_back(vec2(1, 0));
-    uvs.push_back(vec2(0, 1));
-
-    vertices.push_back(point11);
-    vertices.push_back(point12);
-    vertices.push_back(point9);
-    normals.push_back(normal4);
-    normals.push_back(normal4);
-    normals.push_back(normal4);
-    uvs.push_back(vec2(1, 1));
-    uvs.push_back(vec2(0, 1));
-    uvs.push_back(vec2(1, 0));
-
-    this->drawable = new Drawable(vertices, uvs, normals);
 
     static const Texture wallTexture = {
         "src/assets/textures/walls/blue_walls_diffuse.png",
         "src/assets/textures/walls/blue_walls_specular.png"};
-        
     static const GLuint normalMap = loadSOIL("src/assets/textures/brick/brickwall_normal.png");
-    static const GLuint wall = loadSOIL("src/assets/textures/brick/brickwall.png");
+    static const GLuint wallT = loadSOIL("src/assets/textures/brick/brickwall.png");
+
+    for (auto wall : subObjects)
+    {
+        wall->addTexture(wallTexture, false, false);
+        wall->addDiffuseTexture(wallT);
+        wall->addNormalTexture(normalMap);
+    }
 
     this->addTexture(wallTexture, false, false);
 
     this->addDiffuseTexture(normalMap);
     this->addNormalTexture(normalMap);
 
-    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 150.0f, 10.0f);
+    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 10.0f);
 
     addFloor();
     addCeiling();

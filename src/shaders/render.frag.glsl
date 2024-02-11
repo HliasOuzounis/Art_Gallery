@@ -45,6 +45,7 @@ float shadowCalculation(vec3 fragPositionLightspace);
 
 vec4 Kd, Ks, Ka;
 float Ns;
+vec3 normal;
 
 const int samples = 20;
 vec3 sampleOffsetDirections[samples] = vec3[]
@@ -88,7 +89,7 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, fs_in.TexCoords);
         Ks = texture(specularColorSampler, fs_in.TexCoords);
-        Ns = 10;
+        Ns = 1;
     } else {
         Ks = material.Ks;
         Kd = material.Kd;
@@ -96,28 +97,31 @@ vec4 phong(float visibility){
         Ns = material.Ns;
     }
     if (useNormalMap == 1){
-        vec3 normal = normalize(texture(normalMapSampler, fs_in.TexCoords).rgb * 2.0 - 1.0);
-        // normal = normalize(vec3(M * TBN * vec4(normal, 0.0)));
-        // return vec4(normal * 0.5 + 0.5, 1.0);
+        normal = normalize(texture(normalMapSampler, fs_in.TexCoords).rgb * 2.0 - 1.0);
+        normal = vec3(M * vec4(normal, 0.0));
     } else {
-        vec3 normal = fs_in.Normal;
+        normal = fs_in.Normal;
     }
 
     vec4 Ia = Ka * light.La;
 
     vec3 lightDir = normalize(light.lightPos - fs_in.FragPos);
-    vec4 Id = clamp(dot(lightDir, fs_in.Normal), 0, 1) * Kd * light.Ld;
+    vec4 Id = clamp(dot(lightDir, normal), 0, 1) * Kd * light.Ld;
 
     vec3 viewDir = normalize(viewPos - fs_in.FragPos);
     vec3 halfwayDir = normalize(lightDir + viewDir);
-    vec4 Is = pow(max(dot(fs_in.Normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
+    vec4 Is = pow(max(dot(normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
 
-    if (useTexture == 1)
-        Is /= 2;
 
-    float attenuation = 1.0 / (1.0 + pow(length(light.lightPos - fs_in.FragPos), 2) / light.lightIntensity);
+    float constantAttenuation = 1.0;
+    float linearAttenuation = 0.05; // Increase linear attenuation factor
+    float quadraticAttenuation = 0.01;
+    float lightDistance = length(light.lightPos - fs_in.FragPos);
 
-    vec4 finalColor = Ia + (Id + Is) * visibility * attenuation;
+    float attenuation = 1.0 / (constantAttenuation + linearAttenuation * lightDistance + quadraticAttenuation * lightDistance * lightDistance);
+
+
+    vec4 finalColor = Ia + (Id + Is) * visibility * attenuation * light.lightIntensity;
     finalColor.a = 1;
     return finalColor;
 }
