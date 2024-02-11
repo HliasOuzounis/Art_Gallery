@@ -159,7 +159,7 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
 
     this->addTexture(wallTexture, false, false);
 
-    this->addDiffuseTexture(wall);
+    this->addDiffuseTexture(normalMap);
     this->addNormalTexture(normalMap);
 
     this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 150.0f, 10.0f);
