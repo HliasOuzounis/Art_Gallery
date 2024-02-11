@@ -12,15 +12,14 @@ using namespace std;
 #include "object/object.h"
 #include "light/light.h"
 
-class Room : public Object
+class Room
 {
 public:
-    using Object::render;
-
     float height;
     float depth;
 
     Light *light;
+    vector<Object *> roomObjects;
 
     Room(){};
     virtual bool isInside(vec3 position) { return false; }
@@ -29,6 +28,7 @@ public:
 
     void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3]);
     void render(GLuint depthShader, GLuint modelMatrixLocation);
+    void render(GLuint modelMatrixLocation);
 
 protected:
     void addLightBulb();

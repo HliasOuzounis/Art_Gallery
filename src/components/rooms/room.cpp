@@ -3,16 +3,20 @@
 void Room::render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3])
 {
     this->light->upload_to_shaders(shaderProgram);
-    Object::render(modelMatrixLocation, materialLocation, useTextureLocation);
-    for (auto &subObject : subObjects)
+    for (auto &subObject : roomObjects)
         subObject->render(modelMatrixLocation, materialLocation, useTextureLocation);
 }
 
 void Room::render(GLuint depthShader, GLuint modelMatrixLocation)
 {
     this->light->upload_depth_shader(depthShader);
-    Object::render(modelMatrixLocation);
-    for (auto &subObject : subObjects)
+    for (auto &subObject : roomObjects)
+        subObject->render(modelMatrixLocation);
+}
+
+void Room::render(GLuint modelMatrixLocation)
+{
+    for (auto &subObject : roomObjects)
         subObject->render(modelMatrixLocation);
 }
 
@@ -34,5 +38,5 @@ void Room::addLightBulb()
     lightBulbObject->scaleObject(vec3(0.1f));
     lightBulbObject->translateObject(this->light->position);
 
-    subObjects.push_back(lightBulbObject);
+    roomObjects.push_back(lightBulbObject);
 }

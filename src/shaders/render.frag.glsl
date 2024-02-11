@@ -89,7 +89,7 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, fs_in.TexCoords);
         Ks = texture(specularColorSampler, fs_in.TexCoords);
-        Ns = 1;
+        Ns = 2;
     } else {
         Ks = material.Ks;
         Kd = material.Kd;

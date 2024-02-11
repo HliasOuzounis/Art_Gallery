@@ -102,8 +102,8 @@ void createContext()
     {
         Painting *painting = new Painting(paintingHeight, paintingWidth, paintingYpos, mainRoomRadius, angleStep * i);
         paintings.push_back(painting);
-        rooms[0]->subObjects.push_back(painting);
-        rooms[i + 1]->subObjects.push_back(painting);
+        rooms[0]->roomObjects.push_back(painting);
+        rooms[i + 1]->roomObjects.push_back(painting);
     }
 
     // Create frame buffers
