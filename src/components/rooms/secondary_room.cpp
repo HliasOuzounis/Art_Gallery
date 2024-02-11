@@ -11,7 +11,7 @@ SecondaryRoom::SecondaryRoom(float height, float width, float depth) : width(wid
     addFloor();
     addCeiling();
 
-    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 1.0f, 10.0f);
+    this->light = new Light(vec3(0, height - Light::light_displacement, 0), vec4(1.0, 1.0, 1.0, 1.0), 2.0f, 10.0f);
 
     addLightBulb();
 }
@@ -50,8 +50,12 @@ void SecondaryRoom::addWalls(float width, float height, float depth)
     static const Texture wallTexture = {
         "src/assets/textures/walls/blue_walls_diffuse.png",
         "src/assets/textures/walls/blue_walls_specular.png"};
-    static const GLuint normalMap = loadSOIL("src/assets/textures/brick/brickwall_normal.png");
-    static const GLuint wallT = loadSOIL("src/assets/textures/brick/brickwall.png");
+    // static const GLuint normalMap = loadSOIL("src/assets/textures/brick/brickwall_normal.png");
+    // static const GLuint wallT = loadSOIL("src/assets/textures/brick/brickwall.png");
+
+    static const GLuint normalMap = loadSOIL("src/assets/textures/brick/bricks2_normal.png");
+    static const GLuint wallT = loadSOIL("src/assets/textures/brick/bricks2.png");
+    
 
     for (auto wall : roomObjects)
     {

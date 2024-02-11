@@ -4,6 +4,7 @@ in VS_OUT {
     vec3 FragPos;
     vec3 Normal;
     vec2 TexCoords;
+    mat3 TBN;
 } fs_in;
 
 //lighting
@@ -89,7 +90,7 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, fs_in.TexCoords);
         Ks = texture(specularColorSampler, fs_in.TexCoords);
-        Ns = 2;
+        Ns = 10;
     } else {
         Ks = material.Ks;
         Kd = material.Kd;
@@ -98,7 +99,7 @@ vec4 phong(float visibility){
     }
     if (useNormalMap == 1){
         normal = normalize(texture(normalMapSampler, fs_in.TexCoords).rgb * 2.0 - 1.0);
-        normal = vec3(M * vec4(normal, 0.0));
+        normal = normalize(fs_in.TBN * normal);
     } else {
         normal = fs_in.Normal;
     }
@@ -114,7 +115,7 @@ vec4 phong(float visibility){
 
 
     float constantAttenuation = 1.0;
-    float linearAttenuation = 0.05; // Increase linear attenuation factor
+    float linearAttenuation = 0.1; // Increase linear attenuation factor
     float quadraticAttenuation = 0.01;
     float lightDistance = length(light.lightPos - fs_in.FragPos);
 
