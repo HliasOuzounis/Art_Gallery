@@ -12,6 +12,16 @@ uniform mat4 P;
 
 uniform vec3 viewPos;
 
+struct Light {
+    vec3 lightPos;
+    vec4 La;
+    vec4 Ld;
+    vec4 Ls;
+    float farPlane;
+    float lightIntensity;
+};
+uniform Light light;
+
 out VS_OUT{   
     vec3 FragPos;
     vec3 Normal;
@@ -19,26 +29,24 @@ out VS_OUT{
     mat3 TBN;
     vec3 tangentFragPos;
     vec3 tangentViewPos;
+    vec3 tangentLightPos;
 } vs_out;
 
 void main()
 {
-    gl_Position = P * V * M * vec4(vertexPosition_modelspace, 1.0);
-
-    vs_out.FragPos = vec3(M * vec4(vertexPosition_modelspace, 1.0));
-
-    // vec3 normal1 = normalize(transpose(inverse(mat3(M))) * vertexNormal_modelspace);
-    vs_out.Normal = normalize(vec3(M * vec4(vertexNormal_modelspace, 0.0)));
-
+    vs_out.FragPos = vec3(M * vec4(vertexPosition_modelspace, 1.0));   
     vs_out.TexCoords = vertexUV;
-
-    // calculate tangent/bitangent matrix
+    vs_out.Normal = normalize(vec3(M * vec4(vertexNormal_modelspace, 0.0)));
+    
     vec3 T = normalize(mat3(M) * vec3(1.0, 0.0, 0.0));
     vec3 B = normalize(mat3(M) * vec3(0.0, 1.0, 0.0));
-    vec3 N = normalize(mat3(M) * vec3(0.0, 0.0, 1.0));
-    vs_out.TBN = mat3(T, B, N);
+    vec3 N = normalize(mat3(M) * vertexNormal_modelspace);
+    mat3 TBN = transpose(mat3(T, B, N));
+    vs_out.TBN = TBN;
 
-    mat3 TBN = vs_out.TBN;
+    vs_out.tangentLightPos = TBN * light.lightPos;
     vs_out.tangentViewPos  = TBN * viewPos;
     vs_out.tangentFragPos  = TBN * vs_out.FragPos;
+    
+    gl_Position = P * V * M * vec4(vertexPosition_modelspace, 1.0);
 }

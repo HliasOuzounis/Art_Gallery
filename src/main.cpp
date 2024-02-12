@@ -161,11 +161,11 @@ void createPaintingTextures()
         else
             paintings[i]->addNormalTexture(normalTexture);
 
+        /*/ Displacement map
         bumpFBO->addDepthTexture(depthTexture);
         bumpPass(bumpFBO, camera, currentRoom);
         if (gameState == ROOM4)
         {
-            // Room 4 is fish-eye distortion. Normal map needs to be distorted as well
             GLuint depthTexture2;
             paintingsFBO->addTexture(depthTexture2);
             displayScene(paintingsFBO, depthTexture, gameState);
@@ -173,6 +173,7 @@ void createPaintingTextures()
         }
         else
             paintings[i]->addDisplacementTexture(depthTexture);
+        //*/
     }
     gameState = MAINROOM;
     change_room();

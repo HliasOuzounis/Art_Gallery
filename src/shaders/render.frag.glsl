@@ -1,12 +1,13 @@
 #version 330 core
 
-in VS_OUT {
+in VS_OUT{   
     vec3 FragPos;
     vec3 Normal;
     vec2 TexCoords;
     mat3 TBN;
     vec3 tangentFragPos;
     vec3 tangentViewPos;
+    vec3 tangentLightPos;
 } fs_in;
 
 //lighting
@@ -50,9 +51,14 @@ float shadowCalculation(vec3 fragPositionLightspace);
 vec2 parallaxMapping(vec2 texCoords, vec3 viewDir);
 
 vec2 texCoords;
+vec3 fragPos;
+vec3 fragViewPos;
+vec3 lightPos;
+
+vec3 normal;
+
 vec4 Kd, Ks, Ka;
 float Ns;
-vec3 normal;
 
 const int samples = 20;
 vec3 sampleOffsetDirections[samples] = vec3[]
@@ -69,8 +75,14 @@ void main()
     if (useDisplacementMap == 1){
         vec3 viewDirTangentSpace = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
         texCoords = parallaxMapping(fs_in.TexCoords,  viewDirTangentSpace);
+        fragPos = fs_in.tangentFragPos;
+        lightPos = fs_in.tangentLightPos;
+        fragViewPos = fs_in.tangentViewPos;
     } else {
         texCoords = fs_in.TexCoords;
+        fragPos = fs_in.FragPos;
+        lightPos = light.lightPos;
+        fragViewPos = viewPos;
     }
 
     float visibility = 1 - shadowCalculation(fs_in.FragPos);
@@ -98,6 +110,7 @@ float shadowCalculation(vec3 fragPos){
     return shadow;
 }
 
+
 vec4 phong(float visibility){
     if (useTexture == 1){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
@@ -111,18 +124,21 @@ vec4 phong(float visibility){
         Ns = material.Ns;
     }
     if (useNormalMap == 1){
-        normal = normalize(texture(normalMapSampler, texCoords).rgb * 2.0 - 1.0);
-        normal = normalize(fs_in.TBN * normal);
+        normal = normalize(texture(normalMapSampler, texCoords).rgb);
+        normal = normalize(normal * 2.0 - 1.0);
+        if (useDisplacementMap == 0){
+            normal = normalize(fs_in.TBN * normal);
+        }
     } else {
         normal = fs_in.Normal;
     }
 
     vec4 Ia = Ka * light.La;
 
-    vec3 lightDir = normalize(light.lightPos - fs_in.FragPos);
+    vec3 lightDir = normalize(lightPos - fragPos);
     vec4 Id = clamp(dot(lightDir, normal), 0, 1) * Kd * light.Ld;
 
-    vec3 viewDir = normalize(viewPos - fs_in.FragPos);
+    vec3 viewDir = normalize(fragViewPos - fragPos);
     vec3 halfwayDir = normalize(lightDir + viewDir);
     vec4 Is = pow(max(dot(normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
 
@@ -130,7 +146,7 @@ vec4 phong(float visibility){
     float constantAttenuation = 1.0;
     float linearAttenuation = 0.1; // Increase linear attenuation factor
     float quadraticAttenuation = 0.01;
-    float lightDistance = length(light.lightPos - fs_in.FragPos);
+    float lightDistance = length(lightPos - fragPos);
 
     float attenuation = 1.0 / (constantAttenuation + linearAttenuation * lightDistance + quadraticAttenuation * lightDistance * lightDistance);
 
@@ -142,8 +158,43 @@ vec4 phong(float visibility){
 
 vec2 parallaxMapping(vec2 texCoords, vec3 viewDir)
 { 
-    const float height_scale = 0.1;
-    float height =  texture(displacementMapSampler, texCoords).r;    
-    vec2 p = viewDir.xy / viewDir.z * (height * height_scale);
-    return texCoords - p;    
-} 
+    // number of depth layers
+    const float minLayers = 8;
+    const float maxLayers = 32;
+    float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));  
+    // calculate the size of each layer
+    float layerDepth = 1.0 / numLayers;
+    // depth of current layer
+    float currentLayerDepth = 0.0;
+    // the amount to shift the texture coordinates per layer (from vector P)
+    const float heightScale = 0.1;
+    vec2 P = viewDir.xy / viewDir.z * heightScale; 
+    vec2 deltaTexCoords = P / numLayers;
+  
+    // get initial values
+    vec2  currentTexCoords     = texCoords;
+    float currentDepthMapValue = texture(displacementMapSampler, currentTexCoords).r;
+      
+    while(currentLayerDepth < currentDepthMapValue)
+    {
+        // shift texture coordinates along direction of P
+        currentTexCoords -= deltaTexCoords;
+        // get depthmap value at current texture coordinates
+        currentDepthMapValue = texture(displacementMapSampler, currentTexCoords).r;  
+        // get depth of next layer
+        currentLayerDepth += layerDepth;  
+    }
+    
+    // get texture coordinates before collision (reverse operations)
+    vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+
+    // get depth after and before collision for linear interpolation
+    float afterDepth  = currentDepthMapValue - currentLayerDepth;
+    float beforeDepth = texture(displacementMapSampler, prevTexCoords).r - currentLayerDepth + layerDepth;
+ 
+    // interpolation of texture coordinates
+    float weight = afterDepth / (afterDepth - beforeDepth);
+    vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
+
+    return finalTexCoords;
+}
