@@ -25,6 +25,7 @@ public:
     virtual bool isInside(vec3 position) { return false; }
     virtual void addFloor(){};
     virtual void addCeiling(){};
+    virtual void populateRoom(){};
 
     void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3]);
     void render(GLuint depthShader, GLuint modelMatrixLocation);

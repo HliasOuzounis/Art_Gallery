@@ -24,17 +24,9 @@ void bumpPass(BumpFBO *bumpFBO, Camera *camera, Room *currentRoom)
     glUniformMatrix4fv(bumpProjectionMatrixLocation, 1, GL_FALSE, &camera->projectionMatrix[0][0]);
     glUniform3fv(bumpCameraPositionLocation, 1, &camera->position[0]);
 
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        std::cerr << "OpenGL error: " << error << std::endl;
-        std::cerr << "Error in uniform " << std::endl;
-        cout << bumpCameraPositionLocation << endl;
-    }
-
     currentRoom->render(bumpModelMatrixLocation);
 
-    error = glGetError();
+    GLenum error = glGetError();
     if (error != GL_NO_ERROR)
     {
         std::cerr << "OpenGL error: " << error << std::endl;

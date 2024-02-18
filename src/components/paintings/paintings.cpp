@@ -22,12 +22,12 @@ Painting::Painting()
         vec3(-1, 1, 0),
     };
     vector<vec2> uvs = {
-        vec2(0, 0),
-        vec2(1, 0),
-        vec2(1, 1),
-        vec2(0, 0),
-        vec2(1, 1),
-        vec2(0, 1),
+        vec2(0.2, 0),
+        vec2(0.8, 0),
+        vec2(0.8, 1),
+        vec2(0.2, 0),
+        vec2(0.8, 1),
+        vec2(0.2, 1),
     };
     vector<vec3> normals = {
         vec3(0, 0, 1),

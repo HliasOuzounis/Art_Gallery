@@ -90,6 +90,7 @@ void createContext()
     {
         Room *secondaryRoom = new SecondaryRoom(SecondaryRoomHeight, SecondaryRoomWidth, SecondaryRoomDepth);
         rooms[i] = secondaryRoom;
+        secondaryRoom->populateRoom();
     }
     currentRoom = rooms[0];
 
@@ -138,6 +139,7 @@ void createPaintingTextures()
 
         gameState = GameState(i + 1);
         change_room();
+        player->position += vec3(0, 0, 2);
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
@@ -148,9 +150,9 @@ void createPaintingTextures()
         paintings[i]->addDiffuseTexture(paintingTexture);
 
         GLuint normalTexture, depthTexture;
-
         bumpFBO->addNormalTexture(normalTexture);
         bumpPass(bumpFBO, camera, currentRoom);
+        //*/
         if (gameState == ROOM4){
             // Room 4 is fish-eye distortion. Normal map needs to be distorted as well
             GLuint normalTexture2;
@@ -160,10 +162,11 @@ void createPaintingTextures()
         }
         else
             paintings[i]->addNormalTexture(normalTexture);
-
+        //*/
         bumpFBO->addDepthTexture(depthTexture);
         bumpPass(bumpFBO, camera, currentRoom);
-        paintings[i]->addDisplacementTexture(depthTexture);
+        // paintings[i]->addDiffuseTexture(depthTexture);
+        // paintings[i]->addDisplacementTexture(depthTexture);
     }
     gameState = MAINROOM;
     change_room();
@@ -185,7 +188,7 @@ void mainLoop()
         float deltaTime = float(currentTime - lastTime);
 
         player->move(window, deltaTime, camera->horizontalAngle);
-        //*/
+        /*/
         if (!currentRoom->isInside(player->position))
         {
             player->velocity = vec3(0, player->velocity.y, 0);

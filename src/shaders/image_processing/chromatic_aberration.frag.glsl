@@ -8,8 +8,8 @@ uniform float time;
 out vec4 fragmentColor;
 
 float periodicFunction(float time) {
-    float frequency = 0.2;
-    float amplitude = 0.03;
+    float frequency = 0.1;
+    float amplitude = 0.01;
 
     // Smooth oscillation using sine function
     float smoothOscillation = amplitude * sin(2.0 * 3.14159265358979323846 * frequency * time);

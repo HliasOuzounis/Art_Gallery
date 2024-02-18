@@ -1,0 +1,194 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "external",
+					"childIndexes" : 
+					[
+						2,
+						4
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-external-Debug-8482bb5b6989bf536f1d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "external",
+					"targetIndexes" : 
+					[
+						0,
+						2
+					]
+				},
+				{
+					"build" : "external/glfw-3.2.1",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-external.glfw-3.2.1-Debug-d7d3409b98715e345536.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8.12"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "external/glfw-3.2.1"
+				},
+				{
+					"build" : "external/glfw-3.2.1/src",
+					"jsonFile" : "directory-external.glfw-3.2.1.src-Debug-7ecef11e5eaa7048436d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8.12"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 1,
+					"source" : "external/glfw-3.2.1/src",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "external/Simple-OpenGL-Image-Library",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-external.Simple-OpenGL-Image-Library-Debug-bdcaf035cc80b8b4c36f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.6"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "external/Simple-OpenGL-Image-Library",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "VVR_OGL_LABORATORY",
+					"targetIndexes" : 
+					[
+						0,
+						2,
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2,
+						3
+					],
+					"name" : "GLFW",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "SOIL",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "GLEW_1130::@89556154f30252d09d22",
+					"jsonFile" : "target-GLEW_1130-Debug-03c68b8b3b5302876611.json",
+					"name" : "GLEW_1130",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "SOIL::@920775bbc750974e1e78",
+					"jsonFile" : "target-SOIL-Debug-b9a3afd6ced3b03baffd.json",
+					"name" : "SOIL",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "TINYXML2::@89556154f30252d09d22",
+					"jsonFile" : "target-TINYXML2-Debug-65ade79925a966b0d31d.json",
+					"name" : "TINYXML2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "art_gallery::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-art_gallery-Debug-f67ded307ae33bb720be.json",
+					"name" : "art_gallery",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glfw::@4cb2830a7239d3fc369d",
+					"jsonFile" : "target-glfw-Debug-bb92639f79daba76cdd5.json",
+					"name" : "glfw",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery/build",
+		"source" : "/home/hlias/documents/uni/7\u03bf \u0395\u03be\u03ac\u03bc\u03b7\u03bd\u03bf/\u0393\u03c1\u03b1\u03c6\u03b9\u03ba\u03ac \u03ba\u03b1\u03b9 \u0395\u03b9\u03ba\u03bf\u03bd\u03b9\u03ba\u03ae \u03a0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b1/Art_Gallery"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
