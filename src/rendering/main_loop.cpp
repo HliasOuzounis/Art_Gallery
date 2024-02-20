@@ -36,6 +36,7 @@ void initializeMainRenderLoop()
     useTextureLocation[0] = glGetUniformLocation(shaderProgram, "useTexture");
     useTextureLocation[1] = glGetUniformLocation(shaderProgram, "useNormalMap");
     useTextureLocation[2] = glGetUniformLocation(shaderProgram, "useDisplacementMap");
+    useTextureLocation[2] = glGetUniformLocation(shaderProgram, "useDisplacementMap");
 
     viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
 

@@ -197,7 +197,7 @@ void mainLoop()
         float deltaTime = float(currentTime - lastTime);
 
         player->move(window, deltaTime, camera->horizontalAngle);
-        //*/
+        /*/
         if (!currentRoom->isInside(player->position))
         {
             player->velocity = vec3(0, player->velocity.y, 0);

@@ -1,6 +1,6 @@
 #version 330 core
 
-in VS_OUT {
+in VS_OUT{   
     vec3 FragPos;
     vec3 Normal;
     vec2 TexCoords;
@@ -36,9 +36,11 @@ uniform Material material;
 uniform int useTexture = 0;
 uniform int useNormalMap = 0;
 uniform int useDisplacementMap = 0;
+uniform int useDisplacementMap = 0;
 uniform sampler2D diffuseColorSampler;
 uniform sampler2D specularColorSampler;
 uniform sampler2D normalMapSampler;
+uniform sampler2D displacementMapSampler;
 uniform sampler2D displacementMapSampler;
 
 uniform samplerCube depthMap;
@@ -95,6 +97,7 @@ float shadowCalculation(vec3 fragPos){
     return shadow;
 }
 
+
 vec4 phong(float visibility){
     if (useTexture == 1){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
@@ -123,7 +126,7 @@ vec4 phong(float visibility){
     float constantAttenuation = 1.0;
     float linearAttenuation = 0.1; // Increase linear attenuation factor
     float quadraticAttenuation = 0.01;
-    float lightDistance = length(light.lightPos - fs_in.FragPos);
+    float lightDistance = length(lightPos - fragPos);
 
     float attenuation = 1.0 / (constantAttenuation + linearAttenuation * lightDistance + quadraticAttenuation * lightDistance * lightDistance);
 
