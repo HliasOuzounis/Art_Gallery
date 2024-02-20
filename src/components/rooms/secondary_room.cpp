@@ -51,17 +51,18 @@ void SecondaryRoom::addWalls(float width, float height, float depth)
         "src/assets/textures/walls/PaintedWood.png",
         "src/assets/textures/walls/PaintedWoodSpecular.png"};
     static const GLuint normalMap = loadSOIL("src/assets/textures/walls/PaintedWoodNormal.png");
-    // static const GLuint wallT = loadSOIL("src/assets/textures/brick/brickwall.png");
 
-    static const GLuint brickNormalMap = loadSOIL("src/assets/textures/brick/bricks2_normal.png");
-    static const GLuint wallT = loadSOIL("src/assets/textures/brick/bricks2.png");
+    // static const GLuint brickNormalMap = loadSOIL("src/assets/textures/brick/bricks2_normal.png");
+    // static const GLuint wallT = loadSOIL("src/assets/textures/brick/bricks2.png");
+    // static const GLuint wallDispl = loadSOIL("src/assets/textures/brick/bricks2_disp.png");
 
     for (auto wall : roomObjects)
     {
         wall->addTexture(wallTexture, false, false);
         wall->addNormalTexture(normalMap);
-        // wall->addNormalTexture(brickNormalMap);
         // wall->addDiffuseTexture(wallT);
+        // wall->addNormalTexture(brickNormalMap);
+        // wall->addDisplacementTexture(wallDispl);
     }
 }
 
