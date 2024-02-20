@@ -101,7 +101,7 @@ void createContext()
     float angleStep = 2 * M_PI / PAINTINGS;
     for (int i = 0; i < PAINTINGS; i++)
     {
-        Painting *painting = new Painting(paintingHeight, paintingWidth, paintingYpos, mainRoomRadius, angleStep * i);
+        Painting *painting = new Painting(paintingHeight, paintingWidth, paintingYpos, mainRoomRadius, -angleStep * i);
         paintings.push_back(painting);
         rooms[0]->roomObjects.push_back(painting);
         rooms[i + 1]->roomObjects.push_back(painting);
@@ -152,7 +152,7 @@ void createPaintingTextures()
         GLuint normalTexture, depthTexture;
         bumpFBO->addNormalTexture(normalTexture);
         bumpPass(bumpFBO, camera, currentRoom);
-        //*/
+        /*/
         if (gameState == ROOM4){
             // Room 4 is fish-eye distortion. Normal map needs to be distorted as well
             GLuint normalTexture2;
@@ -163,6 +163,7 @@ void createPaintingTextures()
         else
             paintings[i]->addNormalTexture(normalTexture);
         //*/
+        // paintings[i]->addDiffuseTexture(normalTexture);
         bumpFBO->addDepthTexture(depthTexture);
         bumpPass(bumpFBO, camera, currentRoom);
         // paintings[i]->addDiffuseTexture(depthTexture);
@@ -270,7 +271,7 @@ void change_room()
     }
     player->position = vec3(0, 0, -rooms[gameState]->depth / 2 + 1);
     camera->horizontalAngle = -3.14f;
-    camera->verticalAngle = 0.1f;
+    camera->verticalAngle = 0.0f;
     paintings[gameState - 1]->modelMatrix = paintings[gameState - 1]->secondaryRoomModelMatrix *
                                             translate(mat4(1.0f), vec3(0, 0, -rooms[gameState]->depth / 2 + 0.1));
     paintings[gameState - 1]->updateFrameModelMatrix();

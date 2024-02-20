@@ -103,6 +103,7 @@ vec4 phong(float visibility){
     } else {
         normal = fs_in.Normal;
     }
+    normal = fs_in.Normal;
 
     vec4 Ia = Ka * light.La;
 
