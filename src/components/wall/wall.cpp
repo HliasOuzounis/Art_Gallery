@@ -39,6 +39,8 @@ Wall::Wall()
         1.0f};
     
     this->translateObject(vec3(-0.5, 0, 0));
+
+    calculateTanBitan();
 }
 
 Wall::Wall(float width, float height) : Wall()

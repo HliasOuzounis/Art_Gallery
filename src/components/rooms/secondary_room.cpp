@@ -53,13 +53,14 @@ void SecondaryRoom::addWalls(float width, float height, float depth)
     static const GLuint normalMap = loadSOIL("src/assets/textures/walls/PaintedWoodNormal.png");
     // static const GLuint wallT = loadSOIL("src/assets/textures/brick/brickwall.png");
 
-    // static const GLuint normalMap = loadSOIL("src/assets/textures/brick/bricks2_normal.png");
-    // static const GLuint wallT = loadSOIL("src/assets/textures/brick/bricks2.png");
+    static const GLuint brickNormalMap = loadSOIL("src/assets/textures/brick/bricks2_normal.png");
+    static const GLuint wallT = loadSOIL("src/assets/textures/brick/bricks2.png");
 
     for (auto wall : roomObjects)
     {
         wall->addTexture(wallTexture, false, false);
         wall->addNormalTexture(normalMap);
+        // wall->addNormalTexture(brickNormalMap);
         // wall->addDiffuseTexture(wallT);
     }
 }

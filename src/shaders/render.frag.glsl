@@ -5,6 +5,9 @@ in VS_OUT {
     vec3 Normal;
     vec2 TexCoords;
     mat3 TBN;
+    vec3 tangentFragPos;
+    vec3 tangentLightPos;
+    vec3 tangentViewPos;
 } fs_in;
 
 //lighting
@@ -46,7 +49,6 @@ float shadowCalculation(vec3 fragPositionLightspace);
 
 vec4 Kd, Ks, Ka;
 float Ns;
-vec3 normal;
 
 const int samples = 20;
 vec3 sampleOffsetDirections[samples] = vec3[]
@@ -90,27 +92,22 @@ vec4 phong(float visibility){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
         Kd = texture(diffuseColorSampler, fs_in.TexCoords);
         Ks = texture(specularColorSampler, fs_in.TexCoords);
-        Ns = 10;
+        Ns = 2;
     } else {
-        Ks = material.Ks;
-        Kd = material.Kd;
         Ka = material.Ka;
+        Kd = material.Kd;
+        Ks = material.Ks;
         Ns = material.Ns;
     }
-    if (useNormalMap == 1){
-        normal = normalize(texture(normalMapSampler, fs_in.TexCoords).rgb * 2.0 - 1.0);
-        normal = normalize(fs_in.TBN * normal);
-    } else {
-        normal = fs_in.Normal;
-    }
-    normal = fs_in.Normal;
+    
+    vec3 normal = (useNormalMap == 1) ? normalize(texture(normalMapSampler, fs_in.TexCoords).rgb * 2.0 - 1.0) : fs_in.Normal;
 
     vec4 Ia = Ka * light.La;
 
-    vec3 lightDir = normalize(light.lightPos - fs_in.FragPos);
+    vec3 lightDir = normalize(fs_in.tangentLightPos - fs_in.tangentFragPos);
     vec4 Id = clamp(dot(lightDir, normal), 0, 1) * Kd * light.Ld;
 
-    vec3 viewDir = normalize(viewPos - fs_in.FragPos);
+    vec3 viewDir = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
     vec3 halfwayDir = normalize(lightDir + viewDir);
     vec4 Is = pow(max(dot(normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
 
@@ -121,7 +118,6 @@ vec4 phong(float visibility){
     float lightDistance = length(light.lightPos - fs_in.FragPos);
 
     float attenuation = 1.0 / (constantAttenuation + linearAttenuation * lightDistance + quadraticAttenuation * lightDistance * lightDistance);
-
 
     vec4 finalColor = Ia + (Id + Is) * visibility * attenuation * light.lightIntensity;
     finalColor.a = 1;

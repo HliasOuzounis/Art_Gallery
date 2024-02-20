@@ -86,4 +86,8 @@ public:
     void addNormalTexture(GLuint normalTexture);
     void addDisplacementTexture(GLuint dislpacementTexture);
     void addTexture(Texture newTexture, bool useNormal, bool useDisplacement);
+
+protected:
+    GLuint tangentVBO, bitangentVBO;
+    void calculateTanBitan();
 };

@@ -40,6 +40,7 @@ Painting::Painting()
     this->drawable = new Drawable(vertices, uvs, normals);
     addFrame();
     updateFrameModelMatrix();
+    calculateTanBitan();
 }
 
 Painting::Painting(float height, float width, float yPos, float mainRoomRadius, float angle) : Painting()

@@ -12,12 +12,14 @@ GLuint Texture::defaultTexture = 0;
 Object::Object(Drawable *drawable)
 {
     this->drawable = drawable;
+    calculateTanBitan();
 };
 
 Object::Object(Drawable *drawable, Material material)
 {
     this->drawable = drawable;
     this->material = material;
+    calculateTanBitan();
 }
 
 void Object::rotateObject(vec3 axis, float angle)
@@ -118,4 +120,64 @@ void Object::addDisplacementTexture(GLuint displacementTexture)
 {
     this->texture.displacementMap = displacementTexture;
     this->useDisplacementMap = true;
+}
+
+void Object::calculateTanBitan()
+{
+    vector<float> tangents;
+    vector<float> bitangents;
+
+    for (int i = 0; i < this->drawable->vertices.size(); i += 3)
+    {
+        vec3 pos1 = this->drawable->vertices[i];
+        vec3 pos2 = this->drawable->vertices[i + 1];
+        vec3 pos3 = this->drawable->vertices[i + 2];
+
+        vec2 uv1 = this->drawable->uvs[i];
+        vec2 uv2 = this->drawable->uvs[i + 1];
+        vec2 uv3 = this->drawable->uvs[i + 2];
+
+        vec3 edge1 = pos2 - pos1;
+        vec3 edge2 = pos3 - pos1;
+
+        vec2 deltaUV1 = uv2 - uv1;
+        vec2 deltaUV2 = uv3 - uv1;
+
+        float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+
+        vec3 tangent;
+        vec3 bitangent;
+
+        tangent.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
+        tangent.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
+        tangent.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
+
+        bitangent.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
+        bitangent.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
+        bitangent.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
+
+        for (int j = 0; j < 3; j++){
+            tangents.push_back(tangent.x);
+            tangents.push_back(tangent.y);
+            tangents.push_back(tangent.z);
+            bitangents.push_back(bitangent.x);
+            bitangents.push_back(bitangent.y);
+            bitangents.push_back(bitangent.z);
+        }
+    }
+    this->drawable->bind();
+    glGenBuffers(1, &tangentVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, tangentVBO);
+    glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(float), &tangents[0], GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (GLvoid *)0);
+
+    glGenBuffers(1, &bitangentVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, bitangentVBO);
+    glBufferData(GL_ARRAY_BUFFER, bitangents.size() * sizeof(float), &bitangents[0], GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(4);
+    glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (GLvoid *)0);
+    cout << "Tangents and bitangents calculated" << endl;
 }

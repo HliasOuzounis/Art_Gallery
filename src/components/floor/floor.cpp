@@ -38,6 +38,7 @@ Floor::Floor()
         vec4(0.1f, 0.1f, 0.1f, 1.0f),
         vec4(0.1f, 0.1f, 0.1f, 1.0f),
         1.0f};
+    calculateTanBitan();
 }
 
 Floor::Floor(float width, float depth, float height, bool isCeiling) : Floor()
