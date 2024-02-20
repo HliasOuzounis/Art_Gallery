@@ -143,6 +143,23 @@ void Object::calculateTanBitan()
         vec2 deltaUV1 = uv2 - uv1;
         vec2 deltaUV2 = uv3 - uv1;
 
+        if (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y == 0)
+        {
+            vec3 tangent = vec3(1, 0, 0);
+            vec3 bitangent = vec3(0, 1, 0);
+
+            for (int j = 0; j < 3; j++)
+            {
+                tangents.push_back(tangent.x);
+                tangents.push_back(tangent.y);
+                tangents.push_back(tangent.z);
+                bitangents.push_back(bitangent.x);
+                bitangents.push_back(bitangent.y);
+                bitangents.push_back(bitangent.z);
+            }
+            continue;
+        }
+
         float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
 
         vec3 tangent;
@@ -156,7 +173,8 @@ void Object::calculateTanBitan()
         bitangent.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
         bitangent.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
 
-        for (int j = 0; j < 3; j++){
+        for (int j = 0; j < 3; j++)
+        {
             tangents.push_back(tangent.x);
             tangents.push_back(tangent.y);
             tangents.push_back(tangent.z);
