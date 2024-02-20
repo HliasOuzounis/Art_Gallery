@@ -36,11 +36,9 @@ uniform Material material;
 uniform int useTexture = 0;
 uniform int useNormalMap = 0;
 uniform int useDisplacementMap = 0;
-uniform int useDisplacementMap = 0;
 uniform sampler2D diffuseColorSampler;
 uniform sampler2D specularColorSampler;
 uniform sampler2D normalMapSampler;
-uniform sampler2D displacementMapSampler;
 uniform sampler2D displacementMapSampler;
 
 uniform samplerCube depthMap;
@@ -126,7 +124,7 @@ vec4 phong(float visibility){
     float constantAttenuation = 1.0;
     float linearAttenuation = 0.1; // Increase linear attenuation factor
     float quadraticAttenuation = 0.01;
-    float lightDistance = length(lightPos - fragPos);
+    float lightDistance = length(fs_in.tangentLightPos - fs_in.tangentFragPos);
 
     float attenuation = 1.0 / (constantAttenuation + linearAttenuation * lightDistance + quadraticAttenuation * lightDistance * lightDistance);
 
