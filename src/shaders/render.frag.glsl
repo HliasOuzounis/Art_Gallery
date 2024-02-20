@@ -35,9 +35,11 @@ uniform Material material;
 
 uniform int useTexture = 0;
 uniform int useNormalMap = 0;
+uniform int useDisplacementMap = 0;
 uniform sampler2D diffuseColorSampler;
 uniform sampler2D specularColorSampler;
 uniform sampler2D normalMapSampler;
+uniform sampler2D displacementMapSampler;
 
 uniform samplerCube depthMap;
 
@@ -46,6 +48,9 @@ out vec4 fragmentColor;
 
 vec4 phong(float visibility);
 float shadowCalculation(vec3 fragPositionLightspace);
+
+vec2 texCoords;
+vec2 parallaxMapping(vec2 texCoords, vec3 viewDir);
 
 vec4 Kd, Ks, Ka;
 float Ns;
@@ -62,6 +67,9 @@ vec3 sampleOffsetDirections[samples] = vec3[]
 
 void main()
 {   
+    texCoords = (useDisplacementMap == 0) ? fs_in.TexCoords :
+                parallaxMapping(fs_in.TexCoords, normalize(fs_in.tangentViewPos - fs_in.tangentFragPos));
+
     float visibility = 1 - shadowCalculation(fs_in.FragPos);
     fragmentColor = phong(visibility);
 }
@@ -90,8 +98,8 @@ float shadowCalculation(vec3 fragPos){
 vec4 phong(float visibility){
     if (useTexture == 1){
         Ka = vec4(0.05 * Kd.rgb, 1.0);
-        Kd = texture(diffuseColorSampler, fs_in.TexCoords);
-        Ks = texture(specularColorSampler, fs_in.TexCoords);
+        Kd = texture(diffuseColorSampler, texCoords);
+        Ks = texture(specularColorSampler, texCoords);
         Ns = 2;
     } else {
         Ka = material.Ka;
@@ -100,7 +108,7 @@ vec4 phong(float visibility){
         Ns = material.Ns;
     }
     
-    vec3 normal = (useNormalMap == 1) ? normalize(texture(normalMapSampler, fs_in.TexCoords).rgb * 2.0 - 1.0) : fs_in.Normal;
+    vec3 normal = (useNormalMap == 1) ? normalize(texture(normalMapSampler, texCoords).rgb * 2.0 - 1.0) : fs_in.Normal;
 
     vec4 Ia = Ka * light.La;
 
@@ -124,3 +132,45 @@ vec4 phong(float visibility){
     return finalColor;
 }
 
+vec2 parallaxMapping(vec2 startingTexCoords, vec3 viewDir)
+{ 
+    // number of depth layers
+    const float minLayers = 8.0;
+    const float maxLayers = 32.0;
+    float numLayers = mix(maxLayers, minLayers, max(dot(vec3(0.0, 0.0, 1.0), viewDir), 0.0));  
+
+    const float height_scale = 0.1;
+    // calculate the size of each layer
+    float layerDepth = 1.0 / numLayers;
+    // depth of current layer
+    float currentLayerDepth = 0.0;
+    // the amount to shift the texture coordinates per layer (from vector P)
+    vec2 P = viewDir.xy * height_scale; 
+    vec2 deltaTexCoords = P / numLayers;    
+
+    vec2  currentTexCoords     = startingTexCoords;
+    float currentDepthMapValue = texture(displacementMapSampler, currentTexCoords).r;
+    
+    while(currentLayerDepth < currentDepthMapValue)
+    {
+        // shift texture coordinates along direction of P
+        currentTexCoords -= deltaTexCoords;
+        // get depthmap value at current texture coordinates
+        currentDepthMapValue = texture(displacementMapSampler, currentTexCoords).r;  
+        // get depth of next layer
+        currentLayerDepth += layerDepth;  
+    }
+
+    // get texture coordinates before collision (reverse operations)
+    vec2 prevTexCoords = currentTexCoords + deltaTexCoords;
+
+    // get depth after and before collision for linear interpolation
+    float afterDepth  = currentDepthMapValue - currentLayerDepth;
+    float beforeDepth = texture(displacementMapSampler, prevTexCoords).r - currentLayerDepth + layerDepth;
+    
+    // interpolation of texture coordinates
+    float weight = afterDepth / (afterDepth - beforeDepth);
+    vec2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
+
+    return finalTexCoords; 
+} 

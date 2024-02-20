@@ -68,6 +68,12 @@ void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLui
         glBindTexture(GL_TEXTURE_2D, texture.normalMap);
         glUniform1i(useTextureLocation[1], 1);
     }
+    if (useDisplacementMap)
+    {
+        glActiveTexture(DISPLACEMENT_TEXTURE);
+        glBindTexture(GL_TEXTURE_2D, texture.displacementMap);
+        glUniform1i(useTextureLocation[2], 1);
+    }
 
     drawable->bind();
     glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, &modelMatrix[0][0]);
@@ -75,6 +81,7 @@ void Object::render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLui
 
     glUniform1i(useTextureLocation[0], 0);
     glUniform1i(useTextureLocation[1], 0);
+    glUniform1i(useTextureLocation[2], 0);
 
     for (int i = 0; i < subObjects.size(); i++)
         subObjects[i]->render(modelMatrixLocation, materialLocation, useTextureLocation);

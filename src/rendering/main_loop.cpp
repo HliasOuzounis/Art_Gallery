@@ -10,7 +10,7 @@
 GLuint shaderProgram;
 GLuint modelMatrixLocation, viewMatrixLocation, projectionMatrixLocation,
     materialLocation[4], useTextureLocation[3], viewPosLocation,
-    diffuseSamplerLocation, specularSamplerLocation, normalMapSamplerLocation, depthMapLocation;
+    diffuseSamplerLocation, specularSamplerLocation, normalMapSamplerLocation, displacementMapSamplerLocation, depthMapLocation;
 
 GLuint depthProgram;
 GLuint shadowViewProjectionLocation, shadowModelLocation;
@@ -35,12 +35,14 @@ void initializeMainRenderLoop()
 
     useTextureLocation[0] = glGetUniformLocation(shaderProgram, "useTexture");
     useTextureLocation[1] = glGetUniformLocation(shaderProgram, "useNormalMap");
+    useTextureLocation[2] = glGetUniformLocation(shaderProgram, "useDisplacementMap");
 
     viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
 
     diffuseSamplerLocation = glGetUniformLocation(shaderProgram, "diffuseSampler");
     specularSamplerLocation = glGetUniformLocation(shaderProgram, "specularSampler");
     normalMapSamplerLocation = glGetUniformLocation(shaderProgram, "normalMapSampler");
+    displacementMapSamplerLocation = glGetUniformLocation(shaderProgram, "displacementMapSampler");
     depthMapLocation = glGetUniformLocation(shaderProgram, "depthMap");
 
     // --- depthProgram ---
@@ -81,6 +83,7 @@ void lightPass(SceneFBO *sceneFBO,Camera *camera, Room *currentRoom, GLuint dept
     glUniform1i(diffuseSamplerLocation, DIFFUSE_TEXTURE_LOCATION);
     glUniform1i(specularSamplerLocation, SPECULAR_TEXTURE_LOCATION);
     glUniform1i(normalMapSamplerLocation, BUMP_TEXTURE_LOCATION);
+    glUniform1i(displacementMapSamplerLocation, DISPLACEMENT_TEXTURE_LOCATION);
     glUniform1i(depthMapLocation, DEPTH_TEXTURE_LOCATION);
 
     // Draw currentRoom
