@@ -67,7 +67,6 @@ void Painting::addFrame()
     static Drawable *frame = new Drawable("src/assets/models/frame.obj");
 
     Object *frameObject = new Object(frame, gold);
-    cout << "frames" << endl;
     subObjects.push_back(frameObject);
 }
 

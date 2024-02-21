@@ -1,6 +1,7 @@
 #include "sceneFBO.h"
 
-SceneFBO::SceneFBO(){
+SceneFBO::SceneFBO()
+{
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
@@ -30,7 +31,8 @@ SceneFBO::SceneFBO(){
     checkErrors("sceneFBO");
 }
 
-void SceneFBO::bind(){
+void SceneFBO::bind()
+{
     FBO::bind();
 
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);

@@ -17,6 +17,7 @@ void FBO::checkErrors(const char *name)
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
         glfwTerminate();
+        std::cerr << name << std::endl;
         throw std::runtime_error("Frame buffer not initialized correctly");
     }
 }
