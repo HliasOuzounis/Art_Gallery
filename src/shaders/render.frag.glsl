@@ -5,6 +5,7 @@ in VS_OUT{
     vec3 Normal;
     vec2 TexCoords;
     mat3 TBN;
+    vec3 tangentNormal;
     vec3 tangentFragPos;
     vec3 tangentLightPos;
     vec3 tangentViewPos;
@@ -32,6 +33,8 @@ struct Material {
     float Ns;
 };
 uniform Material material;
+
+uniform int useTBN = 0;
 
 uniform int useTexture = 0;
 uniform int useNormalMap = 0;
@@ -109,22 +112,24 @@ vec4 phong(float visibility){
         Ns = material.Ns;
     }
     
-    vec3 normal = (useNormalMap == 1) ? normalize(texture(normalMapSampler, texCoords).rgb * 2.0 - 1.0) : fs_in.Normal;
+    vec3 tempNormal = (useTBN == 1) ? fs_in.tangentNormal : fs_in.Normal;
+    vec3 normal = (useNormalMap == 1) ? normalize(texture(normalMapSampler, texCoords).rgb * 2.0 - 1.0) : tempNormal;
+
+    vec3 fragPos = (useTBN == 1) ? fs_in.tangentFragPos : fs_in.FragPos;
 
     vec4 Ia = Ka * light.La;
+    vec3 lightDir = (useTBN == 1) ? fs_in.tangentLightPos - fs_in.tangentFragPos : light.lightPos - fragPos;
+    vec4 Id = clamp(dot(normalize(lightDir), normal), 0, 1) * Kd * light.Ld;
 
-    vec3 lightDir = normalize(fs_in.tangentLightPos - fs_in.tangentFragPos);
-    vec4 Id = clamp(dot(lightDir, normal), 0, 1) * Kd * light.Ld;
-
-    vec3 viewDir = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
-    vec3 halfwayDir = normalize(lightDir + viewDir);
+    vec3 viewDir = (useTBN == 1) ? normalize(fs_in.tangentViewPos - fs_in.tangentFragPos) : normalize(viewPos - fragPos);
+    vec3 halfwayDir = normalize(normalize(lightDir) + viewDir);
     vec4 Is = pow(max(dot(normal, halfwayDir), 0.0), Ns) * Ks * light.Ls;
 
 
     float constantAttenuation = 1.0;
     float linearAttenuation = 0.1; // Increase linear attenuation factor
     float quadraticAttenuation = 0.01;
-    float lightDistance = length(fs_in.tangentLightPos - fs_in.tangentFragPos);
+    float lightDistance = length(lightDir);
 
     float attenuation = 1.0 / (constantAttenuation + linearAttenuation * lightDistance + quadraticAttenuation * lightDistance * lightDistance);
 

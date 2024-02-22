@@ -1,6 +1,6 @@
 #include "room.h"
 
-void Room::render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3])
+void Room::render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[4])
 {
     this->light->upload_to_shaders(shaderProgram);
     for (auto &subObject : roomObjects)

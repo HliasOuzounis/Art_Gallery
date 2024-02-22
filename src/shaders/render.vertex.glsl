@@ -30,6 +30,7 @@ out VS_OUT{
     vec3 Normal;
     vec2 TexCoords;
     mat3 TBN;
+    vec3 tangentNormal;
     vec3 tangentFragPos;
     vec3 tangentLightPos;
     vec3 tangentViewPos;
@@ -40,6 +41,7 @@ void main()
     gl_Position = P * V * M * vec4(vertexPosition_modelspace, 1.0);
 
     vs_out.FragPos = vec3(M * vec4(vertexPosition_modelspace, 1.0));
+    vs_out.Normal = normalize(vec3(M * vec4(vertexNormal_modelspace, 0.0)));
 
 
     vs_out.TexCoords = vertexUV;
@@ -51,11 +53,8 @@ void main()
     vec3 B = normalize(normalMatrix * vertexBitangent_modelspace);
     vec3 N = normalize(normalMatrix * vertexNormal_modelspace);
     
-    mat3 TBN = transpose(mat3(T, B, N));    
-    
-    vs_out.Normal = TBN * normalize(vec3(M * vec4(vertexNormal_modelspace, 0.0)));
-    
     vs_out.TBN = transpose(mat3(T, B, N));
+    vs_out.tangentNormal = vs_out.TBN * vs_out.Normal;
     vs_out.tangentFragPos = vs_out.TBN * vs_out.FragPos;
     vs_out.tangentLightPos = vs_out.TBN * light.lightPos;
     vs_out.tangentViewPos = vs_out.TBN * viewPos;

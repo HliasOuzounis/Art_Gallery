@@ -9,7 +9,7 @@
 
 GLuint shaderProgram;
 GLuint modelMatrixLocation, viewMatrixLocation, projectionMatrixLocation,
-    materialLocation[4], useTextureLocation[3], viewPosLocation,
+    materialLocation[4], useTextureLocation[4], viewPosLocation,
     diffuseSamplerLocation, specularSamplerLocation, normalMapSamplerLocation, displacementMapSamplerLocation, depthMapLocation;
 
 GLuint depthProgram;
@@ -36,7 +36,7 @@ void initializeMainRenderLoop()
     useTextureLocation[0] = glGetUniformLocation(shaderProgram, "useTexture");
     useTextureLocation[1] = glGetUniformLocation(shaderProgram, "useNormalMap");
     useTextureLocation[2] = glGetUniformLocation(shaderProgram, "useDisplacementMap");
-    useTextureLocation[2] = glGetUniformLocation(shaderProgram, "useDisplacementMap");
+    useTextureLocation[3] = glGetUniformLocation(shaderProgram, "useTBN");
 
     viewPosLocation = glGetUniformLocation(shaderProgram, "viewPos");
 

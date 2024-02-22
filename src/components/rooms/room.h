@@ -27,7 +27,7 @@ public:
     virtual void addCeiling(){};
     virtual void populateRoom(){};
 
-    void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3]);
+    void render(GLuint shaderProgram, GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[4]);
     void render(GLuint depthShader, GLuint modelMatrixLocation);
     void render(GLuint modelMatrixLocation);
 

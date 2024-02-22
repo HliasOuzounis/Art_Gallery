@@ -64,6 +64,7 @@ public:
 
     Material material;
     Texture texture;
+    bool useTBN = false;
     bool useTexture = false;
     bool useNormalMap = false;
     bool useDisplacementMap = false;
@@ -78,7 +79,7 @@ public:
     void scaleObject(vec3 amount);
     void translateObject(vec3 translation);
 
-    void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[3]);
+    void render(GLuint modelMatrixLocation, GLuint materialLocation[4], GLuint useTextureLocation[4]);
     void render(GLuint modelMatrixLocation);
 
     void addDiffuseTexture(GLuint diffuseTexture);
