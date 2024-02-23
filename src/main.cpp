@@ -73,8 +73,9 @@ RenderFBO *renderFBO;
 
 void createPaintingTextures();
 
-void change_state();
-void change_room();
+void showNormalMap();
+void changeState();
+void changeRoom();
 
 void createContext()
 {
@@ -141,7 +142,7 @@ void createPaintingTextures()
         diffuseFBO->addTexture(paintingTexture);
 
         gameState = GameState(i + 1);
-        change_room();
+        changeRoom();
         player->position += vec3(0, 0, 2);
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
@@ -151,6 +152,7 @@ void createPaintingTextures()
 
         displayScene(diffuseFBO, sceneFBO->colorTexture, gameState);
         paintings[i]->addDiffuseTexture(paintingTexture);
+        paintings[i]->diffuseTexture = paintingTexture;
 
         GLuint normalTexture;
         bumpFBO->addTexture(normalTexture);
@@ -161,10 +163,10 @@ void createPaintingTextures()
             GLuint normalTexture2;
             diffuseFBO->addTexture(normalTexture2);
             displayScene(diffuseFBO, normalTexture, gameState);
-            paintings[i]->addNormalTexture(normalTexture2);
+            normalTexture = normalTexture2;
         }
-        else
-            paintings[i]->addNormalTexture(normalTexture);
+        paintings[i]->addNormalTexture(normalTexture);
+        paintings[i]->normalTexture = normalTexture;
 
         // paintings[i]->addDiffuseTexture(normalTexture);
         GLuint depthTexture;
@@ -175,14 +177,13 @@ void createPaintingTextures()
             GLuint depthTexture2;
             diffuseFBO->addTexture(depthTexture2);
             displayScene(diffuseFBO, depthTexture, gameState);
-            paintings[i]->addDisplacementTexture(depthTexture2);
+            depthTexture = depthTexture2;
         }
-        else
-            paintings[i]->addDisplacementTexture(depthTexture);
+        paintings[i]->addDisplacementTexture(depthTexture);
     }
 
     gameState = MAINROOM;
-    change_room();
+    changeRoom();
 }
 
 void free()
@@ -213,13 +214,35 @@ void mainLoop()
 
         displayScene(renderFBO, sceneFBO->colorTexture, gameState);
 
-        change_state();
+        showNormalMap();
+
+        changeState();
         glfwSwapBuffers(window);
         glfwPollEvents();
 
         lastTime = currentTime;
 
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
+}
+
+void showNormalMap()
+{
+    static bool usingNormalMap = false,
+                holdingN = false;
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS && !holdingN)
+    {
+        for (auto &painting : paintings)
+        {
+            if (usingNormalMap)
+                painting->addDiffuseTexture(painting->diffuseTexture);
+            else
+                painting->addDiffuseTexture(painting->normalTexture);
+        }
+        usingNormalMap = !usingNormalMap;
+        holdingN = true;
+    }
+    else if (glfwGetKey(window, GLFW_KEY_N) == GLFW_RELEASE)
+        holdingN = false;
 }
 
 void checkCollisions(float &deltaTime)
@@ -240,7 +263,7 @@ void checkCollisions(float &deltaTime)
             if (player->collisionWithPainting(painting))
             {
                 gameState = GameState(painting->id);
-                change_room();
+                changeRoom();
                 break;
             }
         }
@@ -250,51 +273,51 @@ void checkCollisions(float &deltaTime)
         if (player->collisionWithPainting(paintings[gameState - 1]))
         {
             gameState = MAINROOM;
-            change_room();
+            changeRoom();
         }
     }
 }
 
-void change_state()
+void changeState()
 {
     if (glfwGetKey(window, GLFW_KEY_0) == GLFW_PRESS)
     {
         gameState = MAINROOM;
-        change_room();
+        changeRoom();
     }
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
     {
         gameState = ROOM1;
-        change_room();
+        changeRoom();
     }
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
     {
         gameState = ROOM2;
-        change_room();
+        changeRoom();
     }
     if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
     {
         gameState = ROOM3;
-        change_room();
+        changeRoom();
     }
     if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
     {
         gameState = ROOM4;
-        change_room();
+        changeRoom();
     }
     if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS)
     {
         gameState = ROOM5;
-        change_room();
+        changeRoom();
     }
     if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
     {
         gameState = ROOM6;
-        change_room();
+        changeRoom();
     }
 }
 
-void change_room()
+void changeRoom()
 {
     currentRoom = rooms[gameState];
     if (gameState == MAINROOM)

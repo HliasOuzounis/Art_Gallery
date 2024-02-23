@@ -12,6 +12,7 @@ class Painting : public Object
 public:
     int id;
     float height, width;
+    GLuint diffuseTexture, normalTexture;
     mat4 mainRoomModelMatrix;
     mat4 secondaryRoomModelMatrix;
 

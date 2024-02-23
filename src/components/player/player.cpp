@@ -74,9 +74,11 @@ bool Player::collisionWithPainting(Painting *painting)
     float upperY = bottomLeft.y + h,
           lowerY = bottomLeft.y;
 
+    // check if player is inside the paintings y bounds
     if (position.y <= lowerY || position.y + height >= upperY)
         return false;
 
+    // check if player intersects the paintings plane
     vec3 normal = painting->drawable->normals[0];
     normal = vec3(painting->modelMatrix * vec4(normal, 0));
     float d = -dot(normal, vec3(bottomLeft));
@@ -98,23 +100,23 @@ bool Player::collisionWithPainting(Painting *painting)
             if (areOppositeSides(pos1, pos2))
             {
                 anyOppositeSides = true;
+                break;
             }
         }
+        if (anyOppositeSides)
+            break;
     }
     if (!anyOppositeSides)
         return false;
     
+    // check if he's inside the paintings x,z bounds
     vec3 normal2 = vec3(rotate(mat4(1.0f), radians(90.0f), vec3(0, 1, 0)) * vec4(normal, 0.0));
     float d2 = -dot(normal2, vec3(bottomLeft));
     vec3 normal3 = vec3(rotate(mat4(1.0f), radians(-90.0f), vec3(0, 1, 0)) * vec4(normal, 0.0));
     float d3 = -dot(normal3, vec3(bottomRight));
 
-    if ((dot(position - vec3(4) * normal2 * playerRadius, normal2) + d2 > 0) && (dot(position - vec3(4) * normal3 * playerRadius, normal3) + d3 > 0))
-    {
-        return true;
-    }
-
-    return false;
+    return (dot(position - vec3(4) * normal2 * playerRadius, normal2) + d2 > 0) 
+        && (dot(position - vec3(4) * normal3 * playerRadius, normal3) + d3 > 0);
 }
 
 void Player::updateBoundingBox()
