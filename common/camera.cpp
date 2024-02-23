@@ -68,7 +68,32 @@ void Camera::update()
     }
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
     }
-    
+
+    if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+    {
+        position += direction * deltaTime * speed;
+    }
+    // Move backward
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+    {
+        position -= direction * deltaTime * speed;
+    }
+    // Strafe right
+    if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+    {
+        position += right * deltaTime * speed;
+    }
+    // Strafe left
+    if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+    {
+        position -= right * deltaTime * speed;
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+    {
+        freeform = !freeform;
+    }
+
     // projection and view matrices
     projectionMatrix = perspective(radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
     viewMatrix = lookAt(

@@ -161,6 +161,8 @@ add_executable(art_gallery
   src/rendering/final_render.cpp
   src/rendering/bump_render.h
   src/rendering/bump_render.cpp
+  src/rendering/disp_render.h
+  src/rendering/disp_render.cpp
   )
   
 target_link_libraries(art_gallery

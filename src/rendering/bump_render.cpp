@@ -14,7 +14,7 @@ void initializeBumpRenderLoop()
     bumpCameraPositionLocation = glGetUniformLocation(bumpShaderProgram, "cameraPosition");
 }
 
-void bumpPass(BumpFBO *bumpFBO, Camera *camera, Room *currentRoom)
+void bumpPass(PaintingsFBO *bumpFBO, Camera *camera, Room *currentRoom)
 {
     bumpFBO->bind();
 

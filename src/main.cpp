@@ -45,6 +45,7 @@
 #include "rendering/main_loop.h"
 #include "rendering/final_render.h"
 #include "rendering/bump_render.h"
+#include "rendering/disp_render.h"
 
 using namespace std;
 using namespace glm;
@@ -108,10 +109,6 @@ void createContext()
         rooms[0]->roomObjects.push_back(painting);
         rooms[i + 1]->roomObjects.push_back(painting);
     }
-    for (auto painting : paintings)
-    {
-        cout << painting->id << " " << GameState(painting->id) << endl;
-    }
     // Create frame buffers
     sceneFBO = new SceneFBO();
 
@@ -132,15 +129,17 @@ void createContext()
 
 void createPaintingTextures()
 {
-    PaintingsFBO *paintingsFBO = new PaintingsFBO();
-    BumpFBO *bumpFBO = new BumpFBO();
+    PaintingsFBO *diffuseFBO = new PaintingsFBO();
+    PaintingsFBO *bumpFBO = new PaintingsFBO();
+    PaintingsFBO *displacementFBO = new PaintingsFBO();
 
     initializeBumpRenderLoop();
+    initializeDispRenderLoop();
 
     for (int i = 0; i < PAINTINGS; i++)
     {
         GLuint paintingTexture;
-        paintingsFBO->addTexture(paintingTexture);
+        diffuseFBO->addTexture(paintingTexture);
 
         gameState = GameState(i + 1);
         change_room();
@@ -151,31 +150,32 @@ void createPaintingTextures()
         depthPass(depthFBO, currentRoom);
         lightPass(sceneFBO, camera, currentRoom, depthFBO->depthCubeMap);
 
-        displayScene(paintingsFBO, sceneFBO->colorTexture, gameState);
+        displayScene(diffuseFBO, sceneFBO->colorTexture, gameState);
         paintings[i]->addDiffuseTexture(paintingTexture);
 
         GLuint normalTexture;
-        bumpFBO->addNormalTexture(normalTexture);
+        bumpFBO->addTexture(normalTexture);
         bumpPass(bumpFBO, camera, currentRoom);
         if (gameState == ROOM4)
         {
             // Room 4 is fish-eye distortion. Normal map needs to be distorted as well
             GLuint normalTexture2;
-            paintingsFBO->addTexture(normalTexture2);
-            displayScene(paintingsFBO, normalTexture, gameState);
+            diffuseFBO->addTexture(normalTexture2);
+            displayScene(diffuseFBO, normalTexture, gameState);
             paintings[i]->addNormalTexture(normalTexture2);
         }
         else
             paintings[i]->addNormalTexture(normalTexture);
 
+        // paintings[i]->addDiffuseTexture(normalTexture);
         GLuint depthTexture;
-        bumpFBO->addDepthTexture(depthTexture);
-        bumpPass(bumpFBO, camera, currentRoom);
+        displacementFBO->addTexture(depthTexture);
+        displacementPass(displacementFBO, camera, currentRoom);
         if (gameState == ROOM4)
         {
             GLuint depthTexture2;
-            paintingsFBO->addTexture(depthTexture2);
-            displayScene(paintingsFBO, depthTexture, gameState);
+            diffuseFBO->addTexture(depthTexture2);
+            displayScene(diffuseFBO, depthTexture, gameState);
             paintings[i]->addDisplacementTexture(depthTexture2);
         }
         else
@@ -205,7 +205,8 @@ void mainLoop()
 
         checkCollisions(deltaTime);
 
-        camera->position = player->position + vec3(0, player->height, 0);
+        if (!camera->freeform)
+            camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
 
         depthPass(depthFBO, currentRoom);
@@ -240,7 +241,6 @@ void checkCollisions(float &deltaTime)
             if (player->collisionWithPainting(painting))
             {
                 gameState = GameState(painting->id);
-                cout << painting->id << " " << gameState << endl;
                 change_room();
                 break;
             }

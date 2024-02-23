@@ -24,6 +24,8 @@ public:
     float mouseSpeed;
     float fovSpeed;
 
+    bool freeform = false;
+
     Camera(GLFWwindow* window);
 
     void update();
