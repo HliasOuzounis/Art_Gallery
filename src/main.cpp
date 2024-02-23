@@ -40,7 +40,6 @@
 #include "FBOs/depthFBO/depthFBO.h"
 #include "FBOs/paintingsFBO/paintingsFBO.h"
 #include "FBOs/renderFBO/renderFBO.h"
-#include "FBOs/bumpFBO/bumpFBO.h"
 
 #include "rendering/main_loop.h"
 #include "rendering/final_render.h"

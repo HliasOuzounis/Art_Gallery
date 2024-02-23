@@ -68,38 +68,50 @@ void Player::updatePosition(float horizontalAngle, float &deltaTime)
 bool Player::collisionWithPainting(Painting *painting)
 {
     vec4 bottomLeft = painting->modelMatrix * vec4(-1, -1, 0, 1);
+    vec4 bottomRight = painting->modelMatrix * vec4(1, -1, 0, 1);
     float h = painting->height;
 
     float upperY = bottomLeft.y + h,
           lowerY = bottomLeft.y;
 
-    if (position.y > lowerY && position.y + height < upperY)
+    if (position.y <= lowerY || position.y + height >= upperY)
+        return false;
+
+    vec3 normal = painting->drawable->normals[0];
+    normal = vec3(painting->modelMatrix * vec4(normal, 0));
+    float d = -dot(normal, vec3(bottomLeft));
+
+    auto areOppositeSides = [&](vec3 a, vec3 b)
     {
-        vec3 normal = painting->drawable->normals[0];
-        normal = vec3(painting->modelMatrix * vec4(normal, 0));
-        float d = -dot(normal, vec3(bottomLeft));
-
-        auto areOppositeSides = [&](vec3 a, vec3 b)
+        float dist1 = dot(a, normal) + d;
+        float dist2 = dot(b, normal) + d;
+        return (dist1 * dist2) < 0;
+    };
+    bool anyOppositeSides = false;
+    for (int i = 0; i < boundingBox.size(); i++)
+    {
+        for (int j = i + 1; j < boundingBox.size(); j++)
         {
-            float dist1 = dot(a, normal) + d;
-            float dist2 = dot(b, normal) + d;
-            return (dist1 * dist2) < 0;
-        };
+            vec3 pos1 = boundingBox[i] + position;
+            vec3 pos2 = boundingBox[j] + position;
 
-
-        for (int i = 0; i < boundingBox.size(); i++)
-        {
-            for (int j = i + 1; j < boundingBox.size(); j++)
+            if (areOppositeSides(pos1, pos2))
             {
-                vec3 pos1 = boundingBox[i] + position;
-                vec3 pos2 = boundingBox[j] + position;
-
-                if (areOppositeSides(pos1, pos2))
-                {
-                    return true;
-                }
+                anyOppositeSides = true;
             }
         }
+    }
+    if (!anyOppositeSides)
+        return false;
+    
+    vec3 normal2 = vec3(rotate(mat4(1.0f), radians(90.0f), vec3(0, 1, 0)) * vec4(normal, 0.0));
+    float d2 = -dot(normal2, vec3(bottomLeft));
+    vec3 normal3 = vec3(rotate(mat4(1.0f), radians(-90.0f), vec3(0, 1, 0)) * vec4(normal, 0.0));
+    float d3 = -dot(normal3, vec3(bottomRight));
+
+    if ((dot(position - vec3(4) * normal2 * playerRadius, normal2) + d2 > 0) && (dot(position - vec3(4) * normal3 * playerRadius, normal3) + d3 > 0))
+    {
+        return true;
     }
 
     return false;
