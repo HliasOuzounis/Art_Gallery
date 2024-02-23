@@ -1,3 +1,4 @@
+#include <GL/glew.h> // needed to stop include errors
 #include <glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -62,6 +63,46 @@ void Player::updatePosition(float horizontalAngle, float &deltaTime)
     vec3 movement = vec3(rotation * vec4(velocity, 1.0)) * deltaTime;
     prevPosition = position;
     position += movement;
+}
+
+bool Player::collisionWithPainting(Painting *painting)
+{
+    vec4 bottomLeft = painting->modelMatrix * vec4(-1, -1, 0, 1);
+    float h = painting->height;
+
+    float upperY = bottomLeft.y + h,
+          lowerY = bottomLeft.y;
+
+    if (position.y > lowerY && position.y + height < upperY)
+    {
+        vec3 normal = painting->drawable->normals[0];
+        normal = vec3(painting->modelMatrix * vec4(normal, 0));
+        float d = -dot(normal, vec3(bottomLeft));
+
+        auto areOppositeSides = [&](vec3 a, vec3 b)
+        {
+            float dist1 = dot(a, normal) + d;
+            float dist2 = dot(b, normal) + d;
+            return (dist1 * dist2) < 0;
+        };
+
+
+        for (int i = 0; i < boundingBox.size(); i++)
+        {
+            for (int j = i + 1; j < boundingBox.size(); j++)
+            {
+                vec3 pos1 = boundingBox[i] + position;
+                vec3 pos2 = boundingBox[j] + position;
+
+                if (areOppositeSides(pos1, pos2))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 void Player::updateBoundingBox()

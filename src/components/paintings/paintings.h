@@ -1,19 +1,16 @@
 #pragma once
 
-#include <common/model.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <vector>
 
 using namespace glm;
 using namespace std;
 
-#include "player/player.h"
 #include "object/object.h"
 
 class Painting : public Object
 {
 public:
+    int id;
     float height, width;
     mat4 mainRoomModelMatrix;
     mat4 secondaryRoomModelMatrix;

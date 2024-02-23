@@ -23,11 +23,11 @@
 
 enum GameState
 {
-    MAINROOM,
-    ROOM1,
-    ROOM2,
-    ROOM3,
-    ROOM4,
-    ROOM5,
-    ROOM6,
+    MAINROOM = 0,
+    ROOM1 = 1,
+    ROOM2 = 2,
+    ROOM3 = 3,
+    ROOM4 = 4,
+    ROOM5 = 5,
+    ROOM6 = 6,
 };

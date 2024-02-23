@@ -80,8 +80,8 @@ include_directories(
 
 set(ALL_LIBS
   ${OPENGL_LIBRARY}
-  glfw
   GLEW_1130
+  glfw
   SOIL
   TINYXML2
   )
@@ -126,7 +126,6 @@ add_executable(art_gallery
   src/components/floor/floor.cpp
   src/components/wall/wall.h
   src/components/wall/wall.cpp
-
 
   src/components/paintings/paintings.h
   src/components/paintings/paintings.cpp

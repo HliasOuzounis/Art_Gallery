@@ -53,6 +53,7 @@ using namespace glm;
 void initialize();
 void createContext();
 void mainLoop();
+void checkCollisions(float &deltaTime);
 void free();
 
 // Global variables
@@ -102,11 +103,15 @@ void createContext()
     for (int i = 0; i < PAINTINGS; i++)
     {
         Painting *painting = new Painting(paintingHeight, paintingWidth, paintingYpos, mainRoomRadius, -angleStep * i);
+        painting->id = i + 1;
         paintings.push_back(painting);
         rooms[0]->roomObjects.push_back(painting);
         rooms[i + 1]->roomObjects.push_back(painting);
     }
-
+    for (auto painting : paintings)
+    {
+        cout << painting->id << " " << GameState(painting->id) << endl;
+    }
     // Create frame buffers
     sceneFBO = new SceneFBO();
 
@@ -176,7 +181,7 @@ void createPaintingTextures()
         else
             paintings[i]->addDisplacementTexture(depthTexture);
     }
-    
+
     gameState = MAINROOM;
     change_room();
 }
@@ -197,14 +202,8 @@ void mainLoop()
         float deltaTime = float(currentTime - lastTime);
 
         player->move(window, deltaTime, camera->horizontalAngle);
-        /*/
-        if (!currentRoom->isInside(player->position))
-        {
-            player->velocity = vec3(0, player->velocity.y, 0);
-            player->position = player->prevPosition;
-            player->updatePosition(camera->horizontalAngle, deltaTime);
-        }
-        //*/
+
+        checkCollisions(deltaTime);
 
         camera->position = player->position + vec3(0, player->height, 0);
         camera->update();
@@ -221,6 +220,40 @@ void mainLoop()
         lastTime = currentTime;
 
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
+}
+
+void checkCollisions(float &deltaTime)
+{
+    //*/
+    if (!currentRoom->isInside(player->position))
+    {
+        player->velocity = vec3(0, player->velocity.y, 0);
+        player->position = player->prevPosition;
+        player->updatePosition(camera->horizontalAngle, deltaTime);
+    }
+    //*/
+
+    if (gameState == MAINROOM)
+    {
+        for (auto &painting : paintings)
+        {
+            if (player->collisionWithPainting(painting))
+            {
+                gameState = GameState(painting->id);
+                cout << painting->id << " " << gameState << endl;
+                change_room();
+                break;
+            }
+        }
+    }
+    else
+    {
+        if (player->collisionWithPainting(paintings[gameState - 1]))
+        {
+            gameState = MAINROOM;
+            change_room();
+        }
+    }
 }
 
 void change_state()
@@ -267,7 +300,9 @@ void change_room()
     currentRoom = rooms[gameState];
     if (gameState == MAINROOM)
     {
-        player->position = vec3(0, 0, 0.0);
+        player->position = vec3(0, 2, 0);
+        player->velocity = vec3(0, -1, 0);
+        player->isJumping = true;
         camera->horizontalAngle = 0.0f;
         camera->verticalAngle = 0.0f;
         for (auto &painting : paintings)
@@ -278,6 +313,8 @@ void change_room()
         return;
     }
     player->position = vec3(0, 0, -rooms[gameState]->depth / 2 + 1);
+    player->velocity = vec3(0, 4, -2);
+    player->isJumping = true;
     camera->horizontalAngle = -3.14f;
     camera->verticalAngle = 0.0f;
     paintings[gameState - 1]->modelMatrix = paintings[gameState - 1]->secondaryRoomModelMatrix *

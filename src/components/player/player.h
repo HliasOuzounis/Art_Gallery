@@ -7,6 +7,8 @@
 using namespace glm;
 using namespace std;
 
+#include "paintings/paintings.h"
+
 class Player
 {
 public:
@@ -37,5 +39,6 @@ public:
     void move(GLFWwindow *window, float deltaTime, float horizontalAngle);
     void updatePosition(float horizontalAngle, float &deltaTime);
     
+    bool collisionWithPainting(Painting *painting);
     void updateBoundingBox();
 };

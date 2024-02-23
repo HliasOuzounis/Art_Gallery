@@ -1,15 +1,11 @@
-#include <vector>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <common/model.h>
-
-#include <math.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <vector>
 
 using namespace std;
 using namespace glm;
 
 #include "paintings.h"
-#include "player/player.h"
 
 Painting::Painting()
 {
@@ -45,6 +41,9 @@ Painting::Painting()
 
 Painting::Painting(float height, float width, float yPos, float mainRoomRadius, float angle) : Painting()
 {
+    this->height = height;
+    this->width = width;
+
     this->scaleObject(vec3(width / 2, height / 2, 1));
     this->translateObject(vec3(0, yPos, 0));
     secondaryRoomModelMatrix = this->modelMatrix;
