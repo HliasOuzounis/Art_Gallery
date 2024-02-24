@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2024.1.25)  22 FEB 2024 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2024.1.25)  24 FEB 2024 13:54
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1569,26 +1569,90 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
-/enc/dvips/base/8r.enc}] (./report.aux)
+/enc/dvips/base/8r.enc}]
+
+Class scrartcl Warning: Incompatible usage of \@ssect detected.
+(scrartcl)              You've used the KOMA-Script implementation of \@ssect
+(scrartcl)              from within a non compatible caller, that does not
+(scrartcl)              \scr@s@ct@@nn@m@ locally.
+(scrartcl)              This could result in several error messages on input li
+ne 53.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--61
+
+ []
+
+<images/wireframe.png, id=12, 1232.605pt x 969.6225pt>
+File: images/wireframe.png Graphic file (type png)
+<use images/wireframe.png>
+Package pdftex.def Info: images/wireframe.png  used on input line 67.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+<images/ceilandfloor.png, id=14, 1232.605pt x 969.6225pt>
+File: images/ceilandfloor.png Graphic file (type png)
+<use images/ceilandfloor.png>
+Package pdftex.def Info: images/ceilandfloor.png  used on input line 74.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+<images/top_view_normals.png, id=15, 1232.605pt x 969.6225pt>
+File: images/top_view_normals.png Graphic file (type png)
+<use images/top_view_normals.png>
+Package pdftex.def Info: images/top_view_normals.png  used on input line 86.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+<images/side_normals.png, id=16, 409.53pt x 339.2675pt>
+File: images/side_normals.png Graphic file (type png)
+<use images/side_normals.png>
+Package pdftex.def Info: images/side_normals.png  used on input line 94.
+(pdftex.def)             Requested size: 327.60568pt x 271.38672pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--98
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--98
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[2 <./images/wireframe.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3 <./images/ceilandfloor.png>] [4 <./images/top_view_normals.png> <./images/si
+de_normals.png>] [5
+
+] (./report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 27957 strings out of 476872
- 578215 string characters out of 5820378
- 1856388 words of memory out of 5000000
- 47845 multiletter control sequences out of 15000+600000
- 569152 words of font info for 94 fonts, out of 8000000 for 9000
+ 28037 strings out of 476872
+ 580367 string characters out of 5820378
+ 1867388 words of memory out of 5000000
+ 47907 multiletter control sequences out of 15000+600000
+ 579379 words of font info for 106 fonts, out of 8000000 for 9000
  725 hyphenation exceptions out of 8191
  108i,20n,106p,10601b,533s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/cbfonts/grmn1095.pfb></usr/share/te
-xmf-dist/fonts/type1/public/cbfonts/grmn1728.pfb></usr/share/texmf-dist/fonts/t
-ype1/adobe/utopia/putr8a.pfb>
-Output written on report.pdf (1 page, 43341 bytes).
+</usr/share/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/
+texmf-dist/fonts/type1/public/cbfonts/grmn1095.pfb></usr/share/texmf-dist/fonts
+/type1/public/cbfonts/grmn1440.pfb></usr/share/texmf-dist/fonts/type1/public/cb
+fonts/grmn1728.pfb></usr/share/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb><
+/usr/share/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
+Output written on report.pdf (5 pages, 1800853 bytes).
 PDF statistics:
- 27 PDF objects out of 1000 (max. 8388607)
- 17 compressed objects within 1 object stream
+ 63 PDF objects out of 1000 (max. 8388607)
+ 35 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -81,12 +81,12 @@ void Camera::update()
     // Strafe right
     if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
     {
-        position += right * deltaTime * speed;
+        position -= right * deltaTime * speed;
     }
     // Strafe left
     if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
     {
-        position -= right * deltaTime * speed;
+        position += right * deltaTime * speed;
     }
 
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)

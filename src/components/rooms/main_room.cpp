@@ -46,7 +46,7 @@ void MainRoom::addFloor()
 
 void MainRoom::addCeiling()
 {
-    Floor *ceiling = new Floor(radius, radius, height, true);
+    Floor *ceiling = new Floor(radius + 0.2, radius + 0.2, height, true); // 0.2f to compensate for the gaps between the walls
 
     ceiling->material = {
         vec4(0.1, 0.1, 0.1, 1.0),

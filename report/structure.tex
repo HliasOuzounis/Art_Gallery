@@ -100,12 +100,15 @@
 \ifoot*{} % Left footer
 \cfoot*{\pagemark} % Centre footer
 
-\newcommand{\img}[2]
-{
-    \begin{center}
-        \fcolorbox{black}{white}{\includegraphics[height=#2em]{#1}}
-    \end{center}
-
+\newcommand{\img}[3][htbp]{%
+    \begin{figure}[h]
+        \centering
+        \fcolorbox{black}{white}{\includegraphics[height=#3em]{#2}}
+        \ifx&#1&%
+        \else
+            \caption{#1}
+        \fi
+    \end{figure}
 }
 
 % Helper Macros

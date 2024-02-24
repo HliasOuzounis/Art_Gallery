@@ -55,6 +55,10 @@ void createContext();
 void mainLoop();
 void checkCollisions(float &deltaTime);
 void free();
+void createPaintingTextures();
+void showNormalMap();
+void changeState();
+void changeRoom();
 
 // Global variables
 GLFWwindow *window;
@@ -70,12 +74,6 @@ GameState gameState = MAINROOM;
 SceneFBO *sceneFBO;
 DepthFBO *depthFBO;
 RenderFBO *renderFBO;
-
-void createPaintingTextures();
-
-void showNormalMap();
-void changeState();
-void changeRoom();
 
 void createContext()
 {
@@ -215,8 +213,8 @@ void mainLoop()
         displayScene(renderFBO, sceneFBO->colorTexture, gameState);
 
         showNormalMap();
-
         changeState();
+
         glfwSwapBuffers(window);
         glfwPollEvents();
 

@@ -109,7 +109,7 @@ void SecondaryRoom::populateRoom()
     Object *tableObject = new Object(wooden_table);
     tableObject->addDiffuseTexture(tableDiffuse);
     tableObject->addSpecularTexture(tableSpecular);
-    // table->addNormalTexture(tableNormal);
+    tableObject->addNormalTexture(tableNormal);
     tableObject->scaleObject(vec3(1.2, 0.6, 1.2));
     tableObject->rotateObject(vec3(0, 1, 0), - 3 * M_PI / 4 - 0.3);
     tableObject->translateObject(vec3(2, 0, 5));
@@ -123,7 +123,7 @@ void SecondaryRoom::populateRoom()
     Object *bedObject = new Object(bed);
     bedObject->addDiffuseTexture(bedDiffuse);
     bedObject->addSpecularTexture(bedSpecular);
-    // bedObject->addNormalTexture(bedNormal);
+    bedObject->addNormalTexture(bedNormal);
     bedObject->rotateObject(vec3(0, 1, 0), M_PI);
     bedObject->scaleObject(vec3(3, 3, 3));
     bedObject->translateObject(vec3(-2.5, 0, 4));
@@ -137,7 +137,7 @@ void SecondaryRoom::populateRoom()
     Object *chairObject = new Object(chair);
     chairObject->addDiffuseTexture(chairDiffuse);
     chairObject->addSpecularTexture(chairSpecular);
-    // chairObject->addNormalTexture(chairNormal);
+    chairObject->addNormalTexture(chairNormal);
     chairObject->rotateObject(vec3(0, 1, 0), -M_PI / 2);
     chairObject->scaleObject(vec3(2, 2, 2));
     chairObject->translateObject(vec3(3, 0, 1));
@@ -147,7 +147,7 @@ void SecondaryRoom::populateRoom()
     Object *chairObject2 = new Object(chair);
     chairObject2->addDiffuseTexture(chairDiffuse);
     chairObject2->addSpecularTexture(chairSpecular);
-    // chairObject2->addNormalTexture(chairNormal);
+    chairObject2->addNormalTexture(chairNormal);
     chairObject2->rotateObject(vec3(0, 1, 0), -3 * M_PI / 4 + 0.2);
     chairObject2->scaleObject(vec3(2, 2, 2));
     chairObject2->translateObject(vec3(-0.5, 0, 6));
@@ -161,7 +161,7 @@ void SecondaryRoom::populateRoom()
     Object *windowObject = new Object(window);
     windowObject->addDiffuseTexture(windowDiffuse);
     windowObject->addSpecularTexture(windowSpecular);
-    // windowObject->addNormalTexture(windowNormal);
+    windowObject->addNormalTexture(windowNormal);
     windowObject->rotateObject(vec3(1, 0, 0), -M_PI / 2);
     windowObject->scaleObject(vec3(0.3, 0.3, 0.3));
     windowObject->translateObject(vec3(1, this->height / 2 + 0.5, this->depth / 2));
