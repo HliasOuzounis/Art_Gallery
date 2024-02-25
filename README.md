@@ -25,8 +25,6 @@ Create an interactive environment with 6 rooms that correspond to different rend
 
 In the hub room there are 6 paintings, each one corresponding to a different render style. The user can enter a painting to switch to the corresponding room.
 
-<video controls>
-    <source src="report/art_gallery_demo.mp4" type="video/mp4">
-</video>
+![Demo video](report/art_gallery.gif)
 
 You can read the report for a more thorough explanation
