@@ -17,7 +17,7 @@ mat3 sy = mat3(
     1.0, 0.0, -1.0 
 );
 
-float[] levels = float[](0.1, 0.3, 0.45, 0.6, 0.8, 1.0);
+float[] levels = float[](0.1, 0.3, 0.45, 0.6, 0.8);
 
 
 float quantize(float color){
@@ -52,7 +52,7 @@ void main()
     float g = sqrt(pow(gx, 2.0) + pow(gy, 2.0));
 
     // Reduce noise
-    g = smoothstep(0.3, 0.7, g);
+    g = smoothstep(0.7, 0.9, g);
 
     vec3 edgeColor = vec3(0., 0., 0.);
     vec3 resultColor = mix(diffuse, edgeColor, g);

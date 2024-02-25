@@ -15,13 +15,13 @@ void main()
     vec2 dist = vertexUV - center;
     float radius = length(dist);
 
-    if (radius > 0.5)
+    if (radius > 0.55)
     {
         fragmentColor = vec4(0, 0, 0, 1);
         return;
     }
 
-    float distortion = radius * radius * 2;
+    float distortion = pow(radius, 2.5) * 2.5;
 
     vec2 distortedUV = center + normalize(dist) * distortion;
 

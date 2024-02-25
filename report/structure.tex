@@ -47,6 +47,8 @@
 \setlist{noitemsep} % No spacing between list items
 
 \usepackage{minted} % Required for insertion of code
+\usepackage{hyperref} % Include the hyperref package
+\usepackage{url} % Include the url package for formatting URLs in bibliography
 
 %----------------------------------------------------------------------------------------
 %	DOCUMENT MARGINS
@@ -56,14 +58,14 @@
 
 \geometry{
 	paper=a4paper, % Paper size, change to letterpaper for US letter size
-	top=2.5cm, % Top margin
-	bottom=3cm, % Bottom margin
+	top=1.5cm, % Top margin
+	bottom=1.5cm, % Bottom margin
 	left=3cm, % Left margin
 	right=3cm, % Right margin
-	headheight=0.75cm, % Header height
-	footskip=1.5cm, % Space from the bottom margin to the baseline of the footer
-	headsep=0.75cm, % Space from the top margin to the baseline of the header
-	%showframe, % Uncomment to show how the type block is set on the page
+	headheight=0.5cm, % Header height
+	footskip=0.7cm, % Space from the bottom margin to the baseline of the footer
+	headsep=0.5cm, % Space from the top margin to the baseline of the header
+	% showframe, % Uncomment to show how the type block is set on the page
 }
 
 %----------------------------------------------------------------------------------------
@@ -115,6 +117,21 @@
 
 \newcommand{\en}[1]{\foreignlanguage{english}{#1}}
 
+% Define a new command for including two images side by side
+\newcommand{\twoimgs}[4]{%
+    \begin{figure}[htbp]
+        \centering
+        \begin{minipage}[b]{0.4\textwidth}
+            \fcolorbox{black}{white}{\includegraphics[width=\textwidth]{#1}}
+            \caption{#2}
+        \end{minipage}
+        \hfill
+        \begin{minipage}[b]{0.4\textwidth}
+            \fcolorbox{black}{white}{\includegraphics[width=\textwidth]{#3}}
+            \caption{#4}
+        \end{minipage}
+    \end{figure}
+}
 % Extra Formatting
 
 \setlength{\parindent}{0em}

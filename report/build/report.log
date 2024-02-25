@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2024.1.25)  24 FEB 2024 13:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2024.1.25)  25 FEB 2024 16:31
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1185,23 +1185,141 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 runsystem(mkdir -p _minted-report)...executed.
 
 
+(/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2023-02-07 v7.00v Hypertext links for LaTeX
+
+(/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/usr/share/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/share/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/usr/share/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2022-05-17 v2.50 Cross-referencing by name of section
+
+(/usr/share/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count355
+)
+\@linkdim=\dimen305
+\Hy@linkcounter=\count356
+\Hy@pagecounter=\count357
+
+(/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2023-02-07 v7.00v Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count358
+
+(/usr/share/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2023-02-07 v7.00v Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+
+(/usr/share/texmf-dist/tex/latex/hyperref/puenc-greekbasic.def
+File: puenc-greekbasic.def 2023-02-07 v7.00v Hyperref: PDF Unicode definition (
+greek block) (HO)
+))
+Package hyperref Info: Hyper figures OFF on input line 4177.
+Package hyperref Info: Link nesting OFF on input line 4182.
+Package hyperref Info: Hyper index ON on input line 4185.
+Package hyperref Info: Plain pages OFF on input line 4192.
+Package hyperref Info: Backreferencing OFF on input line 4197.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4425.
+\c@Hy@tempcnt=\count359
+
+(/usr/share/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4763.
+\XeTeXLinkMargin=\dimen306
+
+(/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count360
+\Field@Width=\dimen307
+\Fld@charsize=\dimen308
+Package hyperref Info: Hyper figures OFF on input line 6042.
+Package hyperref Info: Link nesting OFF on input line 6047.
+Package hyperref Info: Hyper index ON on input line 6050.
+Package hyperref Info: backreferencing OFF on input line 6057.
+Package hyperref Info: Link coloring OFF on input line 6062.
+Package hyperref Info: Link coloring with OCG OFF on input line 6067.
+Package hyperref Info: PDF/A mode OFF on input line 6072.
+
+(/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count361
+\c@Item=\count362
+\c@Hfootnote=\count363
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2023-02-07 v7.00v Hyperref driver for pdfTeX
+
+(/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+\Fld@listcount=\count364
+\c@bookmark@seq@number=\count365
+
+(/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip81
+)
 (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
 (/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count355
-\Gm@cntv=\count356
-\c@Gm@tempcnt=\count357
-\Gm@bindingoffset=\dimen305
-\Gm@wd@mp=\dimen306
-\Gm@odd@mp=\dimen307
-\Gm@even@mp=\dimen308
-\Gm@layoutwidth=\dimen309
-\Gm@layoutheight=\dimen310
-\Gm@layouthoffset=\dimen311
-\Gm@layoutvoffset=\dimen312
+\Gm@cnth=\count366
+\Gm@cntv=\count367
+\c@Gm@tempcnt=\count368
+\Gm@bindingoffset=\dimen309
+\Gm@wd@mp=\dimen310
+\Gm@odd@mp=\dimen311
+\Gm@even@mp=\dimen312
+\Gm@layoutwidth=\dimen313
+\Gm@layoutheight=\dimen314
+\Gm@layouthoffset=\dimen315
+\Gm@layoutvoffset=\dimen316
 \Gm@dimlist=\toks46
 )
 (/usr/share/texmf-dist/tex/latex/base/inputenc.sty
@@ -1361,7 +1479,7 @@ Class scrartcl Warning: Incompatible package `sectsty' loaded!
 
 (scrartcl)              Ignoring this warning could result in several error
 (scrartcl)              messages and formatting issues after loading package
-(scrartcl)              `sectsty' on input line 83.
+(scrartcl)              `sectsty' on input line 85.
 
 (/usr/share/texmf-dist/tex/latex/koma-script/scrlayer-scrpage.sty
 Package: scrlayer-scrpage 2022/10/12 v3.38 KOMA-Script package (end user interf
@@ -1376,22 +1494,25 @@ Package scrlayer Info: patching LaTeX kernel macro \pagestyle on input line 217
 Package scrlayer-scrpage Info: Makeing stand-alone element `pagehead' from
 (scrlayer-scrpage)             alias to `pageheadfoot' on input line 1089.
 ))
-(/usr/share/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2023/02/19 v1.6 Sub-captions (AR)
-LaTeX Info: Redefining \subref on input line 191.
-Package subcaption Info: The counter `subfigure' was already defined by
-(subcaption)             \newsubfloat (offered by the subfig package) on input 
-line 239.
-Package subcaption Info: The counter `subtable' was already defined by
-(subcaption)             \newsubfloat (offered by the subfig package) on input 
-line 239.
-)
 runsystem(which pygmentize && touch report.aex)...executed.
 
 runsystem(rm report.aex)...executed.
 
+ (./report.aux
+LaTeX Font Info:    Trying to load font information for LGR+futs on input line 
+20.
+LaTeX Font Info:    No file LGRfuts.fd. on input line 20.
+LaTeX Font Info:    Trying to load font information for LGR+cmr on input line 2
+0.
 
-No file report.aux.
+(/usr/share/texmf-dist/tex/latex/cbfonts-fd/lgrcmr.fd
+File: lgrcmr.fd 2017/07/29 v1.2 Greek European Computer Regular
+)
+
+LaTeX Font Warning: Font shape `LGR/futs/m/n' undefined
+(Font)              using `LGR/cmr/m/n' instead on input line 20.
+
+)
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
@@ -1409,17 +1530,15 @@ LaTeX Font Info:    ... okay on input line 48.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
 LaTeX Font Info:    ... okay on input line 48.
 LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 48.
-LaTeX Font Info:    Trying to load font information for LGR+cmr on input line 4
-8.
-(/usr/share/texmf-dist/tex/latex/cbfonts-fd/lgrcmr.fd
-File: lgrcmr.fd 2017/07/29 v1.2 Greek European Computer Regular
-)
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 48.
 LaTeX Font Info:    ... okay on input line 48.
 LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 48.
 LaTeX Font Info:    Trying to load font information for FML+futm on input line 
 48.
-
-(/usr/share/texmf-dist/tex/latex/fourier/fmlfutm.fd
+ (/usr/share/texmf-dist/tex/latex/fourier/fmlfutm.fd
 File: fmlfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futm.
 )
 LaTeX Font Info:    ... okay on input line 48.
@@ -1439,27 +1558,27 @@ LaTeX Font Info:    Trying to load font information for FMX+futm on input line
 File: fmxfutm.fd futm-extension
 )
 LaTeX Font Info:    ... okay on input line 48.
-\c@lstlisting=\count358
-LaTeX Font Info:    Trying to load font information for LGR+futs on input line 
-48.
-LaTeX Font Info:    No file LGRfuts.fd. on input line 48.
+\c@lstlisting=\count369
 
+(/usr/share/texmf-dist/tex/latex/greek-fontenc/puenc-greek.def
+File: puenc-greek.def 2023/03/08 2.2.1 Greek LICRs for PDF strings
 
-LaTeX Font Warning: Font shape `LGR/futs/m/n' undefined
-(Font)              using `LGR/cmr/m/n' instead on input line 48.
+(/usr/share/texmf-dist/tex/latex/greek-fontenc/greek-fontenc.def
+File: greek-fontenc.def 2023/03/08 2.2.1 Common Greek font encoding definitions
 
+))
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count359
-\scratchdimen=\dimen313
+\scratchcounter=\count370
+\scratchdimen=\dimen317
 \scratchbox=\box79
-\nofMPsegments=\count360
-\nofMParguments=\count361
+\nofMPsegments=\count371
+\nofMParguments=\count372
 \everyMPshowfont=\toks49
-\MPscratchCnt=\count362
-\MPscratchDim=\dimen314
-\MPnumerator=\count363
-\makeMPintoPDFobject=\count364
+\MPscratchCnt=\count373
+\MPscratchDim=\dimen318
+\MPnumerator=\count374
+\makeMPintoPDFobject=\count375
 \everyMPtoPDFconversion=\toks50
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1472,8 +1591,29 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
+Package hyperref Info: Link coloring OFF on input line 48.
+ (./report.out)
+(./report.out)
+\@outlinefile=\write6
+\openout6 = `report.out'.
 
+Class scrartcl Info: loading recommended package `bookmark'.
+(scrartcl)           Using `bookmark' together with `hyperref' is recommended,
+(scrartcl)           because of handling of possible bookmark level gaps.
+(scrartcl)           You can avoid loading `bookmark' with KOMA-Script option
+(scrartcl)           `bookmarkpackage=false' before \begin{document} and
+(scrartcl)           you can avoid this message adding:
+(scrartcl)             \usepackage{bookmark}
+(scrartcl)           before \begin{document} on input line 48.
+ (/usr/share/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
+
+(/usr/share/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
+\BKM@id=\count376
+))
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1483,18 +1623,18 @@ Package caption Info: End \AtBeginDocument code.
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
 * h-part:(L,W,R)=(85.35826pt, 426.79135pt, 85.35826pt)
-* v-part:(T,H,B)=(71.13188pt, 688.5567pt, 85.35826pt)
+* v-part:(T,H,B)=(42.67912pt, 759.6886pt, 42.67912pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
 * \textwidth=426.79135pt
-* \textheight=688.5567pt
+* \textheight=759.6886pt
 * \oddsidemargin=13.08827pt
 * \evensidemargin=13.08827pt
-* \topmargin=-43.81721pt
-* \headheight=21.33955pt
-* \headsep=21.33955pt
+* \topmargin=-58.0436pt
+* \headheight=14.22636pt
+* \headsep=14.22636pt
 * \topskip=11.0pt
-* \footskip=42.67912pt
+* \footskip=19.91684pt
 * \marginparwidth=59.7508pt
 * \marginparsep=12.8401pt
 * \columnsep=10.0pt
@@ -1588,22 +1728,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 59--61
 
  []
 
-<images/wireframe.png, id=12, 1232.605pt x 969.6225pt>
+<images/wireframe.png, id=15, 1232.605pt x 969.6225pt>
 File: images/wireframe.png Graphic file (type png)
 <use images/wireframe.png>
 Package pdftex.def Info: images/wireframe.png  used on input line 67.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/ceilandfloor.png, id=14, 1232.605pt x 969.6225pt>
+<images/ceilandfloor.png, id=17, 1232.605pt x 969.6225pt>
 File: images/ceilandfloor.png Graphic file (type png)
 <use images/ceilandfloor.png>
 Package pdftex.def Info: images/ceilandfloor.png  used on input line 74.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/top_view_normals.png, id=15, 1232.605pt x 969.6225pt>
+<images/top_view_normals.png, id=18, 1232.605pt x 969.6225pt>
 File: images/top_view_normals.png Graphic file (type png)
 <use images/top_view_normals.png>
 Package pdftex.def Info: images/top_view_normals.png  used on input line 86.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/side_normals.png, id=16, 409.53pt x 339.2675pt>
+<images/side_normals.png, id=19, 409.53pt x 339.2675pt>
 File: images/side_normals.png Graphic file (type png)
 <use images/side_normals.png>
 Package pdftex.def Info: images/side_normals.png  used on input line 94.
@@ -1629,30 +1769,241 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [3 <./images/ceilandfloor.png>] [4 <./images/top_view_normals.png> <./images/si
-de_normals.png>] [5
+de_normals.png>]
+<images/bedroom.jpg, id=45, 262.44334pt x 211.44138pt>
+File: images/bedroom.jpg Graphic file (type jpg)
+<use images/bedroom.jpg>
+Package pdftex.def Info: images/bedroom.jpg  used on input line 103.
+(pdftex.def)             Requested size: 170.71393pt x 137.5385pt.
 
-] (./report.aux)
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 103--103
+[][][][] 
+ []
+
+<images/normal.png, id=46, 1232.605pt x 969.6225pt>
+File: images/normal.png Graphic file (type png)
+<use images/normal.png>
+Package pdftex.def Info: images/normal.png  used on input line 103.
+(pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 103--103
+[][][][] 
+ []
+
+<images/artifacts.png, id=47, 1055.945pt x 837.1275pt>
+File: images/artifacts.png Graphic file (type png)
+<use images/artifacts.png>
+Package pdftex.def Info: images/artifacts.png  used on input line 109.
+(pdftex.def)             Requested size: 342.3241pt x 271.38672pt.
+<images/point_shadows.png, id=49, 602.25pt x 341.275pt>
+File: images/point_shadows.png Graphic file (type png)
+<use images/point_shadows.png>
+Package pdftex.def Info: images/point_shadows.png  used on input line 114.
+(pdftex.def)             Requested size: 383.14128pt x 217.10938pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--115
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5
+
+ <./images/bedroom.jpg> <./images/normal.png> <./images/artifacts.png>]
+[6 <./images/point_shadows.png>]
+
+LaTeX Font Warning: Font shape `LGR/futs/b/n' undefined
+(Font)              using `LGR/futs/m/n' instead on input line 127.
+
+<images/floyd_steinberg.png, id=68, 1232.605pt x 969.6225pt>
+File: images/floyd_steinberg.png Graphic file (type png)
+<use images/floyd_steinberg.png>
+Package pdftex.def Info: images/floyd_steinberg.png  used on input line 133.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 128--140
+
+ []
+
+<images/painterly.png, id=71, 1232.605pt x 969.6225pt>
+File: images/painterly.png Graphic file (type png)
+<use images/painterly.png>
+Package pdftex.def Info: images/painterly.png  used on input line 155.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--162
+
+ []
+
+[7
+
+ <./images/floyd_steinberg.png>] [8 <./images/painterly.png>]
+<images/fish_eye.png, id=93, 1232.605pt x 969.6225pt>
+File: images/fish_eye.png Graphic file (type png)
+<use images/fish_eye.png>
+Package pdftex.def Info: images/fish_eye.png  used on input line 170.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+<images/toon.png, id=95, 1232.605pt x 969.6225pt>
+File: images/toon.png Graphic file (type png)
+<use images/toon.png>
+Package pdftex.def Info: images/toon.png  used on input line 191.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<images/aberration.png, id=96, 1232.605pt x 969.6225pt>
+File: images/aberration.png Graphic file (type png)
+<use images/aberration.png>
+Package pdftex.def Info: images/aberration.png  used on input line 200.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9
+
+ <./images/fish_eye.png>] [10 <./images/toon.png> <./images/aberration.png>]
+<images/preview.png, id=116, 1232.605pt x 969.6225pt>
+File: images/preview.png Graphic file (type png)
+<use images/preview.png>
+Package pdftex.def Info: images/preview.png  used on input line 210.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+<images/normal_preview.png, id=117, 1232.605pt x 969.6225pt>
+File: images/normal_preview.png Graphic file (type png)
+<use images/normal_preview.png>
+Package pdftex.def Info: images/normal_preview.png  used on input line 219.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+<images/tbn.png, id=119, 401.5pt x 293.095pt>
+File: images/tbn.png Graphic file (type png)
+<use images/tbn.png>
+Package pdftex.def Info: images/tbn.png  used on input line 227.
+(pdftex.def)             Requested size: 371.7615pt x 271.38672pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--228
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[11
+
+ <./images/preview.png>] [12 <./images/normal_preview.png> <./images/tbn.png>]
+<images/frames.png, id=136, 1232.605pt x 969.6225pt>
+File: images/frames.png Graphic file (type png)
+<use images/frames.png>
+Package pdftex.def Info: images/frames.png  used on input line 236.
+(pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--239
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--239
+
+ []
+
+[13
+
+ <./images/frames.png>]
+<images/parallax_diagram.png, id=145, 577.15625pt x 318.18875pt>
+File: images/parallax_diagram.png Graphic file (type png)
+<use images/parallax_diagram.png>
+Package pdftex.def Info: images/parallax_diagram.png  used on input line 253.
+(pdftex.def)             Requested size: 393.80847pt x 217.10938pt.
+<images/parallax1.png, id=146, 1232.605pt x 969.6225pt>
+File: images/parallax1.png Graphic file (type png)
+<use images/parallax1.png>
+Package pdftex.def Info: images/parallax1.png  used on input line 261.
+(pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 261--261
+[][][][] 
+ []
+
+<images/parallax2.png, id=147, 1232.605pt x 969.6225pt>
+File: images/parallax2.png Graphic file (type png)
+<use images/parallax2.png>
+Package pdftex.def Info: images/parallax2.png  used on input line 261.
+(pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 261--261
+[][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 242--262
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 242--262
+
+ []
+
+[14
+
+ <./images/parallax_diagram.png> <./images/parallax1.png> <./images/parallax2.p
+ng>] (./report.bbl
+
+Class scrartcl Warning: Incompatible usage of \@ssect detected.
+(scrartcl)              You've used the KOMA-Script implementation of \@ssect
+(scrartcl)              from within a non compatible caller, that does not
+(scrartcl)              \scr@s@ct@@nn@m@ locally.
+(scrartcl)              This could result in several error messages on input li
+ne 1.
+
+LaTeX Font Info:    Trying to load font information for T1+cmss on input line 1
+.
+(/usr/share/texmf-dist/tex/latex/base/t1cmss.fd
+File: t1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 7
+.
+
+(/usr/share/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+Underfull \hbox (badness 1286) in paragraph at lines 16--20
+[]\T1/futs/m/n/10.95 User mha-gain.  An-swer on khronos fo-rum.  []$\T1/cmtt/m/
+n/10.95 https : / / community . khronos . org / t /
+ []
+
+) [15
+
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+(./report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 28037 strings out of 476872
- 580367 string characters out of 5820378
- 1867388 words of memory out of 5000000
- 47907 multiletter control sequences out of 15000+600000
- 579379 words of font info for 106 fonts, out of 8000000 for 9000
+ 34956 strings out of 476872
+ 690545 string characters out of 5820378
+ 1868388 words of memory out of 5000000
+ 54640 multiletter control sequences out of 15000+600000
+ 593584 words of font info for 118 fonts, out of 8000000 for 9000
  725 hyphenation exceptions out of 8191
- 108i,20n,106p,10601b,533s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/
-texmf-dist/fonts/type1/public/cbfonts/grmn1095.pfb></usr/share/texmf-dist/fonts
-/type1/public/cbfonts/grmn1440.pfb></usr/share/texmf-dist/fonts/type1/public/cb
-fonts/grmn1728.pfb></usr/share/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb><
-/usr/share/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
-Output written on report.pdf (5 pages, 1800853 bytes).
+ 108i,20n,106p,10601b,568s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/share
+/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/texmf-dist/fo
+nts/type1/public/cbfonts/grmn1095.pfb></usr/share/texmf-dist/fonts/type1/public
+/cbfonts/grmn1200.pfb></usr/share/texmf-dist/fonts/type1/public/cbfonts/grmn144
+0.pfb></usr/share/texmf-dist/fonts/type1/public/cbfonts/grmn1728.pfb></usr/shar
+e/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/share/texmf-dist/fonts/t
+ype1/adobe/utopia/putr8a.pfb></usr/share/texmf-dist/fonts/type1/adobe/utopia/pu
+tri8a.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on report.pdf (15 pages, 16046731 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 271 PDF objects out of 1000 (max. 8388607)
+ 193 compressed objects within 2 object streams
+ 54 named destinations out of 1000 (max. 500000)
+ 201 words of extra memory for PDF output out of 10000 (max. 10000000)
 

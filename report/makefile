@@ -3,4 +3,7 @@
 all:
 	mkdir -p build
 	pdflatex -shell-escape report.tex
-	mv report.pdf report.aux report.log build
+	bibtex report
+	pdflatex -shell-escape report.tex
+	pdflatex -shell-escape report.tex
+	mv report.aux report.log report.bbl report.blg report.out build
