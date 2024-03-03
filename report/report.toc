@@ -1,0 +1,14 @@
+\babel@toc {greek}{}\relax 
+\contentsline {section}{\numberline {1}\foreignlanguage {english}{Cylindrical Room}}{3}{section.1}%
+\contentsline {section}{\numberline {2}Αντικείμενα και σκιές}{6}{section.2}%
+\contentsline {section}{\numberline {3}\foreignlanguage {english}{FBOs}}{7}{section.3}%
+\contentsline {section}{\numberline {4}\foreignlanguage {english}{Artstyles}}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}\foreignlanguage {english}{Floyd-Steinberg Dithering}}{8}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}\foreignlanguage {english}{Painterly Rendering}}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}\foreignlanguage {english}{Fish Eye Effect}}{10}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}\foreignlanguage {english}{Toon Shading}}{10}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}\foreignlanguage {english}{Chromatic Aberration}}{10}{subsection.4.5}%
+\contentsline {section}{\numberline {5}\foreignlanguage {english}{Bump Rendering}}{12}{section.5}%
+\contentsline {section}{\numberline {6}\foreignlanguage {english}{Parallax Mapping}}{15}{section.6}%
+\babel@toc {english}{}\relax 
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

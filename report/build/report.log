@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2024.1.25)  25 FEB 2024 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2024.1.25)  3 MAR 2024 12:54
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1718,169 +1718,187 @@ Class scrartcl Warning: Incompatible usage of \@ssect detected.
 (scrartcl)              This could result in several error messages on input li
 ne 53.
 
+(./report.toc
+LaTeX Font Info:    Trying to load font information for T1+cmss on input line 2
+.
+ (/usr/share/texmf-dist/tex/latex/base/t1cmss.fd
+File: t1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+))
+\tf@toc=\write7
+\openout7 = `report.toc'.
 
-Underfull \hbox (badness 10000) in paragraph at lines 54--58
+ [2{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+
+Class scrartcl Warning: Incompatible usage of \@ssect detected.
+(scrartcl)              You've used the KOMA-Script implementation of \@ssect
+(scrartcl)              from within a non compatible caller, that does not
+(scrartcl)              \scr@s@ct@@nn@m@ locally.
+(scrartcl)              This could result in several error messages on input li
+ne 56.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--61
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--61
+Underfull \hbox (badness 10000) in paragraph at lines 62--64
 
  []
 
-<images/wireframe.png, id=15, 1232.605pt x 969.6225pt>
+<images/wireframe.png, id=45, 1232.605pt x 969.6225pt>
 File: images/wireframe.png Graphic file (type png)
 <use images/wireframe.png>
-Package pdftex.def Info: images/wireframe.png  used on input line 67.
+Package pdftex.def Info: images/wireframe.png  used on input line 70.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/ceilandfloor.png, id=17, 1232.605pt x 969.6225pt>
+<images/ceilandfloor.png, id=47, 1232.605pt x 969.6225pt>
 File: images/ceilandfloor.png Graphic file (type png)
 <use images/ceilandfloor.png>
-Package pdftex.def Info: images/ceilandfloor.png  used on input line 74.
+Package pdftex.def Info: images/ceilandfloor.png  used on input line 77.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/top_view_normals.png, id=18, 1232.605pt x 969.6225pt>
+<images/top_view_normals.png, id=48, 1232.605pt x 969.6225pt>
 File: images/top_view_normals.png Graphic file (type png)
 <use images/top_view_normals.png>
-Package pdftex.def Info: images/top_view_normals.png  used on input line 86.
+Package pdftex.def Info: images/top_view_normals.png  used on input line 89.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/side_normals.png, id=19, 409.53pt x 339.2675pt>
+<images/side_normals.png, id=49, 409.53pt x 339.2675pt>
 File: images/side_normals.png Graphic file (type png)
 <use images/side_normals.png>
-Package pdftex.def Info: images/side_normals.png  used on input line 94.
+Package pdftex.def Info: images/side_normals.png  used on input line 97.
 (pdftex.def)             Requested size: 327.60568pt x 271.38672pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--98
+Underfull \hbox (badness 10000) in paragraph at lines 67--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--98
+Underfull \hbox (badness 10000) in paragraph at lines 67--101
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[2 <./images/wireframe.png>]
+[3 <./images/wireframe.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[3 <./images/ceilandfloor.png>] [4 <./images/top_view_normals.png> <./images/si
+[4 <./images/ceilandfloor.png>] [5 <./images/top_view_normals.png> <./images/si
 de_normals.png>]
-<images/bedroom.jpg, id=45, 262.44334pt x 211.44138pt>
+<images/bedroom.jpg, id=73, 262.44334pt x 211.44138pt>
 File: images/bedroom.jpg Graphic file (type jpg)
 <use images/bedroom.jpg>
-Package pdftex.def Info: images/bedroom.jpg  used on input line 103.
+Package pdftex.def Info: images/bedroom.jpg  used on input line 106.
 (pdftex.def)             Requested size: 170.71393pt x 137.5385pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 103--103
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 106--106
 [][][][] 
  []
 
-<images/normal.png, id=46, 1232.605pt x 969.6225pt>
+<images/normal.png, id=74, 1232.605pt x 969.6225pt>
 File: images/normal.png Graphic file (type png)
 <use images/normal.png>
-Package pdftex.def Info: images/normal.png  used on input line 103.
+Package pdftex.def Info: images/normal.png  used on input line 106.
 (pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 103--103
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 106--106
 [][][][] 
  []
 
-<images/artifacts.png, id=47, 1055.945pt x 837.1275pt>
+<images/artifacts.png, id=75, 1055.945pt x 837.1275pt>
 File: images/artifacts.png Graphic file (type png)
 <use images/artifacts.png>
-Package pdftex.def Info: images/artifacts.png  used on input line 109.
+Package pdftex.def Info: images/artifacts.png  used on input line 112.
 (pdftex.def)             Requested size: 342.3241pt x 271.38672pt.
-<images/point_shadows.png, id=49, 602.25pt x 341.275pt>
+<images/point_shadows.png, id=77, 602.25pt x 341.275pt>
 File: images/point_shadows.png Graphic file (type png)
 <use images/point_shadows.png>
-Package pdftex.def Info: images/point_shadows.png  used on input line 114.
+Package pdftex.def Info: images/point_shadows.png  used on input line 117.
 (pdftex.def)             Requested size: 383.14128pt x 217.10938pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 101--115
+Underfull \hbox (badness 10000) in paragraph at lines 104--118
 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5
+[6
 
  <./images/bedroom.jpg> <./images/normal.png> <./images/artifacts.png>]
-[6 <./images/point_shadows.png>]
+[7 <./images/point_shadows.png>]
 
 LaTeX Font Warning: Font shape `LGR/futs/b/n' undefined
-(Font)              using `LGR/futs/m/n' instead on input line 127.
+(Font)              using `LGR/futs/m/n' instead on input line 130.
 
-<images/floyd_steinberg.png, id=68, 1232.605pt x 969.6225pt>
+<images/floyd_steinberg.png, id=95, 1232.605pt x 969.6225pt>
 File: images/floyd_steinberg.png Graphic file (type png)
 <use images/floyd_steinberg.png>
-Package pdftex.def Info: images/floyd_steinberg.png  used on input line 133.
+Package pdftex.def Info: images/floyd_steinberg.png  used on input line 136.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--140
+Underfull \hbox (badness 10000) in paragraph at lines 131--143
 
  []
 
-<images/painterly.png, id=71, 1232.605pt x 969.6225pt>
+<images/painterly.png, id=98, 1232.605pt x 969.6225pt>
 File: images/painterly.png Graphic file (type png)
 <use images/painterly.png>
-Package pdftex.def Info: images/painterly.png  used on input line 155.
+Package pdftex.def Info: images/painterly.png  used on input line 158.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--162
+Underfull \hbox (badness 10000) in paragraph at lines 145--165
 
  []
 
-[7
+[8
 
- <./images/floyd_steinberg.png>] [8 <./images/painterly.png>]
-<images/fish_eye.png, id=93, 1232.605pt x 969.6225pt>
+ <./images/floyd_steinberg.png>] [9 <./images/painterly.png>]
+<images/fish_eye.png, id=116, 1232.605pt x 969.6225pt>
 File: images/fish_eye.png Graphic file (type png)
 <use images/fish_eye.png>
-Package pdftex.def Info: images/fish_eye.png  used on input line 170.
+Package pdftex.def Info: images/fish_eye.png  used on input line 173.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/toon.png, id=95, 1232.605pt x 969.6225pt>
+<images/toon.png, id=118, 1232.605pt x 969.6225pt>
 File: images/toon.png Graphic file (type png)
 <use images/toon.png>
-Package pdftex.def Info: images/toon.png  used on input line 191.
+Package pdftex.def Info: images/toon.png  used on input line 194.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/aberration.png, id=96, 1232.605pt x 969.6225pt>
+<images/aberration.png, id=119, 1232.605pt x 969.6225pt>
 File: images/aberration.png Graphic file (type png)
 <use images/aberration.png>
-Package pdftex.def Info: images/aberration.png  used on input line 200.
+Package pdftex.def Info: images/aberration.png  used on input line 203.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9
+[10
 
- <./images/fish_eye.png>] [10 <./images/toon.png> <./images/aberration.png>]
-<images/preview.png, id=116, 1232.605pt x 969.6225pt>
+ <./images/fish_eye.png>] [11 <./images/toon.png> <./images/aberration.png>]
+<images/preview.png, id=136, 1232.605pt x 969.6225pt>
 File: images/preview.png Graphic file (type png)
 <use images/preview.png>
-Package pdftex.def Info: images/preview.png  used on input line 210.
+Package pdftex.def Info: images/preview.png  used on input line 213.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/normal_preview.png, id=117, 1232.605pt x 969.6225pt>
+<images/normal_preview.png, id=137, 1232.605pt x 969.6225pt>
 File: images/normal_preview.png Graphic file (type png)
 <use images/normal_preview.png>
-Package pdftex.def Info: images/normal_preview.png  used on input line 219.
+Package pdftex.def Info: images/normal_preview.png  used on input line 222.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
-<images/tbn.png, id=119, 401.5pt x 293.095pt>
+<images/tbn.png, id=139, 401.5pt x 293.095pt>
 File: images/tbn.png Graphic file (type png)
 <use images/tbn.png>
-Package pdftex.def Info: images/tbn.png  used on input line 227.
+Package pdftex.def Info: images/tbn.png  used on input line 230.
 (pdftex.def)             Requested size: 371.7615pt x 271.38672pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--228
+Underfull \hbox (badness 10000) in paragraph at lines 219--231
 
  []
 
@@ -1890,68 +1908,68 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[11
+[12
 
- <./images/preview.png>] [12 <./images/normal_preview.png> <./images/tbn.png>]
-<images/frames.png, id=136, 1232.605pt x 969.6225pt>
+ <./images/preview.png>] [13 <./images/normal_preview.png> <./images/tbn.png>]
+<images/frames.png, id=156, 1232.605pt x 969.6225pt>
 File: images/frames.png Graphic file (type png)
 <use images/frames.png>
-Package pdftex.def Info: images/frames.png  used on input line 236.
+Package pdftex.def Info: images/frames.png  used on input line 239.
 (pdftex.def)             Requested size: 344.99539pt x 271.38672pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 229--242
+Underfull \hbox (badness 10000) in paragraph at lines 232--245
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 229--242
+Underfull \hbox (badness 10000) in paragraph at lines 232--245
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 229--242
-
- []
-
-[13
-
- <./images/frames.png>]
-<images/parallax_diagram.png, id=145, 577.15625pt x 318.18875pt>
-File: images/parallax_diagram.png Graphic file (type png)
-<use images/parallax_diagram.png>
-Package pdftex.def Info: images/parallax_diagram.png  used on input line 256.
-(pdftex.def)             Requested size: 393.80847pt x 217.10938pt.
-<images/parallax1.png, id=146, 1232.605pt x 969.6225pt>
-File: images/parallax1.png Graphic file (type png)
-<use images/parallax1.png>
-Package pdftex.def Info: images/parallax1.png  used on input line 264.
-(pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 264--264
-[][][][] 
- []
-
-<images/parallax2.png, id=147, 1232.605pt x 969.6225pt>
-File: images/parallax2.png Graphic file (type png)
-<use images/parallax2.png>
-Package pdftex.def Info: images/parallax2.png  used on input line 264.
-(pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 264--264
-[][][][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 245--265
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 245--265
+Underfull \hbox (badness 10000) in paragraph at lines 232--245
 
  []
 
 [14
+
+ <./images/frames.png>]
+<images/parallax_diagram.png, id=164, 577.15625pt x 318.18875pt>
+File: images/parallax_diagram.png Graphic file (type png)
+<use images/parallax_diagram.png>
+Package pdftex.def Info: images/parallax_diagram.png  used on input line 259.
+(pdftex.def)             Requested size: 393.80847pt x 217.10938pt.
+<images/parallax1.png, id=165, 1232.605pt x 969.6225pt>
+File: images/parallax1.png Graphic file (type png)
+<use images/parallax1.png>
+Package pdftex.def Info: images/parallax1.png  used on input line 267.
+(pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 267--267
+[][][][] 
+ []
+
+<images/parallax2.png, id=166, 1232.605pt x 969.6225pt>
+File: images/parallax2.png Graphic file (type png)
+<use images/parallax2.png>
+Package pdftex.def Info: images/parallax2.png  used on input line 267.
+(pdftex.def)             Requested size: 170.71393pt x 134.2815pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 267--267
+[][][][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 248--268
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 248--268
+
+ []
+
+[15
 
  <./images/parallax_diagram.png> <./images/parallax1.png> <./images/parallax2.p
 ng>] (./report.bbl
@@ -1963,14 +1981,8 @@ Class scrartcl Warning: Incompatible usage of \@ssect detected.
 (scrartcl)              This could result in several error messages on input li
 ne 1.
 
-LaTeX Font Info:    Trying to load font information for T1+cmss on input line 1
-.
-(/usr/share/texmf-dist/tex/latex/base/t1cmss.fd
-File: t1cmss.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-)
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 7
 .
-
 (/usr/share/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
@@ -1979,10 +1991,9 @@ Underfull \hbox (badness 1286) in paragraph at lines 16--20
 n/10.95 https : / / community . khronos . org / t /
  []
 
-) [15
+) [16
 
-{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-(./report.aux)
+] (./report.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1990,25 +2001,27 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 34956 strings out of 476872
- 690545 string characters out of 5820378
+ 34976 strings out of 476872
+ 690875 string characters out of 5820378
  1868388 words of memory out of 5000000
- 54640 multiletter control sequences out of 15000+600000
- 593584 words of font info for 118 fonts, out of 8000000 for 9000
+ 54654 multiletter control sequences out of 15000+600000
+ 594359 words of font info for 119 fonts, out of 8000000 for 9000
  725 hyphenation exceptions out of 8191
- 108i,20n,106p,10601b,568s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,20n,106p,10601b,659s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/share
 /texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/texmf-dist/fo
 nts/type1/public/cbfonts/grmn1095.pfb></usr/share/texmf-dist/fonts/type1/public
 /cbfonts/grmn1200.pfb></usr/share/texmf-dist/fonts/type1/public/cbfonts/grmn144
 0.pfb></usr/share/texmf-dist/fonts/type1/public/cbfonts/grmn1728.pfb></usr/shar
-e/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/share/texmf-dist/fonts/t
-ype1/adobe/utopia/putr8a.pfb></usr/share/texmf-dist/fonts/type1/adobe/utopia/pu
-tri8a.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on report.pdf (15 pages, 16046931 bytes).
+e/texmf-dist/fonts/type1/public/cbfonts/gsxn1095.pfb></usr/share/texmf-dist/fon
+ts/type1/adobe/utopia/putb8a.pfb></usr/share/texmf-dist/fonts/type1/adobe/utopi
+a/putr8a.pfb></usr/share/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/
+share/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/share/texmf-dis
+t/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on report.pdf (16 pages, 16081128 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 193 compressed objects within 2 object streams
- 54 named destinations out of 1000 (max. 500000)
+ 299 PDF objects out of 1000 (max. 8388607)
+ 215 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
  201 words of extra memory for PDF output out of 10000 (max. 10000000)
 
